@@ -1,20 +1,10 @@
 'use client';
 
 import { adminAuthApi, isApiError } from '@ashikur-portfolio/shared/api';
-import {
-  ErrorAlert,
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Navbar,
-  PageShell,
-  PasswordInput,
-} from '@ashikur-portfolio/shared/ui';
+import { ErrorAlert, Button, PasswordInput, SuccessAlert } from '@ashikur-portfolio/shared/ui';
 import Link from 'next/link';
 import { useId, useState, type FormEvent } from 'react';
+import { AdminAuthShell, AdminFormCard, AdminNavbar, AdminShell } from '@/components';
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
 import { RequireAdminAuth } from '@/auth/guards';
 
@@ -83,25 +73,19 @@ export function ChangePasswordPage() {
 
   return (
     <RequireAdminAuth>
-      <PageShell
+      <AdminShell
         data-testid="admin-change-password-page"
-        header={
-          <Navbar
-            appName="Admin"
-            items={[
-              { label: 'Profile', href: '/' },
-              { label: ADMIN_AUTH_COPY.changePassword, href: '/change-password', active: true },
-            ]}
-          />
-        }
-        contentClassName="flex flex-1 items-center justify-center px-4 py-12"
+        showFooter
+        header={<AdminNavbar activeHref="/change-password" />}
+        contentClassName="flex flex-1 flex-col items-center justify-center px-4 py-8 sm:py-12"
       >
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-2">
-            <CardTitle>{ADMIN_AUTH_COPY.changePasswordTitle}</CardTitle>
-            <CardDescription>{ADMIN_AUTH_COPY.changePasswordSubtitle}</CardDescription>
-          </CardHeader>
-          <CardContent>
+        <AdminAuthShell asPageShell={false} centerContent>
+          <AdminFormCard
+            title={ADMIN_AUTH_COPY.changePasswordTitle}
+            description={ADMIN_AUTH_COPY.changePasswordSubtitle}
+            headerAlign="left"
+            className="mx-auto"
+          >
             <form className="space-y-5" onSubmit={(event) => void handleSubmit(event)} noValidate>
               {error ? (
                 <ErrorAlert
@@ -114,14 +98,12 @@ export function ChangePasswordPage() {
                 />
               ) : null}
               {success ? (
-                <p
-                  className="text-body-sm text-green-700 dark:text-green-400"
+                <SuccessAlert
+                  description={success}
                   role="status"
                   aria-live="polite"
                   data-testid="admin-change-password-success"
-                >
-                  {success}
-                </p>
+                />
               ) : null}
 
               <PasswordInput
@@ -170,17 +152,25 @@ export function ChangePasswordPage() {
               ) : null}
 
               <div className="flex flex-col gap-2">
-                <Button type="submit" disabled={!canSubmit} aria-busy={isSaving}>
+                <Button
+                  type="submit"
+                  className="min-h-11 sm:w-auto"
+                  disabled={!canSubmit}
+                  aria-busy={isSaving}
+                >
                   {isSaving ? ADMIN_AUTH_COPY.updatingPassword : ADMIN_AUTH_COPY.updatePassword}
                 </Button>
-                <Button type="button" variant="ghost" asChild>
+                <Button type="button" variant="outline" className="sm:hidden" asChild>
+                  <Link href="/">{ADMIN_AUTH_COPY.backToProfile}</Link>
+                </Button>
+                <Button type="button" variant="ghost" className="hidden sm:inline-flex" asChild>
                   <Link href="/">{ADMIN_AUTH_COPY.backToProfile}</Link>
                 </Button>
               </div>
             </form>
-          </CardContent>
-        </Card>
-      </PageShell>
+          </AdminFormCard>
+        </AdminAuthShell>
+      </AdminShell>
     </RequireAdminAuth>
   );
 }

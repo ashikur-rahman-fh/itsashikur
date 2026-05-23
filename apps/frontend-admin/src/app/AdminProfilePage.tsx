@@ -9,14 +9,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  EmptyState,
   ErrorAlert,
   Input,
-  Navbar,
-  PageShell,
+  SuccessAlert,
 } from '@ashikur-portfolio/shared/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useId, useState, type FormEvent } from 'react';
+import { AdminNavbar, AdminPageHeader, AdminShell } from '@/components';
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
 import { useAdminAuth } from '@/auth/AdminAuthProvider';
 import { RequireAdminAuth } from '@/auth/guards';
@@ -100,12 +101,11 @@ export function AdminProfilePage() {
 
   return (
     <RequireAdminAuth>
-      <PageShell
+      <AdminShell
         data-testid="admin-profile-page"
         header={
-          <Navbar
-            appName="Admin"
-            items={[{ label: 'Profile', href: '/', active: true }]}
+          <AdminNavbar
+            activeHref="/"
             actions={
               <Button
                 type="button"
@@ -123,11 +123,15 @@ export function AdminProfilePage() {
       >
         {user ? (
           <div className="mx-auto flex w-full max-w-xl flex-col gap-6">
-            <Card>
-              <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-4">
+            <AdminPageHeader
+              title={ADMIN_AUTH_COPY.profileTitle}
+              description={ADMIN_AUTH_COPY.profileSubtitle}
+            />
+            <Card className="shadow-card">
+              <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="space-y-1">
-                  <CardTitle>{ADMIN_AUTH_COPY.profileTitle}</CardTitle>
-                  <CardDescription>{ADMIN_AUTH_COPY.profileSubtitle}</CardDescription>
+                  <CardTitle className="text-card-title">Account details</CardTitle>
+                  <CardDescription>Your admin account information.</CardDescription>
                 </div>
                 {!isEditing ? (
                   <div className="flex flex-wrap gap-2">
@@ -142,15 +146,13 @@ export function AdminProfilePage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {success ? (
-                  <p
+                  <SuccessAlert
                     id={successId}
-                    className="text-body-sm text-green-700 dark:text-green-400"
+                    description={success}
                     role="status"
                     aria-live="polite"
                     data-testid="admin-profile-success"
-                  >
-                    {success}
-                  </p>
+                  />
                 ) : null}
 
                 {isEditing ? (
@@ -207,7 +209,7 @@ export function AdminProfilePage() {
                         required
                       />
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-col-reverse gap-2 sm:flex-row">
                       <Button type="submit" disabled={!canSave} aria-busy={isSaving}>
                         {isSaving ? ADMIN_AUTH_COPY.savingProfile : ADMIN_AUTH_COPY.saveProfile}
                       </Button>
@@ -223,21 +225,27 @@ export function AdminProfilePage() {
                   </form>
                 ) : (
                   <>
-                    <dl className="grid gap-3 text-body-sm">
+                    <dl className="grid gap-4 text-body-sm sm:grid-cols-2">
                       <div className="grid gap-1">
-                        <dt className="font-medium text-muted-foreground">Name</dt>
-                        <dd data-testid="admin-profile-name">{user.name}</dd>
+                        <dt className="text-ui-sm font-medium text-muted-foreground">Name</dt>
+                        <dd className="text-foreground" data-testid="admin-profile-name">
+                          {user.name}
+                        </dd>
                       </div>
                       <div className="grid gap-1">
-                        <dt className="font-medium text-muted-foreground">Username</dt>
-                        <dd data-testid="admin-profile-username">{user.username}</dd>
+                        <dt className="text-ui-sm font-medium text-muted-foreground">Username</dt>
+                        <dd className="text-foreground" data-testid="admin-profile-username">
+                          {user.username}
+                        </dd>
                       </div>
-                      <div className="grid gap-1">
-                        <dt className="font-medium text-muted-foreground">Email</dt>
-                        <dd data-testid="admin-profile-email">{user.email}</dd>
+                      <div className="grid gap-1 sm:col-span-2">
+                        <dt className="text-ui-sm font-medium text-muted-foreground">Email</dt>
+                        <dd className="text-foreground" data-testid="admin-profile-email">
+                          {user.email}
+                        </dd>
                       </div>
                     </dl>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 border-t border-border pt-4">
                       <StatusBadge label={ADMIN_AUTH_COPY.staffStatus} active={user.isStaff} />
                       <StatusBadge
                         label={ADMIN_AUTH_COPY.superuserStatus}
@@ -249,8 +257,13 @@ export function AdminProfilePage() {
               </CardContent>
             </Card>
           </div>
-        ) : null}
-      </PageShell>
+        ) : (
+          <EmptyState
+            title="Profile unavailable"
+            description="We could not load your profile. Try refreshing the page."
+          />
+        )}
+      </AdminShell>
     </RequireAdminAuth>
   );
 }

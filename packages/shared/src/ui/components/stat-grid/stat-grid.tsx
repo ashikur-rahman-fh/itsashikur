@@ -43,9 +43,7 @@ function StatItemDisplay({ value, label, highlight, animate }: StatItemData) {
       >
         {display}
       </p>
-      <p className="mt-2 text-balance text-body-sm leading-snug text-muted-foreground">
-        {label}
-      </p>
+      <p className="mt-2 text-balance text-body-sm leading-snug text-muted-foreground">{label}</p>
     </div>
   );
 }

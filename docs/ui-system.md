@@ -166,9 +166,34 @@ Pass `className` for app-level tweaks.
 3. Customize via `theme.css` tokens only when rebranding.
 4. Add tests and update this doc when changing the system.
 
+## Admin app (`frontend-admin`)
+
+The admin app reuses the same tokens and primitives but composes them for a focused dashboard experience in `apps/frontend-admin/src/components/`:
+
+| Component | Role |
+| --------- | ---- |
+| **AdminShell** | Authenticated pages: `PageShell` + `surface-grid-muted`, glass nav slot, footer link to portfolio |
+| **AdminAuthShell** | Login, guards, centered forms: muted grid background; `asPageShell={false}` when nested inside **AdminShell** |
+| **AdminNavbar** | `Navbar variant="glass"` with Profile / Change password |
+| **AdminFormCard** | Consistent `max-w-md` form card (`shadow-card`) |
+| **AdminPageHeader** | Page-level `font-display text-page-title` above profile card |
+| **AdminSkipLink** | Skip to `#main-content` (paired with main landmark wrapper) |
+
+**Patterns:**
+
+- Background: `surface-grid-muted` on shells (not flat white or pure black).
+- Feedback: `SuccessAlert` / `ErrorAlert` — avoid ad-hoc `text-green-*` success text.
+- Typography: `text-page-title` for page headers, `text-card-title` inside cards, `text-ui` for labels.
+- Portfolio link: `NEXT_PUBLIC_PORTFOLIO_URL` (default `https://itsashikur.com`) via `src/config/site-links.ts`.
+
+```bash
+npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-admin dev
+```
+
 ## Preview & tests
 
 ```bash
 npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-main dev
+npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-admin test
 npx pnpm@9.15.0 --filter @ashikur-portfolio/shared test
 ```

@@ -34,8 +34,18 @@ export function HomePage() {
             variant="glass"
             items={navItems.map((item) => ({ ...item, active: false }))}
             actions={
-              <Button variant="default" size="sm" asChild className="hidden sm:inline-flex">
-                <a href={siteLinks.resumeUrl}>Resume</a>
+              <Button
+                variant="default"
+                size="sm"
+                asChild
+                className="hidden sm:inline-flex bg-primary text-primary-foreground shadow-soft hover:bg-primary/90"
+              >
+                <a
+                  href={siteLinks.resumeUrl}
+                  className="text-primary-foreground no-underline visited:text-primary-foreground"
+                >
+                  Resume
+                </a>
               </Button>
             }
           />

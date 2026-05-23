@@ -22,12 +22,7 @@ export function SectionHeading({
   return (
     <div className={cn('max-w-2xl', className)}>
       {eyebrow ? (
-        <p
-          className={cn(
-            'type-eyebrow mb-2',
-            onDark ? 'text-info' : 'text-accent-foreground',
-          )}
-        >
+        <p className={cn('type-eyebrow mb-2', onDark ? 'text-info' : 'text-accent-foreground')}>
           {eyebrow}
         </p>
       ) : null}

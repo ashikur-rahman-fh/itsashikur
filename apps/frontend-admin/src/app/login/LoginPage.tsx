@@ -1,19 +1,9 @@
 'use client';
 
-import {
-  ErrorAlert,
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Input,
-  PageShell,
-  PasswordInput,
-} from '@ashikur-portfolio/shared/ui';
+import { ErrorAlert, Button, Input, PasswordInput } from '@ashikur-portfolio/shared/ui';
 import { useRouter } from 'next/navigation';
 import { useId, useState, type FormEvent } from 'react';
+import { AdminAuthShell, AdminFormCard } from '@/components';
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
 import { useAdminAuth } from '@/auth/AdminAuthProvider';
 import { RedirectIfAuthenticated } from '@/auth/guards';
@@ -47,68 +37,67 @@ export function LoginPage() {
 
   return (
     <RedirectIfAuthenticated>
-      <PageShell
+      <AdminAuthShell
         data-testid="admin-login-page"
-        contentClassName="flex flex-1 items-center justify-center px-4 py-12"
+        eyebrow="Portfolio admin"
+        brandSubtitle="Secure access for content administration."
       >
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-2 text-center">
-            <CardTitle className="text-page-title font-bold">{ADMIN_AUTH_COPY.loginTitle}</CardTitle>
-            <CardDescription>{ADMIN_AUTH_COPY.loginSubtitle}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form className="space-y-5" onSubmit={(event) => void handleSubmit(event)} noValidate>
-              {error ? (
-                <ErrorAlert
-                  id={errorId}
-                  title="Sign in failed"
-                  description={error}
-                  role="alert"
-                  aria-live="polite"
-                />
-              ) : null}
+        <AdminFormCard
+          title={ADMIN_AUTH_COPY.loginTitle}
+          description={ADMIN_AUTH_COPY.loginSubtitle}
+          headerAlign="center"
+        >
+          <form className="space-y-5" onSubmit={(event) => void handleSubmit(event)} noValidate>
+            {error ? (
+              <ErrorAlert
+                id={errorId}
+                title="Sign in failed"
+                description={error}
+                role="alert"
+                aria-live="polite"
+              />
+            ) : null}
 
-              <div className="space-y-2">
-                <label htmlFor={usernameId} className="text-ui font-medium text-foreground">
-                  {ADMIN_AUTH_COPY.usernameOrEmailLabel}
-                </label>
-                <Input
-                  id={usernameId}
-                  name="usernameOrEmail"
-                  type="text"
-                  autoComplete="username"
-                  value={usernameOrEmail}
-                  onChange={(event) => setUsernameOrEmail(event.target.value)}
-                  disabled={isLoggingIn}
-                  required
-                />
-              </div>
-
-              <PasswordInput
-                id={passwordId}
-                name="password"
-                label={ADMIN_AUTH_COPY.passwordLabel}
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                autoComplete="current-password"
+            <div className="space-y-2">
+              <label htmlFor={usernameId} className="text-ui font-medium text-foreground">
+                {ADMIN_AUTH_COPY.usernameOrEmailLabel}
+              </label>
+              <Input
+                id={usernameId}
+                name="usernameOrEmail"
+                type="text"
+                autoComplete="username"
+                value={usernameOrEmail}
+                onChange={(event) => setUsernameOrEmail(event.target.value)}
                 disabled={isLoggingIn}
                 required
-                showPasswordLabel={ADMIN_AUTH_COPY.showPassword}
-                hidePasswordLabel={ADMIN_AUTH_COPY.hidePassword}
               />
+            </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={!canSubmit}
-                aria-busy={isLoggingIn}
-              >
-                {isLoggingIn ? ADMIN_AUTH_COPY.signingIn : ADMIN_AUTH_COPY.signIn}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </PageShell>
+            <PasswordInput
+              id={passwordId}
+              name="password"
+              label={ADMIN_AUTH_COPY.passwordLabel}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              autoComplete="current-password"
+              disabled={isLoggingIn}
+              required
+              showPasswordLabel={ADMIN_AUTH_COPY.showPassword}
+              hidePasswordLabel={ADMIN_AUTH_COPY.hidePassword}
+            />
+
+            <Button
+              type="submit"
+              className="w-full min-h-11"
+              disabled={!canSubmit}
+              aria-busy={isLoggingIn}
+            >
+              {isLoggingIn ? ADMIN_AUTH_COPY.signingIn : ADMIN_AUTH_COPY.signIn}
+            </Button>
+          </form>
+        </AdminFormCard>
+      </AdminAuthShell>
     </RedirectIfAuthenticated>
   );
 }

@@ -42,4 +42,14 @@ describe('Button', () => {
     await user.click(screen.getByRole('button', { name: 'Click' }));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
+
+  it('keeps readable text when rendered as a link via asChild', () => {
+    render(
+      <Button variant="default" asChild>
+        <a href="/resume">Resume</a>
+      </Button>,
+    );
+    const link = screen.getByRole('link', { name: 'Resume' });
+    expect(link).toHaveClass('bg-primary', 'text-primary-foreground');
+  });
 });

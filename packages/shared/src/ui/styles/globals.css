@@ -64,6 +64,22 @@
   :focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
+
+  /* Button links (asChild) — ensure fill + label contrast vs. browser link defaults */
+  a.bg-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    text-decoration: none;
+  }
+
+  a.bg-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+    color: hsl(var(--primary-foreground));
+  }
+
+  a.bg-primary:visited {
+    color: hsl(var(--primary-foreground));
+  }
 }
 
 @layer utilities {

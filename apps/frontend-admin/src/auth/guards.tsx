@@ -3,17 +3,20 @@
 import { LoadingState } from '@ashikur-portfolio/shared/ui';
 import { useRouter } from 'next/navigation';
 import { useEffect, type ReactNode } from 'react';
+import { AdminAuthShell } from '@/components';
 import { useAdminAuth } from './AdminAuthProvider';
 
 function AuthLoadingShell({ label = 'Loading…' }: { label?: string }) {
   return (
-    <div
-      className="flex min-h-[50vh] items-center justify-center"
-      data-testid="admin-auth-loading"
-      aria-busy="true"
-    >
-      <LoadingState label={label} />
-    </div>
+    <AdminAuthShell contentClassName="flex min-h-screen flex-1 items-center justify-center px-4 py-12">
+      <div
+        className="flex items-center justify-center"
+        data-testid="admin-auth-loading"
+        aria-busy="true"
+      >
+        <LoadingState label={label} />
+      </div>
+    </AdminAuthShell>
   );
 }
 
