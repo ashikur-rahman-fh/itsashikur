@@ -7,6 +7,7 @@ export type PageShellProps = React.HTMLAttributes<HTMLDivElement> & {
   header?: React.ReactNode;
   footer?: React.ReactNode;
   contentClassName?: string;
+  footerClassName?: string;
 };
 
 export function PageShell({
@@ -15,10 +16,16 @@ export function PageShell({
   footer,
   className,
   contentClassName,
+  footerClassName,
   ...props
 }: PageShellProps) {
+  const hasSurfaceGrid = className?.includes('surface-grid-');
+
   return (
-    <div className={cn('flex min-h-screen flex-col bg-background', className)} {...props}>
+    <div
+      className={cn('flex min-h-screen flex-col', !hasSurfaceGrid && 'bg-background', className)}
+      {...props}
+    >
       {header}
       <main
         className={cn(
@@ -29,7 +36,11 @@ export function PageShell({
         {children}
       </main>
       {footer ? (
-        <footer className="mt-auto border-t border-border bg-background/80 py-6">{footer}</footer>
+        <footer
+          className={cn('mt-auto border-t border-border bg-background/80 py-6', footerClassName)}
+        >
+          {footer}
+        </footer>
       ) : null}
     </div>
   );

@@ -9,6 +9,7 @@ export const ADMIN_AUTH_COPY = {
   passwordLabel: 'Password',
   showPassword: 'Show password',
   hidePassword: 'Hide password',
+  navHome: 'Home',
   profileTitle: 'Your profile',
   profileSubtitle: 'Signed in as an admin user.',
   editProfile: 'Edit profile',

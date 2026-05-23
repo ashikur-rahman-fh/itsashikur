@@ -76,7 +76,7 @@ export function ChangePasswordPage() {
       <AdminShell
         data-testid="admin-change-password-page"
         showFooter
-        header={<AdminNavbar activeHref="/change-password" />}
+        header={<AdminNavbar />}
         contentClassName="flex flex-1 flex-col items-center justify-center px-4 py-8 sm:py-12"
       >
         <AdminAuthShell asPageShell={false} centerContent>

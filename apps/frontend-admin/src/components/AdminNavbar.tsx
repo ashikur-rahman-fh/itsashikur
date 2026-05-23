@@ -5,25 +5,26 @@ import type { ReactNode } from 'react';
 
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
 
+const ADMIN_HOME_HREF = '/' as const;
+
 export type AdminNavbarProps = {
-  activeHref: '/' | '/change-password';
   actions?: ReactNode;
+  /** Mark Home active when on the admin home (profile) page. */
+  activeHref?: typeof ADMIN_HOME_HREF;
 };
 
-const NAV_ITEMS = [
-  { label: 'Profile', href: '/' as const },
-  { label: ADMIN_AUTH_COPY.changePassword, href: '/change-password' as const },
-];
-
-export function AdminNavbar({ activeHref, actions }: AdminNavbarProps) {
+export function AdminNavbar({ actions, activeHref }: AdminNavbarProps) {
   return (
     <Navbar
       variant="glass"
       appName="Ashikur Portfolio — Admin"
-      items={NAV_ITEMS.map((item) => ({
-        ...item,
-        active: item.href === activeHref,
-      }))}
+      items={[
+        {
+          label: ADMIN_AUTH_COPY.navHome,
+          href: ADMIN_HOME_HREF,
+          active: activeHref === ADMIN_HOME_HREF,
+        },
+      ]}
       actions={actions}
     />
   );

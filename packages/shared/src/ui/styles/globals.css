@@ -163,6 +163,20 @@
       2.5rem 2.5rem;
   }
 
+  /* Admin app: hero-like glow + grid, slightly softer than portfolio hero */
+  .surface-grid-admin {
+    --grid-opacity: 0.32;
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(ellipse 80% 60% at 60% 15%, hsl(var(--glow-cyan) / 0.12), transparent 55%),
+      linear-gradient(to right, hsl(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      2.5rem 2.5rem,
+      2.5rem 2.5rem;
+  }
+
   .panel-on-technical {
     @apply rounded-lg border;
     box-shadow: var(--shadow-soft);
@@ -251,6 +265,7 @@
     .surface-grid-muted,
     .surface-grid-technical,
     .surface-grid-hero,
+    .surface-grid-admin,
     .hero-grid {
       background-image: none;
     }

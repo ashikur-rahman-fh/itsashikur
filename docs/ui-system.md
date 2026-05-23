@@ -17,7 +17,7 @@ A **Premium Engineering** portfolio look — light-first with deep navy primary,
 - Primary: **deep navy** (`222 47% 14%` light); dark mode uses **cyan-forward** primary
 - Accents: electric blue / cyan (`--accent-foreground`, `--info`); success metrics use teal (`--success`)
 - Optional technical sections: deep navy (`--surface-technical`) via `Section` `variant="dark"` — not used on the main homepage
-- Site-wide subtle line grid (`.surface-grid-*`); hero uses stronger grid + cyan glow (`.surface-grid-hero`)
+- Site-wide subtle line grid (`.surface-grid-*`); hero uses stronger grid + cyan glow (`.surface-grid-hero`); admin app uses a softer full-page variant (`.surface-grid-admin`)
 - Typography: **Space Grotesk** (headings) + **Inter** (body) + **JetBrains Mono** (stats/code accents)
 - Subtle borders, soft focus rings, **moderate** corner radius (not bubbly)
 
@@ -84,6 +84,13 @@ Section surfaces and cards use dedicated tokens in `theme.css` (HSL channels). P
 | `default` | `bg-background` + `.surface-grid-default` |
 | `muted` | `bg-section-muted` + `.surface-grid-muted` |
 | `dark` | `bg-surface-technical` + `.surface-grid-technical` (optional; unused on main homepage) |
+
+**Page-level surfaces** (not tied to `Section`):
+
+| Class | Use |
+| ----- | --- |
+| `.surface-grid-hero` | Portfolio hero band — strongest grid + cyan glow on `--background` |
+| `.surface-grid-admin` | Admin `PageShell` — hero-like glow/grid, slightly softer; full viewport via shell, glass footer |
 
 **Main homepage section rhythm** (`frontend-main`): Hero (`default` / hero grid) → CP, About, Projects, Achievements, Contact (`muted`) → Experience, Skills, Testimonials (`default`).
 
@@ -174,16 +181,17 @@ The admin app reuses the same tokens and primitives but composes them for a focu
 
 | Component | Role |
 | --------- | ---- |
-| **AdminShell** | Authenticated pages: `PageShell` + `surface-grid-muted`, glass nav slot, footer link to portfolio |
-| **AdminAuthShell** | Login, guards, centered forms: muted grid background; `asPageShell={false}` when nested inside **AdminShell** |
-| **AdminNavbar** | `Navbar variant="glass"` with Profile / Change password |
+| **AdminShell** | Authenticated pages: `PageShell` + `surface-grid-admin`, glass nav slot, glass footer, link to portfolio |
+| **AdminAuthShell** | Login, guards, centered forms: full-page admin grid surface; `asPageShell={false}` when nested inside **AdminShell** |
+| **AdminNavbar** | `Navbar variant="glass"` — Home (`/`) + actions (e.g. logout); change password linked from profile card |
 | **AdminFormCard** | Consistent `max-w-md` form card (`shadow-card`) |
 | **AdminPageHeader** | Page-level `font-display text-page-title` above profile card |
 | **AdminSkipLink** | Skip to `#main-content` (paired with main landmark wrapper) |
 
 **Patterns:**
 
-- Background: `surface-grid-muted` on shells (not flat white or pure black).
+- Background: `surface-grid-admin` on `PageShell` shells (full viewport grid + cyan glow, not section-muted gray).
+- Footer: glass `footerClassName` on admin shells so the surface shows through under the footer band.
 - Feedback: `SuccessAlert` / `ErrorAlert` — avoid ad-hoc `text-green-*` success text.
 - Typography: `text-page-title` for page headers, `text-card-title` inside cards, `text-ui` for labels.
 - Portfolio link: `NEXT_PUBLIC_PORTFOLIO_URL` (default `https://itsashikur.com`) via `src/config/site-links.ts`.

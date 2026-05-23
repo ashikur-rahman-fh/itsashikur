@@ -70,6 +70,7 @@ export function Navbar({
   variant = 'default',
 }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
+  const hasNavItems = items.length > 0;
 
   return (
     <header
@@ -93,25 +94,29 @@ export function Navbar({
           )}
         </div>
 
-        <div className="hidden sm:block">
-          <NavLinks items={items} />
-        </div>
+        {hasNavItems ? (
+          <div className="hidden sm:block">
+            <NavLinks items={items} />
+          </div>
+        ) : null}
 
         <div className="flex items-center gap-2">
           {actions}
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild className="sm:hidden">
-              <Button variant="outline" size="sm" aria-label="Open navigation menu">
-                <Menu className="h-4 w-4" aria-hidden />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[min(100%,20rem)]">
-              <SheetHeader>
-                <SheetTitle>{appName}</SheetTitle>
-              </SheetHeader>
-              <NavLinks items={items} className="mt-6" onNavigate={() => setOpen(false)} />
-            </SheetContent>
-          </Sheet>
+          {hasNavItems ? (
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger asChild className="sm:hidden">
+                <Button variant="outline" size="sm" aria-label="Open navigation menu">
+                  <Menu className="h-4 w-4" aria-hidden />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[min(100%,20rem)]">
+                <SheetHeader>
+                  <SheetTitle>{appName}</SheetTitle>
+                </SheetHeader>
+                <NavLinks items={items} className="mt-6" onNavigate={() => setOpen(false)} />
+              </SheetContent>
+            </Sheet>
+          ) : null}
         </div>
       </nav>
     </header>

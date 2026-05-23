@@ -4,6 +4,9 @@ import type { ReactNode } from 'react';
 import { AdminSkipLink } from './AdminSkipLink';
 import { cn } from './cn';
 
+const adminGlassFooterClassName =
+  'border-border/60 bg-card/40 backdrop-blur-md supports-[backdrop-filter]:bg-card/30';
+
 export type AdminAuthShellProps = {
   children: ReactNode;
   eyebrow?: string;
@@ -76,7 +79,8 @@ export function AdminAuthShell({
 
   return (
     <PageShell
-      className={cn('surface-grid-muted', className)}
+      className={cn('surface-grid-admin', className)}
+      footerClassName={adminGlassFooterClassName}
       header={
         <>
           <AdminSkipLink />

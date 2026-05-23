@@ -6,6 +6,9 @@ import { adminSiteLinks } from '@/config/site-links';
 import { AdminSkipLink } from './AdminSkipLink';
 import { cn } from './cn';
 
+const adminGlassFooterClassName =
+  'border-border/60 bg-card/40 backdrop-blur-md supports-[backdrop-filter]:bg-card/30';
+
 export type AdminShellProps = Omit<PageShellProps, 'className'> & {
   className?: string;
   showFooter?: boolean;
@@ -34,7 +37,8 @@ export function AdminShell({
 
   return (
     <PageShell
-      className={cn('surface-grid-muted', className)}
+      className={cn('surface-grid-admin', className)}
+      footerClassName={adminGlassFooterClassName}
       header={
         <>
           <AdminSkipLink />
