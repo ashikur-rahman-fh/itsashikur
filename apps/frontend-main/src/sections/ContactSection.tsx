@@ -6,13 +6,12 @@ export function ContactSection() {
   return (
     <Section
       id="contact"
-      variant="dark"
+      variant="muted"
       heading={{
         eyebrow: 'Contact',
         title: 'Let’s connect',
         description:
           'Open to software engineering opportunities, collaborations, and technical conversations.',
-        onDark: true,
       }}
     >
       <Reveal>
@@ -20,38 +19,23 @@ export function ContactSection() {
           <Button size="lg" asChild className="min-h-11">
             <a href={mailtoHref}>Email me</a>
           </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            asChild
-            className="panel-on-technical-interactive min-h-11"
-          >
+          <Button variant="outline" size="lg" asChild className="min-h-11">
             <a href={siteLinks.githubUrl} target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
           </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            asChild
-            className="panel-on-technical-interactive min-h-11"
-          >
+          <Button variant="outline" size="lg" asChild className="min-h-11">
             <a href={siteLinks.codeforcesUrl} target="_blank" rel="noopener noreferrer">
               Codeforces
             </a>
           </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            asChild
-            className="panel-on-technical-interactive min-h-11"
-          >
+          <Button variant="outline" size="lg" asChild className="min-h-11">
             <a href={siteLinks.linkedinUrl} target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>
           </Button>
         </div>
-        <p className="mt-6 text-body-sm text-surface-technical-foreground/75">
+        <p className="mt-6 text-body-sm text-muted-foreground">
           <a href={mailtoHref} className="underline-offset-4 hover:underline">
             {siteLinks.email}
           </a>

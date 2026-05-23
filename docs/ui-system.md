@@ -8,7 +8,7 @@ The design system lives in **`packages/shared/src/ui/`** and is consumed as **`@
 
 A **Premium Engineering** portfolio look — light-first with deep navy primary, cyan accents, and teal success metrics for impact stats.
 
-> Content stays in focus; navy **technical** bands (`--surface-technical`) anchor signature sections. Adjust tokens in `theme.css` when you refine the visual identity.
+> Content stays in focus; homepage sections alternate **white** (`default`) and **light gray** (`muted`) bands. Navy **technical** tokens (`--surface-technical`) remain available for optional `dark` sections. Adjust tokens in `theme.css` when you refine the visual identity.
 
 ### Visual direction
 
@@ -16,7 +16,7 @@ A **Premium Engineering** portfolio look — light-first with deep navy primary,
 - Light: `210 25% 98%` page background, **white cards**
 - Primary: **deep navy** (`222 47% 14%` light); dark mode uses **cyan-forward** primary
 - Accents: electric blue / cyan (`--accent-foreground`, `--info`); success metrics use teal (`--success`)
-- Technical sections: deep navy (`--surface-technical`), not pure black — elevated above page in dark mode
+- Optional technical sections: deep navy (`--surface-technical`) via `Section` `variant="dark"` — not used on the main homepage
 - Site-wide subtle line grid (`.surface-grid-*`); hero uses stronger grid + cyan glow (`.surface-grid-hero`)
 - Typography: **Space Grotesk** (headings) + **Inter** (body) + **JetBrains Mono** (stats/code accents)
 - Subtle borders, soft focus rings, **moderate** corner radius (not bubbly)
@@ -67,8 +67,8 @@ Section surfaces and cards use dedicated tokens in `theme.css` (HSL channels). P
 | Token | Role | Tailwind utility |
 | ----- | ---- | ---------------- |
 | `--background` | Default page and default sections | `bg-background` |
-| `--section-muted` | Softer blue-gray bands (About, Projects, Achievements) | `bg-section-muted` |
-| `--surface-technical` | Signature navy bands (CP → Production, Contact) | `bg-surface-technical` |
+| `--section-muted` | Softer blue-gray bands (CP → Production, About, Projects, Achievements, Contact) | `bg-section-muted` |
+| `--surface-technical` | Optional navy bands (`Section` `variant="dark"`) | `bg-surface-technical` |
 | `--surface-technical-foreground` | Text on technical bands | `text-surface-technical-foreground` |
 | `--card` | Elevated cards on light/muted sections | `bg-card` |
 | `--card-on-technical` | Panels on navy bands | `bg-card-on-technical` |
@@ -83,7 +83,9 @@ Section surfaces and cards use dedicated tokens in `theme.css` (HSL channels). P
 | ------- | ----------------- |
 | `default` | `bg-background` + `.surface-grid-default` |
 | `muted` | `bg-section-muted` + `.surface-grid-muted` |
-| `dark` | `bg-surface-technical` + `.surface-grid-technical` |
+| `dark` | `bg-surface-technical` + `.surface-grid-technical` (optional; unused on main homepage) |
+
+**Main homepage section rhythm** (`frontend-main`): Hero (`default` / hero grid) → CP, About, Projects, Achievements, Contact (`muted`) → Experience, Skills, Testimonials (`default`).
 
 **Layout utilities** (`globals.css`):
 
