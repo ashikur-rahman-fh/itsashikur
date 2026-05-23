@@ -34,7 +34,7 @@ export function SectionHeading({
       <TitleTag
         className={cn(
           'font-display text-3xl font-bold tracking-tight sm:text-4xl',
-          onDark ? 'text-surface-dark-foreground' : 'text-foreground',
+          onDark ? 'text-surface-technical-foreground' : 'text-foreground',
         )}
       >
         {title}
@@ -43,7 +43,7 @@ export function SectionHeading({
         <p
           className={cn(
             'mt-3 text-base leading-relaxed sm:text-lg',
-            onDark ? 'text-surface-dark-foreground/80' : 'text-muted-foreground',
+            onDark ? 'text-surface-technical-foreground/80' : 'text-muted-foreground',
           )}
         >
           {description}

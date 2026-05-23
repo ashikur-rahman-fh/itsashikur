@@ -7,7 +7,7 @@ import { heroStats, profile } from '../data/portfolio';
 
 export function HeroSection() {
   return (
-    <section className="hero-grid border-b border-border" data-testid="hero-section">
+    <section className="surface-grid-hero border-b border-border" data-testid="hero-section">
       <Container className="py-12 sm:py-16 lg:py-20">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12">
           <div className="space-y-6">

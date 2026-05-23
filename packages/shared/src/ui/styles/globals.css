@@ -80,16 +80,74 @@
     color: hsl(var(--surface-dark-foreground));
   }
 
-  .hero-grid {
+  /* Two-layer grid: both gradients must tile at the same cell size (not 100% on first layer) */
+  .surface-grid-default {
+    --grid-opacity: 0.26;
     background-color: hsl(var(--background));
     background-image:
-      radial-gradient(ellipse 80% 60% at 70% 20%, hsl(var(--glow-cyan) / 0.12), transparent 55%),
-      linear-gradient(to right, hsl(var(--border) / 0.35) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.35) 1px, transparent 1px);
+      linear-gradient(to right, hsl(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px);
+    background-size: 2.5rem 2.5rem;
+  }
+
+  .surface-grid-muted {
+    --grid-opacity: 0.23;
+    background-color: hsl(var(--section-muted));
+    background-image:
+      linear-gradient(to right, hsl(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px);
+    background-size: 2.5rem 2.5rem;
+  }
+
+  .surface-grid-technical {
+    --grid-opacity: 0.18;
+    background-color: hsl(var(--surface-technical));
+    background-image:
+      linear-gradient(
+        to right,
+        hsl(var(--border-on-technical) / var(--grid-opacity)) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        hsl(var(--border-on-technical) / var(--grid-opacity)) 1px,
+        transparent 1px
+      );
+    background-size: 2.5rem 2.5rem;
+  }
+
+  /* hero-grid alias shares styles — cannot @apply custom utilities in Tailwind v4 */
+  .surface-grid-hero,
+  .hero-grid {
+    --grid-opacity: 0.38;
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(ellipse 80% 60% at 70% 20%, hsl(var(--glow-cyan) / 0.15), transparent 55%),
+      linear-gradient(to right, hsl(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px);
     background-size:
       100% 100%,
       2.5rem 2.5rem,
       2.5rem 2.5rem;
+  }
+
+  .panel-on-technical {
+    @apply rounded-lg border;
+    box-shadow: var(--shadow-soft);
+    background-color: hsl(var(--card-on-technical));
+    border-color: hsl(var(--border-on-technical));
+    color: hsl(var(--surface-technical-foreground) / 0.9);
+  }
+
+  .panel-on-technical-interactive {
+    @apply rounded-lg border bg-transparent shadow-none transition-colors duration-200;
+    border-color: hsl(var(--border-on-technical));
+    color: hsl(var(--surface-technical-foreground));
+  }
+
+  .panel-on-technical-interactive:hover {
+    background-color: hsl(var(--card-on-technical));
+    border-color: hsl(var(--border-on-technical) / 0.9);
   }
 
   /* Portfolio card grids: gap-6 for 2-col story cards, gap-4 for dense 3–4 col grids */
@@ -102,11 +160,13 @@
   }
 
   .portfolio-card {
-    @apply transition-[transform,box-shadow] duration-200 ease-out shadow-soft;
+    @apply border-border transition-[transform,box-shadow] duration-200 ease-out;
+    box-shadow: var(--shadow-soft);
   }
 
   .portfolio-card:hover {
-    @apply -translate-y-0.5 shadow-card;
+    @apply -translate-y-0.5;
+    box-shadow: var(--shadow-card);
   }
 
   .portfolio-card-header {
@@ -120,6 +180,10 @@
       transform: none !important;
     }
 
+    .surface-grid-default,
+    .surface-grid-muted,
+    .surface-grid-technical,
+    .surface-grid-hero,
     .hero-grid {
       background-image: none;
     }

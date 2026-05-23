@@ -62,3 +62,20 @@ export const shadowTokens = {
   soft: '--shadow-soft',
   card: '--shadow-card',
 } as const;
+
+/** Section and surface background tokens — align with theme.css background system */
+export const backgroundSurfaceTokens = [
+  'background',
+  'section-muted',
+  'surface-technical',
+  'surface-technical-foreground',
+  'card',
+  'card-on-technical',
+  'border-on-technical',
+  'grid-line',
+  'surface-accent',
+  'surface-dark',
+  'surface-dark-foreground',
+] as const;
+
+export type BackgroundSurfaceToken = (typeof backgroundSurfaceTokens)[number];

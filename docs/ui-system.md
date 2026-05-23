@@ -8,7 +8,7 @@ The design system lives in **`packages/shared/src/ui/`** and is consumed as **`@
 
 A **Premium Engineering** portfolio look — light-first with deep navy primary, cyan accents, and teal success metrics for impact stats.
 
-> Content stays in focus; dark `surface-dark` bands are used for signature sections. Adjust tokens in `theme.css` when you refine the visual identity.
+> Content stays in focus; navy **technical** bands (`--surface-technical`) anchor signature sections. Adjust tokens in `theme.css` when you refine the visual identity.
 
 ### Visual direction
 
@@ -16,8 +16,8 @@ A **Premium Engineering** portfolio look — light-first with deep navy primary,
 - Light: `210 25% 98%` page background, **white cards**
 - Primary: **deep navy** (`222 47% 14%` light); dark mode uses **cyan-forward** primary
 - Accents: electric blue / cyan (`--accent-foreground`, `--info`); success metrics use teal (`--success`)
-- Dark sections: `--surface-dark` for signature bands (e.g. CP → Production)
-- Subtle hero grid + restrained radial glow (`.hero-grid`); soft card shadows
+- Technical sections: deep navy (`--surface-technical`), not pure black — elevated above page in dark mode
+- Site-wide subtle line grid (`.surface-grid-*`); hero uses stronger grid + cyan glow (`.surface-grid-hero`)
 - Typography: **Plus Jakarta Sans** (headings) + **Inter** (body) + **JetBrains Mono** (code only)
 - Subtle borders, soft focus rings, **moderate** corner radius (not bubbly)
 
@@ -37,7 +37,45 @@ All colors and radius live in **[`packages/shared/src/ui/styles/theme.css`](../.
 
 `background`, `foreground`, `card`, `card-foreground`, `muted`, `muted-foreground`, `border`, `input`, `ring`, `primary`, `primary-foreground`, `secondary`, `secondary-foreground`, `destructive`, `destructive-foreground`, `warning`, `warning-foreground`, `success`, `success-foreground`, `info`, `info-foreground`
 
-TypeScript: `portfolioThemeId`, `portfolioThemeName`, `semanticColorTokens`, `radiusTokens`, `componentRadiusGuide` in `theme/`.
+TypeScript: `portfolioThemeId`, `portfolioThemeName`, `semanticColorTokens`, `backgroundSurfaceTokens`, `radiusTokens`, `componentRadiusGuide` in `theme/`.
+
+### Background system
+
+Section surfaces and cards use dedicated tokens in `theme.css` (HSL channels). Prefer these over hardcoded colors or `bg-muted/50`.
+
+| Token | Role | Tailwind utility |
+| ----- | ---- | ---------------- |
+| `--background` | Default page and default sections | `bg-background` |
+| `--section-muted` | Softer blue-gray bands (About, Projects, Achievements) | `bg-section-muted` |
+| `--surface-technical` | Signature navy bands (CP → Production, Contact) | `bg-surface-technical` |
+| `--surface-technical-foreground` | Text on technical bands | `text-surface-technical-foreground` |
+| `--card` | Elevated cards on light/muted sections | `bg-card` |
+| `--card-on-technical` | Panels on navy bands | `bg-card-on-technical` |
+| `--border-on-technical` | Borders on technical panels | `border-border-on-technical` |
+| `--grid-line` | Line grid overlays | used in `.surface-grid-*` |
+| `--surface-accent` | Impact / highlight tint | `bg-surface-accent` |
+| `--surface-dark` | **Alias** of `--surface-technical` (legacy) | `bg-surface-dark` |
+
+**Section variants** (`Section` component):
+
+| Variant | Background + grid |
+| ------- | ----------------- |
+| `default` | `bg-background` + `.surface-grid-default` |
+| `muted` | `bg-section-muted` + `.surface-grid-muted` |
+| `dark` | `bg-surface-technical` + `.surface-grid-technical` |
+
+**Layout utilities** (`globals.css`):
+
+- `.layout-card-grid` / `.layout-card-grid-dense` — card grids (gap 6 / 4)
+- `.portfolio-card` — hover lift + shadow on shared cards
+- `.panel-on-technical` — bullet panels on navy bands
+- `.panel-on-technical-interactive` — outline controls on technical sections
+
+**Rebrand checklist (backgrounds):**
+
+1. Tune `--surface-technical` and `--section-muted` in `:root` and `.dark` first.
+2. Adjust `--grid-line` opacity via `.surface-grid-*` classes if needed.
+3. Keep `--surface-dark` as alias only; use `--surface-technical` in new code.
 
 ### Radius scale
 
@@ -59,9 +97,9 @@ Centralized in `theme.css` — mapped to Tailwind `rounded-*` utilities:
 - Prefer `rounded-md` for interactive controls, `rounded-lg` for surfaces.
 - Change the scale in `theme.css` only — components use Tailwind classes, not hardcoded rem values.
 
-**Rebrand checklist:**
+**General rebrand checklist:**
 
-1. Edit HSL values in `theme.css` (`:root` and `.dark`) — start with `--primary` and `--background`.
+1. Edit HSL values in `theme.css` (`:root` and `.dark`) — start with `--primary`, `--background`, and the [background system](#background-system) tokens.
 2. Adjust `--radius-*` and `--shadow-*` if needed.
 3. Optionally update `--font-sans` / Google Fonts in `globals.css`.
 4. Never hardcode colors or excessive rounding in components — use semantic tokens and `rounded-md` / `rounded-lg`.

@@ -30,11 +30,7 @@ export function ExperienceCard({
 }: ExperienceCardProps) {
   return (
     <Card
-      className={cn(
-        'portfolio-card',
-        featured && 'border-info/40 ring-1 ring-info/20',
-        className,
-      )}
+      className={cn('portfolio-card', featured && 'border-info/40 ring-1 ring-info/20', className)}
     >
       <CardHeader className="portfolio-card-header space-y-2">
         <div className="flex flex-wrap items-start justify-between gap-2">

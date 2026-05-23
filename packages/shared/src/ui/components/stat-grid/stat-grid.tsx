@@ -95,10 +95,7 @@ function StatGridFive({ items, className }: { items: StatItemData[]; className?:
           </li>
         ))}
       </ul>
-      <StatGridList
-        items={bottomRow}
-        className="mx-auto grid w-full grid-cols-2 sm:w-2/3"
-      />
+      <StatGridList items={bottomRow} className="mx-auto grid w-full grid-cols-2 sm:w-2/3" />
     </div>
   );
 }
@@ -108,7 +105,5 @@ export function StatGrid({ items, className, columns = 5 }: StatGridProps) {
     return <StatGridFive items={items} className={className} />;
   }
 
-  return (
-    <StatGridList items={items} className={columnClasses[columns]} />
-  );
+  return <StatGridList items={items} className={columnClasses[columns]} />;
 }

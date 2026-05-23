@@ -15,9 +15,9 @@ export type SectionProps = React.HTMLAttributes<HTMLElement> & {
 };
 
 const variantClasses: Record<SectionVariant, string> = {
-  default: 'bg-background text-foreground',
-  muted: 'bg-muted/50 text-foreground',
-  dark: 'bg-surface-dark text-surface-dark-foreground',
+  default: 'text-foreground surface-grid-default',
+  muted: 'text-foreground surface-grid-muted',
+  dark: 'text-surface-technical-foreground surface-grid-technical',
 };
 
 export function Section({

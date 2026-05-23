@@ -24,7 +24,7 @@ export function ContactSection() {
             variant="outline"
             size="lg"
             asChild
-            className="min-h-11 border-white/20 bg-transparent text-surface-dark-foreground hover:bg-white/10"
+            className="panel-on-technical-interactive min-h-11"
           >
             <a href={siteLinks.githubUrl} target="_blank" rel="noopener noreferrer">
               GitHub
@@ -34,7 +34,7 @@ export function ContactSection() {
             variant="outline"
             size="lg"
             asChild
-            className="min-h-11 border-white/20 bg-transparent text-surface-dark-foreground hover:bg-white/10"
+            className="panel-on-technical-interactive min-h-11"
           >
             <a href={siteLinks.codeforcesUrl} target="_blank" rel="noopener noreferrer">
               Codeforces
@@ -44,14 +44,14 @@ export function ContactSection() {
             variant="outline"
             size="lg"
             asChild
-            className="min-h-11 border-white/20 bg-transparent text-surface-dark-foreground hover:bg-white/10"
+            className="panel-on-technical-interactive min-h-11"
           >
             <a href={siteLinks.linkedinUrl} target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>
           </Button>
         </div>
-        <p className="mt-6 text-sm text-surface-dark-foreground/75">
+        <p className="mt-6 text-sm text-surface-technical-foreground/75">
           <a href={mailtoHref} className="underline-offset-4 hover:underline">
             {siteLinks.email}
           </a>

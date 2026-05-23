@@ -34,6 +34,17 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+
+  /* Background system */
+  --color-section-muted: hsl(var(--section-muted));
+  --color-surface-technical: hsl(var(--surface-technical));
+  --color-surface-technical-foreground: hsl(var(--surface-technical-foreground));
+  --color-card-on-technical: hsl(var(--card-on-technical));
+  --color-border-on-technical: hsl(var(--border-on-technical));
+  --color-grid-line: hsl(var(--grid-line));
+  --color-surface-accent: hsl(var(--surface-accent));
+
+  /* Backward-compatible aliases */
   --color-surface-dark: hsl(var(--surface-dark));
   --color-surface-dark-foreground: hsl(var(--surface-dark-foreground));
 
@@ -81,7 +92,7 @@
   --secondary-foreground: 222 28% 16%;
 
   --muted: 210 20% 95%;
-  --muted-foreground: 215 14% 42%;
+  --muted-foreground: 215 16% 40%;
 
   --accent: 199 90% 96%;
   --accent-foreground: 199 85% 38%;
@@ -102,15 +113,25 @@
   --info: 199 85% 42%;
   --info-foreground: 0 0% 100%;
 
-  --surface-dark: 222 40% 8%;
-  --surface-dark-foreground: 210 25% 96%;
+  /* Background system */
+  --section-muted: 214 24% 95%;
+  --surface-technical: 222 38% 14%;
+  --surface-technical-foreground: 210 25% 96%;
+  --card-on-technical: 222 32% 18%;
+  --border-on-technical: 222 22% 28%;
+  --grid-line: 214 22% 88%;
+  --surface-accent: 199 90% 96%;
+
+  /* Aliases for legacy class names */
+  --surface-dark: var(--surface-technical);
+  --surface-dark-foreground: var(--surface-technical-foreground);
 
   --glow-cyan: 199 90% 55%;
 }
 
 .dark {
-  --shadow-soft: 0 1px 3px 0 rgb(0 0 0 / 0.2);
-  --shadow-card: 0 4px 14px -2px rgb(0 0 0 / 0.35);
+  --shadow-soft: 0 1px 3px 0 rgb(15 23 42 / 0.25);
+  --shadow-card: 0 4px 14px -2px rgb(15 23 42 / 0.4);
 
   --background: 222 28% 7%;
   --foreground: 210 25% 96%;
@@ -149,8 +170,17 @@
   --info: 199 70% 55%;
   --info-foreground: 222 40% 8%;
 
-  --surface-dark: 222 35% 5%;
-  --surface-dark-foreground: 210 25% 96%;
+  /* Background system — technical bands elevated above page, not darker */
+  --section-muted: 222 22% 11%;
+  --surface-technical: 222 26% 12%;
+  --surface-technical-foreground: 210 25% 96%;
+  --card-on-technical: 222 24% 16%;
+  --border-on-technical: 222 18% 24%;
+  --grid-line: 222 16% 22%;
+  --surface-accent: 222 22% 18%;
+
+  --surface-dark: var(--surface-technical);
+  --surface-dark-foreground: var(--surface-technical-foreground);
 
   --glow-cyan: 199 80% 50%;
 }
