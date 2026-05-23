@@ -24,7 +24,7 @@ export function SectionHeading({
       {eyebrow ? (
         <p
           className={cn(
-            'mb-2 text-sm font-semibold uppercase tracking-wider',
+            'type-eyebrow mb-2',
             onDark ? 'text-info' : 'text-accent-foreground',
           )}
         >
@@ -33,7 +33,7 @@ export function SectionHeading({
       ) : null}
       <TitleTag
         className={cn(
-          'font-display text-3xl font-bold tracking-tight sm:text-4xl',
+          'font-display text-section-title font-bold',
           onDark ? 'text-surface-technical-foreground' : 'text-foreground',
         )}
       >
@@ -42,7 +42,7 @@ export function SectionHeading({
       {description ? (
         <p
           className={cn(
-            'mt-3 text-base leading-relaxed sm:text-lg',
+            'mt-3 text-body leading-relaxed sm:text-lead',
             onDark ? 'text-surface-technical-foreground/80' : 'text-muted-foreground',
           )}
         >

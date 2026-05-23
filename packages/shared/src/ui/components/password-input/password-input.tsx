@@ -38,7 +38,7 @@ export function PasswordInput({
 
   return (
     <div className={cn('space-y-2', className)}>
-      <label htmlFor={id} className="text-sm font-medium text-foreground">
+      <label htmlFor={id} className="text-ui font-medium text-foreground">
         {label}
       </label>
       <div className="relative">

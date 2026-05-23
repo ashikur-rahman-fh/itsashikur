@@ -22,8 +22,8 @@ export function EmptyState({ title, description, action, className }: EmptyState
         <Inbox className="h-6 w-6 text-muted-foreground" aria-hidden />
       </div>
       <div className="max-w-sm space-y-1">
-        <h2 className="text-lg font-semibold tracking-tight text-foreground">{title}</h2>
-        {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
+        <h2 className="text-card-title font-semibold text-foreground">{title}</h2>
+        {description ? <p className="text-body-sm text-muted-foreground">{description}</p> : null}
       </div>
       {action}
     </div>

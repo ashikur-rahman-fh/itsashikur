@@ -30,20 +30,20 @@ function StatItemDisplay({ value, label, highlight, animate }: StatItemData) {
   return (
     <div
       className={cn(
-        'flex h-full min-h-[5.5rem] flex-col items-center justify-between rounded-lg border border-border bg-card px-4 py-4 text-center shadow-soft sm:py-5',
+        'flex h-full min-h-[6.25rem] flex-col items-center justify-between rounded-lg border border-border bg-card px-4 py-4 text-center shadow-soft sm:min-h-[6.5rem] sm:py-5',
         highlight && 'border-success/30 bg-success/5',
       )}
     >
       <p
         className={cn(
-          'shrink-0 font-display text-2xl font-bold leading-none tabular-nums tracking-tight sm:text-3xl',
+          'shrink-0 font-mono text-stat font-semibold tabular-nums',
           highlight ? 'text-success' : 'text-foreground',
         )}
         aria-live={animate ? 'polite' : undefined}
       >
         {display}
       </p>
-      <p className="mt-2 text-balance text-xs leading-snug text-muted-foreground sm:text-sm">
+      <p className="mt-2 text-balance text-body-sm leading-snug text-muted-foreground">
         {label}
       </p>
     </div>

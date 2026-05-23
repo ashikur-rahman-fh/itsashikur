@@ -19,7 +19,7 @@ export function CpToProductionSection() {
           {cpToProduction.bullets.map((bullet) => (
             <li
               key={bullet}
-              className="panel-on-technical flex h-full gap-3 p-4 text-sm leading-relaxed"
+              className="panel-on-technical flex h-full gap-3 p-4 text-body-sm leading-relaxed"
             >
               <span
                 className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center text-info"

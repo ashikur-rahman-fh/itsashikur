@@ -12,7 +12,7 @@ export function ErrorState({ message, className }: ErrorStateProps) {
     <div
       role="alert"
       className={cn(
-        'flex items-start gap-3 rounded-lg border border-destructive/20 bg-destructive/[0.04] p-4 text-sm',
+        'flex items-start gap-3 rounded-lg border border-destructive/20 bg-destructive/[0.04] p-4 text-body-sm',
         className,
       )}
     >

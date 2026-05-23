@@ -46,7 +46,7 @@ function NavLinks({
             aria-current={item.active ? 'page' : undefined}
             onClick={onNavigate}
             className={cn(
-              'cursor-pointer rounded-md px-3 py-2 text-sm font-medium transition-colors duration-150',
+              'cursor-pointer rounded-md px-3 py-2 text-ui font-medium transition-colors duration-150',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
               item.active
                 ? 'bg-muted text-foreground'
@@ -87,7 +87,7 @@ export function Navbar({
       >
         <div className="flex min-w-0 items-center gap-3">
           {logo ?? (
-            <span className="truncate font-display text-base font-semibold tracking-tight text-foreground">
+            <span className="truncate font-display text-ui font-semibold text-foreground">
               {appName}
             </span>
           )}

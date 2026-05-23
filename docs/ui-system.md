@@ -18,18 +18,39 @@ A **Premium Engineering** portfolio look — light-first with deep navy primary,
 - Accents: electric blue / cyan (`--accent-foreground`, `--info`); success metrics use teal (`--success`)
 - Technical sections: deep navy (`--surface-technical`), not pure black — elevated above page in dark mode
 - Site-wide subtle line grid (`.surface-grid-*`); hero uses stronger grid + cyan glow (`.surface-grid-hero`)
-- Typography: **Plus Jakarta Sans** (headings) + **Inter** (body) + **JetBrains Mono** (code only)
+- Typography: **Space Grotesk** (headings) + **Inter** (body) + **JetBrains Mono** (stats/code accents)
 - Subtle borders, soft focus rings, **moderate** corner radius (not bubbly)
 
 ### Fonts
 
 | Use | Stack |
 | --- | ----- |
-| Headings | Plus Jakarta Sans, Inter, … (`--font-display`) |
+| Headings | Space Grotesk, Inter, … (`--font-display`) |
 | UI (default) | Inter, ui-sans-serif, system-ui, … |
+| Stats / metrics | JetBrains Mono via `font-mono text-stat` |
 | Code / metadata | JetBrains Mono, SFMono-Regular, Consolas, monospace |
 
-Fonts load from Google Fonts in `globals.css`. Use `font-mono` or `<code>` only for technical copy (API paths, env labels, version strings).
+Fonts load from Google Fonts in `globals.css`. Use semantic size utilities instead of ad-hoc Tailwind sizes (`text-sm`, `text-lg`, `text-3xl`, etc.) so the whole site scales from `theme.css`. Primitives (button, input, card, badge, alert) already use these tokens.
+
+### Type scale
+
+Defined in `theme.css` (`--text-*` with line-height and letter-spacing). Tailwind utilities:
+
+| Utility | Use |
+| --- | ----- |
+| `text-hero` | Page hero `h1` |
+| `text-section-title` | Section headings |
+| `text-page-title` | Inner pages (e.g. resume) |
+| `text-card-title` | Card titles |
+| `text-stat` | Stat values (with `font-mono`) |
+| `text-lead` | Hero / intro paragraphs |
+| `text-body` | Default body (applied on `body`) |
+| `text-body-sm` | Dense copy |
+| `text-eyebrow` | Section labels (use `.type-eyebrow` for uppercase) |
+| `text-ui` | Buttons, nav links, form labels, inputs |
+| `text-ui-sm` | Badges, compact button `sm` size |
+
+Do not use mono for body paragraphs or eyebrows. Default `p` elements inherit `text-body` from `globals.css`.
 
 ### Theme tokens
 

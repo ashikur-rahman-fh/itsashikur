@@ -13,7 +13,7 @@ export function LoadingState({ label = 'Loading…', className }: LoadingStatePr
       role="status"
       aria-live="polite"
       className={cn(
-        'inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-3 text-sm text-muted-foreground',
+        'inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-3 text-body-sm text-muted-foreground',
         className,
       )}
     >

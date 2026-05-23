@@ -69,16 +69,26 @@ describe('Ashikur Portfolio theme tokens', () => {
     expect(themeCss).toContain('--font-sans:');
     expect(themeCss).toContain('Inter');
     expect(themeCss).toContain('--font-display:');
-    expect(themeCss).toContain('Plus Jakarta Sans');
+    expect(themeCss).toContain('Space Grotesk');
     expect(themeCss).toContain('--font-mono:');
     expect(themeCss).toContain('JetBrains Mono');
     expect(typographyTokens.sans).toBe('--font-sans');
+    expect(typographyTokens.display).toBe('--font-display');
     expect(typographyTokens.mono).toBe('--font-mono');
   });
 
   it('exports semantic color token list for tooling', () => {
     expect(semanticColorTokens).toContain('primary');
     expect(semanticColorTokens).toContain('card');
+  });
+
+  it('defines semantic type scale variables in theme.css', () => {
+    expect(themeCss).toContain('--text-hero:');
+    expect(themeCss).toContain('--text-section-title:');
+    expect(themeCss).toContain('--text-card-title:');
+    expect(themeCss).toContain('--text-stat:');
+    expect(themeCss).toContain('--text-eyebrow:');
+    expect(themeCss).toContain('--text-ui-sm:');
   });
 
   it('defines moderate radius scale in theme.css', () => {

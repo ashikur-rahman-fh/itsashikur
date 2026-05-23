@@ -31,10 +31,10 @@ export function ProjectCard({
   return (
     <Card className={cn('portfolio-card flex h-full flex-col', className)}>
       <CardHeader className="portfolio-card-header">
-        <CardTitle className="font-display text-lg">{title}</CardTitle>
+        <CardTitle className="font-display font-semibold">{title}</CardTitle>
         <CardDescription className="leading-relaxed">{description}</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-1 flex-col gap-4 text-sm">
+      <CardContent className="flex flex-1 flex-col gap-4 text-body-sm">
         <div>
           <p className="font-semibold text-foreground">Problem</p>
           <p className="mt-1 leading-relaxed text-muted-foreground">{problem}</p>

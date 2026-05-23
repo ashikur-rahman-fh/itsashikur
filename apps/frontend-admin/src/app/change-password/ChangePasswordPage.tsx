@@ -115,7 +115,7 @@ export function ChangePasswordPage() {
               ) : null}
               {success ? (
                 <p
-                  className="text-sm text-green-700 dark:text-green-400"
+                  className="text-body-sm text-green-700 dark:text-green-400"
                   role="status"
                   aria-live="polite"
                   data-testid="admin-change-password-success"
@@ -164,7 +164,7 @@ export function ChangePasswordPage() {
               />
 
               {trimmedMismatch ? (
-                <p className="text-sm text-destructive" role="alert">
+                <p className="text-body-sm text-destructive" role="alert">
                   {ADMIN_AUTH_COPY.passwordMismatch}
                 </p>
               ) : null}

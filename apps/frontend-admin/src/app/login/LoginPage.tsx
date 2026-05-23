@@ -53,7 +53,7 @@ export function LoginPage() {
       >
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-2 text-center">
-            <CardTitle className="text-2xl">{ADMIN_AUTH_COPY.loginTitle}</CardTitle>
+            <CardTitle className="text-page-title font-bold">{ADMIN_AUTH_COPY.loginTitle}</CardTitle>
             <CardDescription>{ADMIN_AUTH_COPY.loginSubtitle}</CardDescription>
           </CardHeader>
           <CardContent>
@@ -69,7 +69,7 @@ export function LoginPage() {
               ) : null}
 
               <div className="space-y-2">
-                <label htmlFor={usernameId} className="text-sm font-medium text-foreground">
+                <label htmlFor={usernameId} className="text-ui font-medium text-foreground">
                   {ADMIN_AUTH_COPY.usernameOrEmailLabel}
                 </label>
                 <Input

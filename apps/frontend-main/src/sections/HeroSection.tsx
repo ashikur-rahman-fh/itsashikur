@@ -12,17 +12,13 @@ export function HeroSection() {
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12">
           <div className="space-y-6">
             <div className="space-y-2">
-              <p className="text-sm font-semibold uppercase tracking-wider text-accent-foreground">
-                {profile.role}
-              </p>
-              <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-5xl lg:leading-tight">
-                {profile.name}
-              </h1>
+              <p className="type-eyebrow text-accent-foreground">{profile.role}</p>
+              <h1 className="font-display text-hero font-bold text-foreground">{profile.name}</h1>
             </div>
-            <p className="max-w-xl text-lg font-medium leading-snug text-foreground sm:text-xl">
+            <p className="max-w-xl text-lead font-medium text-foreground">
               {profile.headline}
             </p>
-            <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
+            <p className="max-w-xl text-body leading-relaxed text-muted-foreground">
               {profile.supportingParagraph}
             </p>
             <div className="flex flex-wrap gap-3">

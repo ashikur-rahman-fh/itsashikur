@@ -51,7 +51,7 @@ export function ContactSection() {
             </a>
           </Button>
         </div>
-        <p className="mt-6 text-sm text-surface-technical-foreground/75">
+        <p className="mt-6 text-body-sm text-surface-technical-foreground/75">
           <a href={mailtoHref} className="underline-offset-4 hover:underline">
             {siteLinks.email}
           </a>

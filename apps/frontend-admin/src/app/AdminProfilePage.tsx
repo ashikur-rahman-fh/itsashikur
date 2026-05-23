@@ -144,7 +144,7 @@ export function AdminProfilePage() {
                 {success ? (
                   <p
                     id={successId}
-                    className="text-sm text-green-700 dark:text-green-400"
+                    className="text-body-sm text-green-700 dark:text-green-400"
                     role="status"
                     aria-live="polite"
                     data-testid="admin-profile-success"
@@ -170,7 +170,7 @@ export function AdminProfilePage() {
                       />
                     ) : null}
                     <div className="space-y-2">
-                      <label htmlFor={firstNameId} className="text-sm font-medium text-foreground">
+                      <label htmlFor={firstNameId} className="text-ui font-medium text-foreground">
                         First name
                       </label>
                       <Input
@@ -182,7 +182,7 @@ export function AdminProfilePage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor={lastNameId} className="text-sm font-medium text-foreground">
+                      <label htmlFor={lastNameId} className="text-ui font-medium text-foreground">
                         Last name
                       </label>
                       <Input
@@ -194,7 +194,7 @@ export function AdminProfilePage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor={emailId} className="text-sm font-medium text-foreground">
+                      <label htmlFor={emailId} className="text-ui font-medium text-foreground">
                         Email
                       </label>
                       <Input
@@ -223,7 +223,7 @@ export function AdminProfilePage() {
                   </form>
                 ) : (
                   <>
-                    <dl className="grid gap-3 text-sm">
+                    <dl className="grid gap-3 text-body-sm">
                       <div className="grid gap-1">
                         <dt className="font-medium text-muted-foreground">Name</dt>
                         <dd data-testid="admin-profile-name">{user.name}</dd>

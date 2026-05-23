@@ -55,8 +55,25 @@ export const componentRadiusGuide = {
 
 export const typographyTokens = {
   sans: '--font-sans',
+  display: '--font-display',
   mono: '--font-mono',
 } as const;
+
+export const typeScaleTokens = [
+  'hero',
+  'section-title',
+  'page-title',
+  'card-title',
+  'stat',
+  'lead',
+  'body',
+  'body-sm',
+  'eyebrow',
+  'ui',
+  'ui-sm',
+] as const;
+
+export type TypeScaleToken = (typeof typeScaleTokens)[number];
 
 export const shadowTokens = {
   soft: '--shadow-soft',

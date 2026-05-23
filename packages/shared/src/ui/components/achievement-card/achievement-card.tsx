@@ -15,14 +15,14 @@ export function AchievementCard({ title, subtitle, highlight, className }: Achie
     <Card className={cn('portfolio-card flex h-full flex-col', className)}>
       <CardHeader className="portfolio-card-header flex-1">
         {highlight ? (
-          <p className="font-display text-2xl font-bold text-info">{highlight}</p>
+          <p className="font-mono text-stat font-semibold text-info">{highlight}</p>
         ) : null}
-        <CardTitle className="font-display text-lg">{title}</CardTitle>
+        <CardTitle className="font-display font-semibold">{title}</CardTitle>
         {subtitle && !highlight ? <CardDescription>{subtitle}</CardDescription> : null}
       </CardHeader>
       {subtitle && highlight ? (
         <CardContent className="pt-0">
-          <p className="text-sm text-muted-foreground">{subtitle}</p>
+          <p className="text-body-sm text-muted-foreground">{subtitle}</p>
         </CardContent>
       ) : null}
     </Card>

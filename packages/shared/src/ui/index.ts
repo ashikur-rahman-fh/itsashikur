@@ -49,6 +49,7 @@ export {
   radiusCssVars,
   componentRadiusGuide,
   typographyTokens,
+  typeScaleTokens,
   shadowTokens,
   fontFamilySans,
   fontFamilyDisplay,

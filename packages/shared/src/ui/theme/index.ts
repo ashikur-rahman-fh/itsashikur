@@ -11,8 +11,10 @@ export {
   radiusCssVars,
   componentRadiusGuide,
   typographyTokens,
+  typeScaleTokens,
   shadowTokens,
   type SemanticColorToken,
   type RadiusToken,
+  type TypeScaleToken,
 } from './tokens';
 export { fontFamilyDisplay, fontFamilyMono, fontFamilySans } from './fonts';

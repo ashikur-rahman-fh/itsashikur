@@ -16,13 +16,13 @@ export function QuoteCard({ quote, name, role, theme, className }: QuoteCardProp
   return (
     <Card className={cn('portfolio-card flex h-full flex-col', className)}>
       <CardHeader className="portfolio-card-header">
-        <blockquote className="text-sm leading-relaxed text-foreground/90">
+        <blockquote className="text-body-sm leading-relaxed text-foreground/90">
           &ldquo;{quote}&rdquo;
         </blockquote>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col pt-0">
         <p className="font-semibold text-foreground">{name}</p>
-        <p className="text-sm text-muted-foreground">{role}</p>
+        <p className="text-body-sm text-muted-foreground">{role}</p>
       </CardContent>
       {theme ? (
         <CardFooter className="mt-auto pt-0">

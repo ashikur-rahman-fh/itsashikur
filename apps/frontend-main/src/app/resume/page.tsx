@@ -14,8 +14,8 @@ export default function ResumePage() {
   return (
     <PageShell>
       <Container className="py-16 text-center">
-        <h1 className="font-display text-3xl font-bold">Resume</h1>
-        <p className="mx-auto mt-4 max-w-md text-muted-foreground">
+        <h1 className="font-display text-page-title font-bold">Resume</h1>
+        <p className="mx-auto mt-4 max-w-md text-body text-muted-foreground">
           Download my latest resume or return to the portfolio.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">

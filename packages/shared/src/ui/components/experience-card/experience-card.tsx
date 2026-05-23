@@ -35,8 +35,8 @@ export function ExperienceCard({
       <CardHeader className="portfolio-card-header space-y-2">
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
-            <CardTitle className="font-display text-lg">{role}</CardTitle>
-            <CardDescription className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="font-display font-semibold">{role}</CardTitle>
+            <CardDescription className="font-medium text-muted-foreground">
               {company}
             </CardDescription>
           </div>
@@ -46,16 +46,16 @@ export function ExperienceCard({
             </Badge>
           ) : null}
         </div>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-body-sm text-muted-foreground">
           {period}
           {location ? ` · ${location}` : ''}
         </p>
         {summary ? (
-          <p className="text-sm leading-relaxed text-muted-foreground">{summary}</p>
+          <p className="text-body-sm leading-relaxed text-muted-foreground">{summary}</p>
         ) : null}
       </CardHeader>
       <CardContent className="space-y-4">
-        <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-foreground/90">
+        <ul className="list-disc space-y-2 pl-5 text-body-sm leading-relaxed text-foreground/90">
           {impacts.map((item) => (
             <li key={item}>{item}</li>
           ))}

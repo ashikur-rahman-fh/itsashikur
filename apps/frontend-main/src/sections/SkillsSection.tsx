@@ -25,7 +25,9 @@ export function SkillsSection() {
           <Reveal key={group.name} delay={index * 50} fill>
             <Card className="portfolio-card flex h-full flex-col">
               <CardHeader className="portfolio-card-header">
-                <CardTitle className="font-display text-lg">{group.name}</CardTitle>
+                <CardTitle className="font-display font-semibold">
+                  {group.name}
+                </CardTitle>
               </CardHeader>
               <CardContent className="flex-1">
                 <div className="flex flex-wrap gap-2">

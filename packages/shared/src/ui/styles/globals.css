@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 @import 'tailwindcss';
 @plugin 'tailwindcss-animate';
@@ -19,19 +19,27 @@
   }
 
   body {
-    @apply min-h-screen bg-background text-foreground antialiased;
+    @apply min-h-screen bg-background text-foreground text-body antialiased;
     font-family: var(--font-sans);
     margin: 0;
-    line-height: 1.6;
-    letter-spacing: -0.01em;
+  }
+
+  p {
+    @apply text-body;
   }
 
   h1,
-  h2,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: var(--text-hero--letter-spacing);
+  }
+
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    letter-spacing: var(--text-card-title--letter-spacing);
   }
 
   code,
@@ -69,6 +77,10 @@
 
   .font-display {
     font-family: var(--font-display);
+  }
+
+  .type-eyebrow {
+    @apply text-eyebrow font-semibold uppercase;
   }
 
   .bg-surface-dark {
