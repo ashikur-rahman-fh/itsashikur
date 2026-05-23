@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 @import 'tailwindcss';
 @plugin 'tailwindcss-animate';
@@ -24,6 +24,14 @@
     margin: 0;
     line-height: 1.6;
     letter-spacing: -0.01em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
   }
 
   code,
@@ -57,5 +65,50 @@
 
   .shadow-card {
     box-shadow: var(--shadow-card);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .bg-surface-dark {
+    background-color: hsl(var(--surface-dark));
+    color: hsl(var(--surface-dark-foreground));
+  }
+
+  .text-on-dark {
+    color: hsl(var(--surface-dark-foreground));
+  }
+
+  .hero-grid {
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(ellipse 80% 60% at 70% 20%, hsl(var(--glow-cyan) / 0.12), transparent 55%),
+      linear-gradient(to right, hsl(var(--border) / 0.35) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.35) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      2.5rem 2.5rem,
+      2.5rem 2.5rem;
+  }
+
+  .card-hover-lift {
+    @apply transition-[transform,box-shadow] duration-200 ease-out;
+  }
+
+  .card-hover-lift:hover {
+    @apply -translate-y-0.5 shadow-card;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-motion,
+    .card-hover-lift {
+      transition: none !important;
+      transform: none !important;
+    }
+
+    .hero-grid {
+      background-image: none;
+    }
   }
 }

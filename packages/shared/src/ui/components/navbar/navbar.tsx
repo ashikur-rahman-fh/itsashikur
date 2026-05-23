@@ -25,6 +25,7 @@ export type NavbarProps = {
   items: NavbarItem[];
   actions?: React.ReactNode;
   className?: string;
+  variant?: 'default' | 'glass';
 };
 
 function NavLinks({
@@ -60,18 +61,33 @@ function NavLinks({
   );
 }
 
-export function Navbar({ appName, logo, items, actions, className }: NavbarProps) {
+export function Navbar({
+  appName,
+  logo,
+  items,
+  actions,
+  className,
+  variant = 'default',
+}: NavbarProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <header className={cn('sticky top-0 z-40 border-b border-border bg-card', className)}>
+    <header
+      className={cn(
+        'sticky top-0 z-40 border-b border-border',
+        variant === 'glass'
+          ? 'bg-card/85 backdrop-blur-md supports-[backdrop-filter]:bg-card/70'
+          : 'bg-card',
+        className,
+      )}
+    >
       <nav
         aria-label={`${appName} navigation`}
-        className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6"
+        className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6"
       >
         <div className="flex min-w-0 items-center gap-3">
           {logo ?? (
-            <span className="truncate text-base font-medium tracking-tight text-foreground">
+            <span className="truncate font-display text-base font-semibold tracking-tight text-foreground">
               {appName}
             </span>
           )}

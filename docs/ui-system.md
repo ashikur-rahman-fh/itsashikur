@@ -6,23 +6,26 @@ The design system lives in **`packages/shared/src/ui/`** and is consumed as **`@
 
 **Theme id:** `ashikur-portfolio`
 
-A **soft, light, muted** portfolio look — warm off-white backgrounds, white cards, slate text, and a **muted blue-gray primary** (not bright blue). Semantic colors are desaturated on purpose.
+A **Premium Engineering** portfolio look — light-first with deep navy primary, cyan accents, and teal success metrics for impact stats.
 
-> The palette is **calm and understated** so content stays in focus; adjust tokens in `theme.css` when you refine the visual identity.
+> Content stays in focus; dark `surface-dark` bands are used for signature sections. Adjust tokens in `theme.css` when you refine the visual identity.
 
 ### Visual direction
 
 - Calm, clean, professional — not flashy
-- Low saturation, no gradients, minimal shadows
-- Light: `210 20% 98%` page background, **white cards**
-- Dark: soft neutral surfaces with subtle elevation
-- Primary: **slate / blue-gray** (`215 24% 34%` light, `213 20% 74%` dark)
+- Light: `210 25% 98%` page background, **white cards**
+- Primary: **deep navy** (`222 47% 14%` light); dark mode uses **cyan-forward** primary
+- Accents: electric blue / cyan (`--accent-foreground`, `--info`); success metrics use teal (`--success`)
+- Dark sections: `--surface-dark` for signature bands (e.g. CP → Production)
+- Subtle hero grid + restrained radial glow (`.hero-grid`); soft card shadows
+- Typography: **Plus Jakarta Sans** (headings) + **Inter** (body) + **JetBrains Mono** (code only)
 - Subtle borders, soft focus rings, **moderate** corner radius (not bubbly)
 
 ### Fonts
 
 | Use | Stack |
 | --- | ----- |
+| Headings | Plus Jakarta Sans, Inter, … (`--font-display`) |
 | UI (default) | Inter, ui-sans-serif, system-ui, … |
 | Code / metadata | JetBrains Mono, SFMono-Regular, Consolas, monospace |
 

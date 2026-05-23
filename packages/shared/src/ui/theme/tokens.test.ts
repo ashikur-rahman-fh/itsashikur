@@ -23,18 +23,25 @@ describe('Ashikur Portfolio theme tokens', () => {
     }
   });
 
-  it('uses muted slate primary accent in light mode', () => {
-    expect(themeCss).toMatch(/--primary:\s*215 24% 34%/);
-    expect(themeCss).toMatch(/--background:\s*210 20% 98%/);
+  it('uses premium navy primary in light mode', () => {
+    expect(themeCss).toMatch(/--primary:\s*222 47% 14%/);
+    expect(themeCss).toMatch(/--background:\s*210 25% 98%/);
   });
 
-  it('uses soft primary accent in dark mode', () => {
-    expect(themeCss).toMatch(/\.dark[\s\S]*--primary:\s*213 20% 74%/);
+  it('uses cyan-forward primary in dark mode', () => {
+    expect(themeCss).toMatch(/\.dark[\s\S]*--primary:\s*199 70% 55%/);
+  });
+
+  it('defines surface-dark tokens for dark sections', () => {
+    expect(themeCss).toContain('--surface-dark:');
+    expect(themeCss).toContain('--surface-dark-foreground:');
   });
 
   it('defines typography CSS variables', () => {
     expect(themeCss).toContain('--font-sans:');
     expect(themeCss).toContain('Inter');
+    expect(themeCss).toContain('--font-display:');
+    expect(themeCss).toContain('Plus Jakarta Sans');
     expect(themeCss).toContain('--font-mono:');
     expect(themeCss).toContain('JetBrains Mono');
     expect(typographyTokens.sans).toBe('--font-sans');

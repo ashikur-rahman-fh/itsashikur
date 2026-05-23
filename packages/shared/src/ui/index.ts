@@ -10,6 +10,21 @@ export {
 } from './components/alert';
 export { Navbar, type NavbarItem, type NavbarProps } from './components/navbar';
 export { PageShell, type PageShellProps } from './components/page-shell';
+export { Container, type ContainerProps } from './components/container';
+export { Section, type SectionProps, type SectionVariant } from './components/section';
+export { SectionHeading, type SectionHeadingProps } from './components/section-heading';
+export { StatGrid, type StatGridProps, type StatItemData } from './components/stat-grid';
+export { TechChip, type TechChipProps } from './components/tech-chip';
+export { ExperienceCard, type ExperienceCardProps } from './components/experience-card';
+export { ProjectCard, type ProjectCardProps } from './components/project-card';
+export { AchievementCard, type AchievementCardProps } from './components/achievement-card';
+export { QuoteCard, type QuoteCardProps } from './components/quote-card';
+export { Reveal, type RevealProps } from './components/reveal';
+export {
+  useAnimatedCounter,
+  formatAnimatedStat,
+  type UseAnimatedCounterOptions,
+} from './hooks/useAnimatedCounter';
 export {
   Card,
   CardContent,
@@ -36,6 +51,7 @@ export {
   typographyTokens,
   shadowTokens,
   fontFamilySans,
+  fontFamilyDisplay,
   fontFamilyMono,
 } from './theme';
 export { cn } from './utils/cn';

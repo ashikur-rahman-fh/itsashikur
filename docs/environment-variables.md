@@ -85,6 +85,7 @@ Never commit real passwords. Prefer env sync for bootstrap and `make *-reset-use
 | `NEXT_PUBLIC_BACKEND_MAIN_API_URL` | Browser-accessible base URL for `backendMainApi` in `@ashikur-portfolio/shared`. **Production:** must be `https://` and your public API hostname (e.g. `https://api.itsashikur.com`, same as `API_HOST`). Never use `http://backend:8000` or internal Docker hostnames — CI and Docker builds reject those. Included in frontend CSP `connect-src` at build time. |
 | *(future)* `NEXT_PUBLIC_BACKEND_SECONDARY_API_URL` | Reserved for an additional backend client when a second API service is added. |
 | `NEXT_PUBLIC_BASE_PATH`    | Optional Next `basePath` for the **admin** app when using path-based routing. Leave empty in default dev (`:3001/`) and production (separate hostnames). |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | Portfolio contact email for `mailto:` links and schema.org metadata in **frontend-main**. Default in code: `me@itsashikur.com` ([`apps/frontend-main/src/config/site-links.ts`](../apps/frontend-main/src/config/site-links.ts)). |
 
 ## Hostname documentation fields
 

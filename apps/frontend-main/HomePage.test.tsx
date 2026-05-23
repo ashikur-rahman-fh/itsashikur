@@ -1,87 +1,90 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { USER_MESSAGES } from '@ashikur-portfolio/shared/api/errors';
-import { http, HttpResponse } from 'msw';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { HomePage } from './src/app/HomePage';
-import { server } from './vitest.setup';
+import { siteLinks } from './src/config/site-links';
+import { profile } from './src/data/portfolio';
 
 describe('HomePage', () => {
-  it('renders title', () => {
+  it('renders hero identity and headline', () => {
     render(<HomePage />);
-    expect(screen.getByText('API status')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: profile.name })).toBeInTheDocument();
+    expect(screen.getByText(profile.role)).toBeInTheDocument();
+    expect(screen.getByText(profile.headline)).toBeInTheDocument();
   });
 
-  it('shows backend hello response', async () => {
+  it('renders primary navigation and section anchors', () => {
     render(<HomePage />);
-    expect(await screen.findByTestId('hello-message')).toHaveTextContent(
-      'Hello from Ashikur Portfolio API',
+    const nav = screen.getByRole('navigation', { name: /Ashikur Rahman navigation/i });
+    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '#about');
+    expect(within(nav).getByRole('link', { name: 'Experience' })).toHaveAttribute(
+      'href',
+      '#experience',
+    );
+    expect(within(nav).getByRole('link', { name: 'Projects' })).toHaveAttribute(
+      'href',
+      '#projects',
+    );
+    expect(within(nav).getByRole('link', { name: 'Skills' })).toHaveAttribute('href', '#skills');
+    expect(within(nav).getByRole('link', { name: 'Achievements' })).toHaveAttribute(
+      'href',
+      '#achievements',
+    );
+    expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '#contact');
+  });
+
+  it('renders hero CTAs and resume link', () => {
+    render(<HomePage />);
+    expect(screen.getByRole('link', { name: 'View Projects' })).toHaveAttribute(
+      'href',
+      '#projects',
+    );
+    expect(screen.getAllByRole('link', { name: 'Download Resume' })[0]).toHaveAttribute(
+      'href',
+      siteLinks.resumeUrl,
+    );
+    expect(screen.getAllByRole('link', { name: 'GitHub' })[0]).toHaveAttribute(
+      'href',
+      siteLinks.githubUrl,
+    );
+    expect(screen.getAllByRole('link', { name: 'Codeforces' })[0]).toHaveAttribute(
+      'href',
+      siteLinks.codeforcesUrl,
     );
   });
 
-  it('shared Button triggers reload', async () => {
-    const user = userEvent.setup();
-    let requestCount = 0;
-    server.use(
-      http.get('*/api/hello/', () => {
-        requestCount += 1;
-        return HttpResponse.json({ message: 'Hello from Ashikur Portfolio API' });
-      }),
-    );
-
+  it('renders credibility stats in hero', () => {
     render(<HomePage />);
-    await screen.findByTestId('hello-message');
-    const countAfterMount = requestCount;
-
-    await user.click(screen.getByRole('button', { name: /reload hello/i }));
-    await waitFor(() => {
-      expect(requestCount).toBeGreaterThan(countAfterMount);
-    });
+    const hero = screen.getByTestId('hero-section');
+    expect(within(hero).getByText(/years professional experience/i)).toBeInTheDocument();
+    expect(within(hero).getByText(/problems solved/i)).toBeInTheDocument();
+    expect(within(hero).getByText(/max Codeforces rating/i)).toBeInTheDocument();
+    expect(within(hero).getByText(/improved incident traceability/i)).toBeInTheDocument();
+    expect(within(hero).getByText(/reduced troubleshooting time/i)).toBeInTheDocument();
   });
 
-  it('shows a safe error message when the API fails', async () => {
-    server.use(
-      http.get('*/api/hello/', () =>
-        HttpResponse.json(
-          {
-            success: false,
-            error: {
-              code: 'INTERNAL_SERVER_ERROR',
-              message: USER_MESSAGES.serverError,
-              details: {},
-            },
-          },
-          { status: 500 },
-        ),
-      ),
-    );
-
+  it('renders signature and experience sections', () => {
     render(<HomePage />);
-
-    expect(await screen.findByText(USER_MESSAGES.serverError)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /Competitive Programming → Production Engineering/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Impact-first engineering/i })).toBeInTheDocument();
+    expect(screen.getByText(/RFC-5424/i)).toBeInTheDocument();
   });
 
-  it('disables reload while loading', async () => {
-    let resolveResponse!: () => void;
-    const pending = new Promise<void>((resolve) => {
-      resolveResponse = resolve;
-    });
-    server.use(
-      http.get('*/api/hello/', async () => {
-        await pending;
-        return HttpResponse.json({ message: 'Hello from Ashikur Portfolio API' });
-      }),
-    );
-
+  it('renders contact email', () => {
     render(<HomePage />);
+    expect(screen.getByText(siteLinks.email)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Email me' })).toHaveAttribute(
+      'href',
+      `mailto:${siteLinks.email}`,
+    );
+  });
 
-    const button = await screen.findByRole('button', { name: /loading hello/i });
-    expect(button).toBeDisabled();
-    expect(button).toHaveAttribute('aria-busy', 'true');
-
-    resolveResponse();
-    await waitFor(() => {
-      expect(screen.getByRole('button', { name: /reload hello/i })).toBeEnabled();
-    });
+  it('includes skip to main content link', () => {
+    render(<HomePage />);
+    expect(screen.getByRole('link', { name: /skip to main content/i })).toHaveAttribute(
+      'href',
+      '#main-content',
+    );
   });
 });

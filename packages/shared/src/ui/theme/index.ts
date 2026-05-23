@@ -15,4 +15,4 @@ export {
   type SemanticColorToken,
   type RadiusToken,
 } from './tokens';
-export { fontFamilyMono, fontFamilySans } from './fonts';
+export { fontFamilyDisplay, fontFamilyMono, fontFamilySans } from './fonts';
