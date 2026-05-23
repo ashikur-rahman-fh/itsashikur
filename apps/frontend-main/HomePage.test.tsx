@@ -38,13 +38,17 @@ describe('HomePage', () => {
       'href',
       '#projects',
     );
-    expect(screen.getAllByRole('link', { name: 'Download Resume' })[0]).toHaveAttribute(
+    expect(screen.getAllByRole('link', { name: 'Resume' })[0]).toHaveAttribute(
       'href',
       siteLinks.resumeUrl,
     );
     expect(screen.getAllByRole('link', { name: 'GitHub' })[0]).toHaveAttribute(
       'href',
       siteLinks.githubUrl,
+    );
+    expect(screen.getAllByRole('link', { name: 'LinkedIn' })[0]).toHaveAttribute(
+      'href',
+      siteLinks.linkedinUrl,
     );
     expect(screen.getAllByRole('link', { name: 'Codeforces' })[0]).toHaveAttribute(
       'href',

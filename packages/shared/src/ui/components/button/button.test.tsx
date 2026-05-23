@@ -23,6 +23,15 @@ describe('Button', () => {
 
     rerender(<Button variant="success">Save</Button>);
     expect(screen.getByRole('button')).toHaveClass('bg-success');
+
+    rerender(<Button variant="warning">Review</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-warning');
+
+    rerender(<Button variant="accent">Highlight</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-accent');
+
+    rerender(<Button variant="muted">Quiet</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-muted');
   });
 
   it('supports disabled state', () => {

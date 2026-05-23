@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  ADMIN_AUTH_ERROR_CODES,
   adminAuthApi,
   ensureAdminCsrf,
   isApiError,
@@ -41,7 +42,7 @@ function mapAuthError(error: unknown): string {
     if (error.isForbidden) {
       return ADMIN_AUTH_COPY.unauthorized;
     }
-    if (error.code === 'INVALID_CREDENTIALS') {
+    if (error.code === ADMIN_AUTH_ERROR_CODES.invalidCredentials) {
       return ADMIN_AUTH_COPY.invalidLogin;
     }
     if (error.isUnauthorized) {

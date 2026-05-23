@@ -6,8 +6,12 @@
 const env = (key: string, fallback: string) =>
   (typeof process !== 'undefined' && process.env[key]) || fallback;
 
+const optionalEnv = (key: string) =>
+  typeof process !== 'undefined' ? process.env[key]?.trim() || undefined : undefined;
+
 export const siteLinks = {
   resumeUrl: env('NEXT_PUBLIC_RESUME_URL', '/resume'),
+  resumeDownloadUrl: optionalEnv('NEXT_PUBLIC_RESUME_DOWNLOAD_URL'),
   githubUrl: env('NEXT_PUBLIC_GITHUB_URL', 'https://github.com/ashikurrahman'),
   codeforcesUrl: env('NEXT_PUBLIC_CODEFORCES_URL', 'https://codeforces.com/profile/ashikurrahman'),
   linkedinUrl: env('NEXT_PUBLIC_LINKEDIN_URL', 'https://www.linkedin.com/in/ashikurrahman'),

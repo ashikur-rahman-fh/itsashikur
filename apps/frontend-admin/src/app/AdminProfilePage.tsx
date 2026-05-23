@@ -15,12 +15,12 @@ import {
   SuccessAlert,
 } from '@ashikur-portfolio/shared/ui';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useId, useState, type FormEvent } from 'react';
-import { AdminNavbar, AdminPageHeader, AdminShell } from '@/components';
+import { AdminNavbar, AdminPageHeader, AdminShell, AdminSignOutButton } from '@/components';
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
 import { useAdminAuth } from '@/auth/AdminAuthProvider';
 import { RequireAdminAuth } from '@/auth/guards';
+import { ADMIN_APP_ROUTES } from '@/auth/routes';
 
 function StatusBadge({ label, active }: { label: string; active: boolean }) {
   return (
@@ -31,8 +31,7 @@ function StatusBadge({ label, active }: { label: string; active: boolean }) {
 }
 
 export function AdminProfilePage() {
-  const router = useRouter();
-  const { user, logout, isLoggingOut, refreshUser } = useAdminAuth();
+  const { user, refreshUser } = useAdminAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [firstName, setFirstName] = useState('');
@@ -62,11 +61,6 @@ export function AdminProfilePage() {
   function cancelEditing() {
     setIsEditing(false);
     setError(null);
-  }
-
-  async function handleLogout() {
-    await logout();
-    router.replace('/login');
   }
 
   async function handleSave(event: FormEvent<HTMLFormElement>) {
@@ -104,21 +98,7 @@ export function AdminProfilePage() {
       <AdminShell
         data-testid="admin-profile-page"
         header={
-          <AdminNavbar
-            activeHref="/"
-            actions={
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => void handleLogout()}
-                disabled={isLoggingOut}
-                aria-busy={isLoggingOut}
-              >
-                {isLoggingOut ? ADMIN_AUTH_COPY.loggingOut : ADMIN_AUTH_COPY.logout}
-              </Button>
-            }
-          />
+          <AdminNavbar activeHref={ADMIN_APP_ROUTES.profile} actions={<AdminSignOutButton />} />
         }
       >
         {user ? (
@@ -139,7 +119,9 @@ export function AdminProfilePage() {
                       {ADMIN_AUTH_COPY.editProfile}
                     </Button>
                     <Button type="button" variant="outline" size="sm" asChild>
-                      <Link href="/change-password">{ADMIN_AUTH_COPY.changePassword}</Link>
+                      <Link href={ADMIN_APP_ROUTES.changePassword}>
+                        {ADMIN_AUTH_COPY.changePassword}
+                      </Link>
                     </Button>
                   </div>
                 ) : null}

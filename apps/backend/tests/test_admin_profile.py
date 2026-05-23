@@ -82,6 +82,17 @@ def test_patch_profile_invalid_email(api_client):
     assert_error_envelope(response, status_code=400, code="VALIDATION_ERROR")
 
 
+def test_patch_profile_rejects_duplicate_email(api_client):
+    _create_superuser(email="admin@example.com")
+    _create_superuser(username="other-admin", email="taken@example.com")
+    _login(api_client, username_or_email="admin", password="adminpass123")
+
+    response = _authenticated_patch(api_client, ME_URL, {"email": "taken@example.com"})
+
+    assert_error_envelope(response, status_code=400, code="VALIDATION_ERROR")
+    assert "email" in response.json()["error"]["details"]
+
+
 def test_change_password_success(api_client):
     _create_superuser(password="CurrentPass123!")
     _login(api_client, username_or_email="admin", password="CurrentPass123!")

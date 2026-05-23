@@ -29,9 +29,14 @@ export type {
   RetryConfig,
 } from './core/types';
 export { getHello } from './hello';
+export { ADMIN_AUTH_ERROR_CODES } from '../types/admin-auth';
 export type {
+  AdminAuthErrorCode,
+  AdminChangePasswordRequest,
+  AdminChangePasswordResponse,
   AdminCsrfResponse,
   AdminLoginRequest,
   AdminLogoutResponse,
+  AdminProfileUpdateRequest,
   AdminUser,
 } from '../types/admin-auth';

@@ -8,6 +8,7 @@ import {
   resetAdminCsrfTokenForTests,
   setAdminCsrfToken,
 } from './clients/backend-admin';
+import { ADMIN_AUTH_ERROR_CODES } from '../types/admin-auth';
 
 const BASE = 'https://api.example.test';
 
@@ -88,7 +89,7 @@ describe('adminAuthApi', () => {
         data: {
           success: false,
           error: {
-            code: 'INVALID_CREDENTIALS',
+            code: ADMIN_AUTH_ERROR_CODES.invalidCredentials,
             message: 'Invalid login details. Please check your credentials and try again.',
           },
         },
@@ -118,7 +119,7 @@ describe('adminAuthApi', () => {
         data: {
           success: false,
           error: {
-            code: 'ADMIN_FORBIDDEN',
+            code: ADMIN_AUTH_ERROR_CODES.adminForbidden,
             message: 'You do not have permission to access the admin area.',
           },
         },

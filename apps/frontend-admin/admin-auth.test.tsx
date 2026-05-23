@@ -3,11 +3,13 @@ import type { ReactElement } from 'react';
 import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { ADMIN_AUTH_ERROR_CODES } from '@ashikur-portfolio/shared/api';
 import { ChangePasswordPage } from './src/app/change-password/ChangePasswordPage';
 import { AdminProfilePage } from './src/app/AdminProfilePage';
 import { LoginPage } from './src/app/login/LoginPage';
 import { AdminAuthProvider } from './src/auth/AdminAuthProvider';
 import { ADMIN_AUTH_COPY } from './src/auth/messages';
+import { ADMIN_APP_ROUTES } from './src/auth/routes';
 import { adminUser, server } from './vitest.setup';
 
 const replaceMock = vi.fn();
@@ -31,6 +33,9 @@ describe('LoginPage', () => {
   it('renders login page with accessible fields', async () => {
     renderWithAuth(<LoginPage />);
     expect(await screen.findByTestId('admin-login-page')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 1, name: ADMIN_AUTH_COPY.loginTitle }),
+    ).toBeInTheDocument();
     expect(screen.getByLabelText(ADMIN_AUTH_COPY.usernameOrEmailLabel)).toBeInTheDocument();
     expect(screen.getByLabelText(ADMIN_AUTH_COPY.passwordLabel)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: ADMIN_AUTH_COPY.signIn })).toBeInTheDocument();
@@ -65,7 +70,7 @@ describe('LoginPage', () => {
     expect(screen.getByRole('button', { name: ADMIN_AUTH_COPY.signingIn })).toBeDisabled();
     resolveLogin();
     await waitFor(() => {
-      expect(replaceMock).toHaveBeenCalledWith('/');
+      expect(replaceMock).toHaveBeenCalledWith(ADMIN_APP_ROUTES.profile);
     });
   });
 
@@ -106,7 +111,7 @@ describe('LoginPage', () => {
     await user.click(screen.getByRole('button', { name: ADMIN_AUTH_COPY.signIn }));
 
     await waitFor(() => {
-      expect(replaceMock).toHaveBeenCalledWith('/');
+      expect(replaceMock).toHaveBeenCalledWith(ADMIN_APP_ROUTES.profile);
     });
   });
 });
@@ -119,7 +124,7 @@ describe('Admin profile and route guards', () => {
   it('redirects unauthenticated users away from profile', async () => {
     renderWithAuth(<AdminProfilePage />);
     await waitFor(() => {
-      expect(replaceMock).toHaveBeenCalledWith('/login');
+      expect(replaceMock).toHaveBeenCalledWith(ADMIN_APP_ROUTES.login);
     });
     expect(screen.queryByTestId('admin-profile-name')).not.toBeInTheDocument();
   });
@@ -151,7 +156,7 @@ describe('Admin profile and route guards', () => {
     renderWithAuth(<LoginPage />);
 
     await waitFor(() => {
-      expect(replaceMock).toHaveBeenCalledWith('/');
+      expect(replaceMock).toHaveBeenCalledWith(ADMIN_APP_ROUTES.profile);
     });
   });
 
@@ -165,7 +170,7 @@ describe('Admin profile and route guards', () => {
     await user.click(screen.getByRole('button', { name: ADMIN_AUTH_COPY.logout }));
 
     await waitFor(() => {
-      expect(replaceMock).toHaveBeenCalledWith('/login');
+      expect(replaceMock).toHaveBeenCalledWith(ADMIN_APP_ROUTES.login);
     });
   });
 
@@ -176,7 +181,7 @@ describe('Admin profile and route guards', () => {
           {
             success: false,
             error: {
-              code: 'ADMIN_FORBIDDEN',
+              code: ADMIN_AUTH_ERROR_CODES.adminForbidden,
               message: ADMIN_AUTH_COPY.unauthorized,
               details: {},
             },
@@ -189,7 +194,7 @@ describe('Admin profile and route guards', () => {
     renderWithAuth(<AdminProfilePage />);
 
     await waitFor(() => {
-      expect(replaceMock).toHaveBeenCalledWith('/login');
+      expect(replaceMock).toHaveBeenCalledWith(ADMIN_APP_ROUTES.login);
     });
   });
 
@@ -240,7 +245,7 @@ describe('Admin profile and route guards', () => {
           {
             success: false,
             error: {
-              code: 'VALIDATION_ERROR',
+              code: ADMIN_AUTH_ERROR_CODES.validation,
               message: 'Please check your input and try again.',
               details: { email: ['Enter a valid email address.'] },
             },
@@ -264,6 +269,15 @@ describe('Admin profile and route guards', () => {
 describe('ChangePasswordPage', () => {
   beforeEach(() => {
     server.use(http.get('*/api/admin/auth/me/', () => HttpResponse.json(adminUser)));
+  });
+
+  it('renders the page title as the primary heading', async () => {
+    renderWithAuth(<ChangePasswordPage />);
+    await screen.findByTestId('admin-change-password-page');
+
+    expect(
+      screen.getByRole('heading', { level: 1, name: ADMIN_AUTH_COPY.changePasswordTitle }),
+    ).toBeInTheDocument();
   });
 
   it('shows mismatch error before submit', async () => {
@@ -307,7 +321,7 @@ describe('ChangePasswordPage', () => {
           {
             success: false,
             error: {
-              code: 'INVALID_CURRENT_PASSWORD',
+              code: ADMIN_AUTH_ERROR_CODES.invalidCurrentPassword,
               message: ADMIN_AUTH_COPY.currentPasswordWrong,
             },
           },

@@ -1,6 +1,8 @@
 import { type AxiosError, isAxiosError } from 'axios';
 import { redactHeadersForDebug } from './logging';
 
+const VALIDATION_ERROR_CODE = 'VALIDATION_ERROR';
+
 export const USER_MESSAGES = {
   network: 'We could not connect to the server. Please check your connection and try again.',
   timeout: 'The request took too long. Please try again.',
@@ -176,14 +178,19 @@ function parseErrorBody(data: unknown): { message: string; code?: string; detail
   return { message: USER_MESSAGES.unknown };
 }
 
-function buildFlags(status: number | undefined, isNetwork: boolean, isTimeout: boolean) {
+function buildFlags(
+  status: number | undefined,
+  isNetwork: boolean,
+  isTimeout: boolean,
+  code?: string,
+) {
   return {
     isNetworkError: isNetwork,
     isTimeout,
     isUnauthorized: status === 401,
     isForbidden: status === 403,
     isNotFound: status === 404,
-    isValidationError: status === 422,
+    isValidationError: status === 422 || code === VALIDATION_ERROR_CODE,
     isServerError: status !== undefined && status >= 500,
     isSessionExpired: status === 419 || status === 440,
   };
@@ -242,7 +249,7 @@ export function normalizeAxiosError(error: unknown, serviceName: string): ApiErr
       details: parsed.details,
       requestId,
       serviceName,
-      ...buildFlags(status, false, false),
+      ...buildFlags(status, false, false, parsed.code),
       debug: buildDebug(config, responseHeaders),
       cause: error,
     });

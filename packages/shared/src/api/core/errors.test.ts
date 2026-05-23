@@ -61,6 +61,38 @@ describe('normalizeAxiosError debug metadata', () => {
     vi.unstubAllEnvs();
   });
 
+  it('marks backend validation envelopes as validation errors on HTTP 400', () => {
+    const error = new AxiosError(
+      'Request failed',
+      'ERR_BAD_REQUEST',
+      {
+        url: '/api/admin/auth/me/',
+        method: 'patch',
+        headers: {} as never,
+      },
+      {},
+      {
+        status: 400,
+        statusText: 'Bad Request',
+        headers: {},
+        config: {} as never,
+        data: {
+          success: false,
+          error: {
+            code: 'VALIDATION_ERROR',
+            message: 'Please check your input and try again.',
+            details: { email: ['Enter a valid email address.'] },
+          },
+        },
+      },
+    );
+
+    const apiError = normalizeAxiosError(error, 'backend-admin');
+    expect(apiError.isValidationError).toBe(true);
+    expect(apiError.code).toBe('VALIDATION_ERROR');
+    expect(apiError.status).toBe(400);
+  });
+
   it('includes redacted debug info in development', () => {
     vi.stubEnv('NODE_ENV', 'development');
     const error = new AxiosError(

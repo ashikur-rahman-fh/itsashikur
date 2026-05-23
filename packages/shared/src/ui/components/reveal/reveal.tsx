@@ -15,6 +15,7 @@ export type RevealProps = {
 export function Reveal({ children, className, delay = 0, fill = false }: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(false);
+  const transitionDelay = Math.min(delay, 120);
 
   React.useEffect(() => {
     const node = ref.current;
@@ -46,12 +47,12 @@ export function Reveal({ children, className, delay = 0, fill = false }: RevealP
     <div
       ref={ref}
       className={cn(
-        'reveal-motion transition-[opacity,transform] duration-700 ease-out',
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+        'reveal-motion transition-[opacity,transform] duration-500 ease-out',
+        visible ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
         fill && 'h-full',
         className,
       )}
-      style={{ transitionDelay: visible ? `${delay}ms` : undefined }}
+      style={{ transitionDelay: visible ? `${transitionDelay}ms` : undefined }}
     >
       {children}
     </div>

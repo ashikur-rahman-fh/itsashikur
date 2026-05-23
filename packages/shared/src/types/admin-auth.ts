@@ -1,3 +1,15 @@
+export const ADMIN_AUTH_ERROR_CODES = {
+  adminForbidden: 'ADMIN_FORBIDDEN',
+  invalidCredentials: 'INVALID_CREDENTIALS',
+  invalidCurrentPassword: 'INVALID_CURRENT_PASSWORD',
+  unauthorized: 'UNAUTHORIZED',
+  validation: 'VALIDATION_ERROR',
+  weakPassword: 'WEAK_PASSWORD',
+} as const;
+
+export type AdminAuthErrorCode =
+  (typeof ADMIN_AUTH_ERROR_CODES)[keyof typeof ADMIN_AUTH_ERROR_CODES];
+
 export type AdminUser = {
   id: number;
   name: string;

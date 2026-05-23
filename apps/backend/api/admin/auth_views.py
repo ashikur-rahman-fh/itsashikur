@@ -95,7 +95,11 @@ def admin_me(request):
     if request.method == "GET":
         return Response(serialize_admin_user(user))
 
-    serializer = AdminProfileUpdateSerializer(data=request.data, partial=True)
+    serializer = AdminProfileUpdateSerializer(
+        data=request.data,
+        partial=True,
+        context={"user": user},
+    )
     serializer.is_valid(raise_exception=True)
     serializer.update(user, serializer.validated_data)
     user.refresh_from_db()

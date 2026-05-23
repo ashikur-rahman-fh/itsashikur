@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, type ReactNode } from 'react';
 import { AdminAuthShell } from '@/components';
 import { useAdminAuth } from './AdminAuthProvider';
+import { ADMIN_APP_ROUTES } from './routes';
 
 function AuthLoadingShell({ label = 'Loading…' }: { label?: string }) {
   return (
@@ -26,7 +27,7 @@ export function RequireAdminAuth({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      router.replace('/login');
+      router.replace(ADMIN_APP_ROUTES.login);
     }
   }, [isAuthenticated, isLoading, router]);
 
@@ -47,7 +48,7 @@ export function RedirectIfAuthenticated({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      router.replace('/');
+      router.replace(ADMIN_APP_ROUTES.profile);
     }
   }, [isAuthenticated, isLoading, router]);
 

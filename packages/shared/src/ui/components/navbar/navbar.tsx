@@ -7,6 +7,7 @@ import { Button } from '../button';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -21,8 +22,10 @@ export type NavbarItem = {
 
 export type NavbarProps = {
   appName: string;
+  mobileAppName?: string;
   logo?: React.ReactNode;
   items: NavbarItem[];
+  mobileItems?: NavbarItem[];
   actions?: React.ReactNode;
   className?: string;
   variant?: 'default' | 'glass';
@@ -63,14 +66,18 @@ function NavLinks({
 
 export function Navbar({
   appName,
+  mobileAppName,
   logo,
   items,
+  mobileItems,
   actions,
   className,
   variant = 'default',
 }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
   const hasNavItems = items.length > 0;
+  const sheetItems = mobileItems ?? items;
+  const mobileLabel = mobileAppName ?? appName;
 
   return (
     <header
@@ -88,9 +95,21 @@ export function Navbar({
       >
         <div className="flex min-w-0 items-center gap-3">
           {logo ?? (
-            <span className="truncate font-display text-ui font-semibold text-foreground">
-              {appName}
-            </span>
+            <>
+              <span
+                className={cn(
+                  'truncate font-display text-ui font-semibold text-foreground',
+                  mobileAppName && 'hidden sm:inline',
+                )}
+              >
+                {appName}
+              </span>
+              {mobileAppName ? (
+                <span className="truncate font-display text-ui font-semibold text-foreground sm:hidden">
+                  {mobileLabel}
+                </span>
+              ) : null}
+            </>
           )}
         </div>
 
@@ -112,8 +131,11 @@ export function Navbar({
               <SheetContent side="right" className="w-[min(100%,20rem)]">
                 <SheetHeader>
                   <SheetTitle>{appName}</SheetTitle>
+                  <SheetDescription className="sr-only">
+                    Navigation links for {appName}
+                  </SheetDescription>
                 </SheetHeader>
-                <NavLinks items={items} className="mt-6" onNavigate={() => setOpen(false)} />
+                <NavLinks items={sheetItems} className="mt-6" onNavigate={() => setOpen(false)} />
               </SheetContent>
             </Sheet>
           ) : null}

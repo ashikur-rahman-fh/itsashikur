@@ -1,3 +1,5 @@
+from typing import TypedDict
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
@@ -9,12 +11,23 @@ from .exceptions import InvalidCurrentPassword, WeakPassword
 User = get_user_model()
 
 
+class AdminUserPayload(TypedDict):
+    id: int
+    name: str
+    firstName: str
+    lastName: str
+    username: str
+    email: str
+    isStaff: bool
+    isSuperuser: bool
+
+
 def display_name_for_user(user) -> str:
     full_name = user.get_full_name().strip()
     return full_name if full_name else user.username
 
 
-def serialize_admin_user(user) -> dict:
+def serialize_admin_user(user) -> AdminUserPayload:
     return {
         "id": user.pk,
         "name": display_name_for_user(user),
@@ -55,6 +68,12 @@ class AdminProfileUpdateSerializer(serializers.Serializer):
     def validate_email(self, value):
         if value is not None and not value.strip():
             raise serializers.ValidationError("Email must not be empty.")
+        current_user = self.context.get("user")
+        matching_users = User.objects.filter(email__iexact=value)
+        if current_user is not None:
+            matching_users = matching_users.exclude(pk=current_user.pk)
+        if matching_users.exists():
+            raise serializers.ValidationError("Email is already in use.")
         return value
 
     def to_internal_value(self, data):

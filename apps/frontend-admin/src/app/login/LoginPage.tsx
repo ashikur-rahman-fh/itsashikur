@@ -7,6 +7,7 @@ import { AdminAuthShell, AdminFormCard } from '@/components';
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
 import { useAdminAuth } from '@/auth/AdminAuthProvider';
 import { RedirectIfAuthenticated } from '@/auth/guards';
+import { ADMIN_APP_ROUTES } from '@/auth/routes';
 
 export function LoginPage() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export function LoginPage() {
     clearError();
     try {
       await login(trimmedUsername, password);
-      router.replace('/');
+      router.replace(ADMIN_APP_ROUTES.profile);
     } catch {
       // Error state is set in the auth provider.
     }
@@ -46,6 +47,7 @@ export function LoginPage() {
           title={ADMIN_AUTH_COPY.loginTitle}
           description={ADMIN_AUTH_COPY.loginSubtitle}
           headerAlign="center"
+          titleLevel="h1"
         >
           <form className="space-y-5" onSubmit={(event) => void handleSubmit(event)} noValidate>
             {error ? (

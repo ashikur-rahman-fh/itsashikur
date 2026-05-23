@@ -9,11 +9,17 @@ export NEXT_PUBLIC_BACKEND_MAIN_API_URL="${NEXT_PUBLIC_BACKEND_MAIN_API_URL:-htt
 
 bash "${ROOT}/infra/scripts/build/validate-backend-main-api-url.sh" "$NEXT_PUBLIC_BACKEND_MAIN_API_URL" production
 
+if command -v pnpm >/dev/null 2>&1; then
+  PNPM=(pnpm)
+else
+  PNPM=(npx --yes pnpm@9.15.0)
+fi
+
 echo "==> Building @ashikur-portfolio/frontend-main (NEXT_PUBLIC_BACKEND_MAIN_API_URL=${NEXT_PUBLIC_BACKEND_MAIN_API_URL})"
-npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-main run build
+"${PNPM[@]}" --filter @ashikur-portfolio/frontend-main run build
 
 echo "==> Building @ashikur-portfolio/frontend-admin"
-npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-admin run build
+"${PNPM[@]}" --filter @ashikur-portfolio/frontend-admin run build
 
 verify_build() {
   local app_dir="$1"

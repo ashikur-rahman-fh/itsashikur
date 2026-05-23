@@ -185,35 +185,30 @@ export const achievements = [
   },
 ];
 
-/** Draft testimonials — replace with real quotes when available. */
-export const testimonials = [
+export const workingPrinciples = [
   {
-    quote:
-      'Ashikur is a deep thinker who breaks down complex problems methodically and communicates solutions clearly to the team.',
-    name: 'Team Lead',
-    role: 'Engineering Manager · Nokia',
-    theme: 'Critical thinker',
+    title: 'Structured problem solving',
+    description:
+      'Breaks ambiguous production issues into testable hypotheses, clear ownership, and measurable next steps.',
+    theme: 'Debugging',
   },
   {
-    quote:
-      'He consistently meets deadlines with high standards, takes ownership of deliverables, and supports teammates during integration.',
-    name: 'Senior Engineer',
-    role: 'Software Development · Nokia',
-    theme: 'Reliable teammate',
+    title: 'Reliable delivery',
+    description:
+      'Keeps implementation details maintainable while staying focused on deadlines, review quality, and operational impact.',
+    theme: 'Ownership',
   },
   {
-    quote:
-      'A quick learner who applies strong fundamentals from competitive programming to production debugging and code quality.',
-    name: 'Colleague',
-    role: 'Software Developer · Nokia',
-    theme: 'Technically sound',
+    title: 'Clear technical communication',
+    description:
+      'Documents tradeoffs, explains changes plainly, and helps teams reason about code behavior under real constraints.',
+    theme: 'Collaboration',
   },
   {
-    quote:
-      'Organized, quality-focused, and proactive in code review — his type-hinting initiative improved readability across our codebase.',
-    name: 'Developer',
-    role: 'APT / Test Engineering · Nokia',
-    theme: 'Quality-focused',
+    title: 'Quality habits',
+    description:
+      'Looks for edge cases early, improves developer experience, and favors code that future teammates can navigate.',
+    theme: 'Maintainability',
   },
 ];
 

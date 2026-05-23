@@ -33,6 +33,10 @@ export function HomePage() {
             appName="Ashikur Rahman"
             variant="glass"
             items={navItems.map((item) => ({ ...item, active: false }))}
+            mobileItems={[
+              ...navItems.map((item) => ({ ...item, active: false })),
+              { label: 'Resume', href: siteLinks.resumeUrl },
+            ]}
             actions={
               <Button
                 variant="default"

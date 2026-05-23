@@ -4,13 +4,12 @@ import { Navbar } from '@ashikur-portfolio/shared/ui';
 import type { ReactNode } from 'react';
 
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
-
-const ADMIN_HOME_HREF = '/' as const;
+import { ADMIN_APP_ROUTES, type AdminAuthenticatedRoute } from '@/auth/routes';
 
 export type AdminNavbarProps = {
   actions?: ReactNode;
-  /** Mark Home active when on the admin home (profile) page. */
-  activeHref?: typeof ADMIN_HOME_HREF;
+  /** Mark the active authenticated admin destination. */
+  activeHref?: AdminAuthenticatedRoute;
 };
 
 export function AdminNavbar({ actions, activeHref }: AdminNavbarProps) {
@@ -18,11 +17,17 @@ export function AdminNavbar({ actions, activeHref }: AdminNavbarProps) {
     <Navbar
       variant="glass"
       appName="Ashikur Portfolio — Admin"
+      mobileAppName="Portfolio Admin"
       items={[
         {
           label: ADMIN_AUTH_COPY.navHome,
-          href: ADMIN_HOME_HREF,
-          active: activeHref === ADMIN_HOME_HREF,
+          href: ADMIN_APP_ROUTES.profile,
+          active: activeHref === ADMIN_APP_ROUTES.profile,
+        },
+        {
+          label: ADMIN_AUTH_COPY.changePassword,
+          href: ADMIN_APP_ROUTES.changePassword,
+          active: activeHref === ADMIN_APP_ROUTES.changePassword,
         },
       ]}
       actions={actions}

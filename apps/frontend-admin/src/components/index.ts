@@ -4,3 +4,4 @@ export { AdminNavbar, type AdminNavbarProps } from './AdminNavbar';
 export { AdminPageHeader, type AdminPageHeaderProps } from './AdminPageHeader';
 export { AdminShell, type AdminShellProps } from './AdminShell';
 export { AdminSkipLink } from './AdminSkipLink';
+export { AdminSignOutButton } from './AdminSignOutButton';

@@ -34,7 +34,11 @@ export function Section({
   return (
     <section
       id={id}
-      className={cn('py-16 sm:py-20', variantClasses[variant], className)}
+      className={cn(
+        'scroll-mt-14 py-16 sm:scroll-mt-16 sm:py-20',
+        variantClasses[variant],
+        className,
+      )}
       {...props}
     >
       <Container className={containerClassName}>

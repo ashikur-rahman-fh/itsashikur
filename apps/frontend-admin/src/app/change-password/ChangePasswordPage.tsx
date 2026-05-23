@@ -1,12 +1,19 @@
 'use client';
 
-import { adminAuthApi, isApiError } from '@ashikur-portfolio/shared/api';
+import { ADMIN_AUTH_ERROR_CODES, adminAuthApi, isApiError } from '@ashikur-portfolio/shared/api';
 import { ErrorAlert, Button, PasswordInput, SuccessAlert } from '@ashikur-portfolio/shared/ui';
 import Link from 'next/link';
 import { useId, useState, type FormEvent } from 'react';
-import { AdminAuthShell, AdminFormCard, AdminNavbar, AdminShell } from '@/components';
+import {
+  AdminAuthShell,
+  AdminFormCard,
+  AdminNavbar,
+  AdminShell,
+  AdminSignOutButton,
+} from '@/components';
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
 import { RequireAdminAuth } from '@/auth/guards';
+import { ADMIN_APP_ROUTES } from '@/auth/routes';
 
 export function ChangePasswordPage() {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -54,9 +61,9 @@ export function ChangePasswordPage() {
       setSuccess(ADMIN_AUTH_COPY.passwordUpdated);
     } catch (err) {
       if (isApiError(err)) {
-        if (err.code === 'INVALID_CURRENT_PASSWORD') {
+        if (err.code === ADMIN_AUTH_ERROR_CODES.invalidCurrentPassword) {
           setError(ADMIN_AUTH_COPY.currentPasswordWrong);
-        } else if (err.code === 'WEAK_PASSWORD') {
+        } else if (err.code === ADMIN_AUTH_ERROR_CODES.weakPassword) {
           setError(ADMIN_AUTH_COPY.weakPassword);
         } else if (err.isValidationError) {
           setError(ADMIN_AUTH_COPY.passwordValidation);
@@ -76,7 +83,12 @@ export function ChangePasswordPage() {
       <AdminShell
         data-testid="admin-change-password-page"
         showFooter
-        header={<AdminNavbar />}
+        header={
+          <AdminNavbar
+            activeHref={ADMIN_APP_ROUTES.changePassword}
+            actions={<AdminSignOutButton />}
+          />
+        }
         contentClassName="flex flex-1 flex-col items-center justify-center px-4 py-8 sm:py-12"
       >
         <AdminAuthShell asPageShell={false} centerContent>
@@ -84,6 +96,8 @@ export function ChangePasswordPage() {
             title={ADMIN_AUTH_COPY.changePasswordTitle}
             description={ADMIN_AUTH_COPY.changePasswordSubtitle}
             headerAlign="left"
+            titleLevel="h1"
+            titleClassName="text-page-title font-bold"
             className="mx-auto"
           >
             <form className="space-y-5" onSubmit={(event) => void handleSubmit(event)} noValidate>
@@ -161,10 +175,10 @@ export function ChangePasswordPage() {
                   {isSaving ? ADMIN_AUTH_COPY.updatingPassword : ADMIN_AUTH_COPY.updatePassword}
                 </Button>
                 <Button type="button" variant="outline" className="sm:hidden" asChild>
-                  <Link href="/">{ADMIN_AUTH_COPY.backToProfile}</Link>
+                  <Link href={ADMIN_APP_ROUTES.profile}>{ADMIN_AUTH_COPY.backToProfile}</Link>
                 </Button>
                 <Button type="button" variant="ghost" className="hidden sm:inline-flex" asChild>
-                  <Link href="/">{ADMIN_AUTH_COPY.backToProfile}</Link>
+                  <Link href={ADMIN_APP_ROUTES.profile}>{ADMIN_AUTH_COPY.backToProfile}</Link>
                 </Button>
               </div>
             </form>

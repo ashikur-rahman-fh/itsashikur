@@ -1,22 +1,41 @@
-import { QuoteCard, Reveal, Section } from '@ashikur-portfolio/shared/ui';
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Reveal,
+  Section,
+} from '@ashikur-portfolio/shared/ui';
 
-import { testimonials } from '../data/portfolio';
+import { workingPrinciples } from '../data/portfolio';
 
 export function TestimonialsSection() {
   return (
     <Section
       id="testimonials"
       heading={{
-        eyebrow: 'Recommendations',
-        title: 'What colleagues highlight',
-        description:
-          'Draft placeholders reflecting professional themes — replace with verified quotes in portfolio data.',
+        eyebrow: 'Working style',
+        title: 'How I show up on engineering teams',
+        description: 'The professional habits behind the production outcomes and project work.',
       }}
     >
       <div className="layout-card-grid sm:grid-cols-2">
-        {testimonials.map((item, index) => (
-          <Reveal key={item.name + item.theme} delay={index * 50} fill>
-            <QuoteCard {...item} />
+        {workingPrinciples.map((item, index) => (
+          <Reveal key={item.title} delay={index * 50} fill>
+            <Card className="portfolio-card flex h-full flex-col">
+              <CardHeader className="portfolio-card-header space-y-3">
+                <Badge variant="secondary" className="w-fit">
+                  {item.theme}
+                </Badge>
+                <CardTitle className="font-display font-semibold">{item.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-1">
+                <p className="text-body-sm leading-relaxed text-muted-foreground">
+                  {item.description}
+                </p>
+              </CardContent>
+            </Card>
           </Reveal>
         ))}
       </div>

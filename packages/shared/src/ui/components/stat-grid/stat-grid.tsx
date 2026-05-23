@@ -39,7 +39,7 @@ function StatItemDisplay({ value, label, highlight, animate }: StatItemData) {
           'shrink-0 font-mono text-stat font-semibold tabular-nums',
           highlight ? 'text-success' : 'text-foreground',
         )}
-        aria-live={animate ? 'polite' : undefined}
+        aria-label={animate ? value : undefined}
       >
         {display}
       </p>
