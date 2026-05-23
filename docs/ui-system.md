@@ -18,7 +18,7 @@ A **Premium Engineering** portfolio look — light-first with deep navy primary,
 - Accents: electric blue / cyan (`--accent-foreground`, `--info`); success metrics use teal (`--success`)
 - Optional technical sections: deep navy (`--surface-technical`) via `Section` `variant="dark"` — not used on the main homepage
 - Site-wide subtle line grid (`.surface-grid-*`); hero uses stronger grid + cyan glow (`.surface-grid-hero`); admin app uses a softer full-page variant (`.surface-grid-admin`)
-- Typography: **Space Grotesk** (headings) + **Inter** (body) + **JetBrains Mono** (stats/code accents)
+- Typography: **Space Grotesk** (headings) + **Inter** (body) + **Consolas** (stats/code accents; system mono with fallbacks)
 - Subtle borders, soft focus rings, **moderate** corner radius (not bubbly)
 
 ### Fonts
@@ -27,10 +27,10 @@ A **Premium Engineering** portfolio look — light-first with deep navy primary,
 | --- | ----- |
 | Headings | Space Grotesk, Inter, … (`--font-display`) |
 | UI (default) | Inter, ui-sans-serif, system-ui, … |
-| Stats / metrics | JetBrains Mono via `font-mono text-stat` |
-| Code / metadata | JetBrains Mono, SFMono-Regular, Consolas, monospace |
+| Stats / metrics | Consolas via `font-mono text-stat` |
+| Code / metadata | Consolas, SFMono-Regular, Liberation Mono, DejaVu Sans Mono, ui-monospace, monospace |
 
-Fonts load from Google Fonts in `globals.css`. Use semantic size utilities instead of ad-hoc Tailwind sizes (`text-sm`, `text-lg`, `text-3xl`, etc.) so the whole site scales from `theme.css`. Primitives (button, input, card, badge, alert) already use these tokens.
+Inter and Space Grotesk load from Google Fonts in `globals.css`; mono uses system fonts (no webfont). Use semantic size utilities instead of ad-hoc Tailwind sizes (`text-sm`, `text-lg`, `text-3xl`, etc.) so the whole site scales from `theme.css`. Primitives (button, input, card, badge, alert) already use these tokens.
 
 ### Type scale
 

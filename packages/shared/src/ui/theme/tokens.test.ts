@@ -71,7 +71,7 @@ describe('Ashikur Portfolio theme tokens', () => {
     expect(themeCss).toContain('--font-display:');
     expect(themeCss).toContain('Space Grotesk');
     expect(themeCss).toContain('--font-mono:');
-    expect(themeCss).toContain('JetBrains Mono');
+    expect(themeCss).toContain('Consolas');
     expect(typographyTokens.sans).toBe('--font-sans');
     expect(typographyTokens.display).toBe('--font-display');
     expect(typographyTokens.mono).toBe('--font-mono');
