@@ -18,7 +18,7 @@ export function CpToProductionSection() {
           {cpToProduction.bullets.map((bullet) => (
             <li
               key={bullet}
-              className="flex h-full gap-3 rounded-lg border border-border bg-card p-4 text-body-sm leading-relaxed text-card-foreground shadow-card"
+              className="portfolio-surface flex h-full gap-3 p-4 text-body-sm leading-relaxed text-card-foreground"
             >
               <span
                 className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center text-info"

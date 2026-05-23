@@ -91,6 +91,10 @@
     box-shadow: var(--shadow-card);
   }
 
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
   .font-display {
     font-family: var(--font-display);
   }
@@ -188,13 +192,45 @@
   }
 
   .portfolio-card {
-    @apply border-border transition-[transform,box-shadow] duration-200 ease-out;
+    border-color: hsl(var(--border) / 0.8);
     box-shadow: var(--shadow-soft);
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 1s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 1s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .portfolio-card:hover {
-    @apply -translate-y-0.5;
-    box-shadow: var(--shadow-card);
+    border-color: hsl(var(--border));
+    box-shadow: var(--shadow-card-hover);
+    transform: translate3d(0, -0.375rem, 0);
+  }
+
+  /* Legacy: Card used to ship with shadow-card; keep portfolio motion if both classes remain */
+  .portfolio-card.shadow-card {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .portfolio-card.shadow-card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .portfolio-surface {
+    @apply rounded-lg border bg-card;
+    border-color: hsl(var(--border) / 0.8);
+    box-shadow: var(--shadow-soft);
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 1s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .portfolio-surface:hover {
+    border-color: hsl(var(--border));
+    box-shadow: var(--shadow-card-hover);
+    transform: translate3d(0, -0.375rem, 0);
   }
 
   .portfolio-card-header {
@@ -203,7 +239,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     .reveal-motion,
-    .portfolio-card {
+    .portfolio-card,
+    .portfolio-card:hover,
+    .portfolio-surface,
+    .portfolio-surface:hover {
       transition: none !important;
       transform: none !important;
     }

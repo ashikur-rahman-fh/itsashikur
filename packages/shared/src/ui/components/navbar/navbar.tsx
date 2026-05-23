@@ -46,11 +46,11 @@ function NavLinks({
             aria-current={item.active ? 'page' : undefined}
             onClick={onNavigate}
             className={cn(
-              'cursor-pointer rounded-md px-3 py-2 text-ui font-medium transition-colors duration-150',
+              'cursor-pointer rounded-md px-3 py-2 text-ui font-medium transition-colors duration-300 ease-in-out',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
               item.active
                 ? 'bg-muted text-foreground'
-                : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground',
+                : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground',
             )}
           >
             {item.label}
