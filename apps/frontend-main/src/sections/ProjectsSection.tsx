@@ -14,9 +14,9 @@ export function ProjectsSection() {
           'Selected work spanning machine learning, distributed data, full-stack applications, and embedded systems.',
       }}
     >
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="layout-card-grid md:grid-cols-2">
         {projects.map((project, index) => (
-          <Reveal key={project.title} delay={index * 60}>
+          <Reveal key={project.title} delay={index * 60} fill>
             <ProjectCard {...project} />
           </Reveal>
         ))}

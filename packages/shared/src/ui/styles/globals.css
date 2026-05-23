@@ -92,17 +92,30 @@
       2.5rem 2.5rem;
   }
 
-  .card-hover-lift {
-    @apply transition-[transform,box-shadow] duration-200 ease-out;
+  /* Portfolio card grids: gap-6 for 2-col story cards, gap-4 for dense 3–4 col grids */
+  .layout-card-grid {
+    @apply grid items-stretch gap-6;
   }
 
-  .card-hover-lift:hover {
+  .layout-card-grid-dense {
+    @apply grid items-stretch gap-4;
+  }
+
+  .portfolio-card {
+    @apply transition-[transform,box-shadow] duration-200 ease-out shadow-soft;
+  }
+
+  .portfolio-card:hover {
     @apply -translate-y-0.5 shadow-card;
+  }
+
+  .portfolio-card-header {
+    @apply pb-2;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .reveal-motion,
-    .card-hover-lift {
+    .portfolio-card {
       transition: none !important;
       transform: none !important;
     }

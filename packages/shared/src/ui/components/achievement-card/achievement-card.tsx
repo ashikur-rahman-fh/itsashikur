@@ -12,23 +12,19 @@ export type AchievementCardProps = {
 
 export function AchievementCard({ title, subtitle, highlight, className }: AchievementCardProps) {
   return (
-    <Card className={cn('card-hover-lift shadow-soft', className)}>
-      <CardHeader className="pb-2">
+    <Card className={cn('portfolio-card flex h-full flex-col', className)}>
+      <CardHeader className="portfolio-card-header flex-1">
         {highlight ? (
           <p className="font-display text-2xl font-bold text-info">{highlight}</p>
         ) : null}
-        <CardTitle className={cn('font-display text-lg', highlight && 'text-base')}>
-          {title}
-        </CardTitle>
-        {subtitle ? <CardDescription>{subtitle}</CardDescription> : null}
+        <CardTitle className="font-display text-lg">{title}</CardTitle>
+        {subtitle && !highlight ? <CardDescription>{subtitle}</CardDescription> : null}
       </CardHeader>
-      {highlight && !subtitle ? null : (
+      {subtitle && highlight ? (
         <CardContent className="pt-0">
-          {subtitle && highlight ? (
-            <p className="text-sm text-muted-foreground">{subtitle}</p>
-          ) : null}
+          <p className="text-sm text-muted-foreground">{subtitle}</p>
         </CardContent>
-      )}
+      ) : null}
     </Card>
   );
 }

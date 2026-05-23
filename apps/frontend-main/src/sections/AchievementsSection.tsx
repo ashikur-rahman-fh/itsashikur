@@ -14,9 +14,9 @@ export function AchievementsSection() {
           'Contest experience that reinforces algorithmic thinking, discipline, and performance under pressure.',
       }}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="layout-card-grid-dense sm:grid-cols-2 lg:grid-cols-4">
         {achievements.map((item, index) => (
-          <Reveal key={item.title} delay={index * 40}>
+          <Reveal key={item.title} delay={index * 40} fill>
             <AchievementCard {...item} />
           </Reveal>
         ))}

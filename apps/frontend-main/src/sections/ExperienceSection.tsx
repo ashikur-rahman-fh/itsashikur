@@ -19,7 +19,7 @@ export function ExperienceSection() {
           <Reveal key={item.company} delay={index * 80}>
             <div className="relative lg:pl-12">
               <span
-                className="absolute left-2.5 top-8 hidden h-3 w-3 rounded-full border-2 border-info bg-background lg:block"
+                className="absolute left-[0.8125rem] top-7 hidden size-3 rounded-full border-2 border-info bg-background lg:block"
                 aria-hidden
               />
               <ExperienceCard {...item} />

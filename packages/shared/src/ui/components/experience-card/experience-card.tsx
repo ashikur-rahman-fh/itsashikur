@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { cn } from '../../utils/cn';
+import { Badge } from '../badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../card';
 import { TechChip } from '../tech-chip';
 
@@ -30,23 +31,23 @@ export function ExperienceCard({
   return (
     <Card
       className={cn(
-        'card-hover-lift shadow-soft',
+        'portfolio-card',
         featured && 'border-info/40 ring-1 ring-info/20',
         className,
       )}
     >
-      <CardHeader className="space-y-2">
+      <CardHeader className="portfolio-card-header space-y-2">
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
-            <CardTitle className="font-display text-xl">{role}</CardTitle>
-            <CardDescription className="text-base font-medium text-foreground/90">
+            <CardTitle className="font-display text-lg">{role}</CardTitle>
+            <CardDescription className="text-sm font-medium text-muted-foreground">
               {company}
             </CardDescription>
           </div>
           {featured ? (
-            <span className="rounded-md bg-info/15 px-2 py-1 text-xs font-semibold text-info">
+            <Badge variant="info" className="shrink-0">
               Current
-            </span>
+            </Badge>
           ) : null}
         </div>
         <p className="text-sm text-muted-foreground">

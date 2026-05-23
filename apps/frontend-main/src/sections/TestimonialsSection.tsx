@@ -13,9 +13,9 @@ export function TestimonialsSection() {
           'Draft placeholders reflecting professional themes — replace with verified quotes in portfolio data.',
       }}
     >
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="layout-card-grid sm:grid-cols-2">
         {testimonials.map((item, index) => (
-          <Reveal key={item.name + item.theme} delay={index * 50}>
+          <Reveal key={item.name + item.theme} delay={index * 50} fill>
             <QuoteCard {...item} />
           </Reveal>
         ))}

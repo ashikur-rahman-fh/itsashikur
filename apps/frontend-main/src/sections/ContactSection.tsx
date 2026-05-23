@@ -16,7 +16,7 @@ export function ContactSection() {
       }}
     >
       <Reveal>
-        <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
           <Button size="lg" asChild className="min-h-11">
             <a href={mailtoHref}>Email me</a>
           </Button>

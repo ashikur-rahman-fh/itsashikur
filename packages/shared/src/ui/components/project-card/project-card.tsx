@@ -29,10 +29,10 @@ export function ProjectCard({
   className,
 }: ProjectCardProps) {
   return (
-    <Card className={cn('card-hover-lift flex h-full flex-col shadow-soft', className)}>
-      <CardHeader>
-        <CardTitle className="font-display text-xl">{title}</CardTitle>
-        <CardDescription className="text-sm leading-relaxed">{description}</CardDescription>
+    <Card className={cn('portfolio-card flex h-full flex-col', className)}>
+      <CardHeader className="portfolio-card-header">
+        <CardTitle className="font-display text-lg">{title}</CardTitle>
+        <CardDescription className="leading-relaxed">{description}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4 text-sm">
         <div>
@@ -55,24 +55,22 @@ export function ProjectCard({
           ))}
         </div>
       </CardContent>
-      {(githubUrl || demoUrl) && (
-        <CardFooter className="flex flex-wrap gap-2">
-          {githubUrl ? (
-            <Button variant="outline" size="sm" asChild>
-              <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-                GitHub
-              </a>
-            </Button>
-          ) : null}
-          {demoUrl ? (
-            <Button variant="ghost" size="sm" asChild>
-              <a href={demoUrl} target="_blank" rel="noopener noreferrer">
-                Demo
-              </a>
-            </Button>
-          ) : null}
-        </CardFooter>
-      )}
+      <CardFooter className="mt-auto flex min-h-9 flex-wrap gap-2 py-0">
+        {githubUrl ? (
+          <Button variant="outline" size="sm" asChild>
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+          </Button>
+        ) : null}
+        {demoUrl ? (
+          <Button variant="ghost" size="sm" asChild>
+            <a href={demoUrl} target="_blank" rel="noopener noreferrer">
+              Demo
+            </a>
+          </Button>
+        ) : null}
+      </CardFooter>
     </Card>
   );
 }

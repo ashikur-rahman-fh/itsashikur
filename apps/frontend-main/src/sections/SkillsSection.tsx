@@ -20,14 +20,14 @@ export function SkillsSection() {
         description: 'Clear skill areas instead of an overwhelming flat list.',
       }}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="layout-card-grid-dense sm:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group, index) => (
-          <Reveal key={group.name} delay={index * 50}>
-            <Card className="card-hover-lift h-full shadow-soft">
-              <CardHeader className="pb-2">
-                <CardTitle className="font-display text-base">{group.name}</CardTitle>
+          <Reveal key={group.name} delay={index * 50} fill>
+            <Card className="portfolio-card flex h-full flex-col">
+              <CardHeader className="portfolio-card-header">
+                <CardTitle className="font-display text-lg">{group.name}</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-1">
                 <div className="flex flex-wrap gap-2">
                   {group.skills.map((skill) => (
                     <TechChip key={skill} label={skill} />

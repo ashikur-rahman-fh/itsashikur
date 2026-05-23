@@ -8,9 +8,11 @@ export type RevealProps = {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  /** Stretch to fill grid cell height when used inside card grids */
+  fill?: boolean;
 };
 
-export function Reveal({ children, className, delay = 0 }: RevealProps) {
+export function Reveal({ children, className, delay = 0, fill = false }: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(false);
 
@@ -46,6 +48,7 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
       className={cn(
         'reveal-motion transition-all duration-700 ease-out',
         visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+        fill && 'h-full',
         className,
       )}
       style={{ transitionDelay: visible ? `${delay}ms` : undefined }}
