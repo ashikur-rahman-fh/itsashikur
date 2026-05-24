@@ -9,9 +9,9 @@ export function ProjectsSection() {
       variant="muted"
       heading={{
         eyebrow: 'Projects',
-        title: 'Engineering case studies',
+        title: 'Selected projects',
         description:
-          'Selected work spanning machine learning, distributed data, full-stack applications, and embedded systems.',
+          'Examples across machine learning, databases, full-stack apps, and embedded systems.',
       }}
     >
       <div className="layout-card-grid md:grid-cols-2">

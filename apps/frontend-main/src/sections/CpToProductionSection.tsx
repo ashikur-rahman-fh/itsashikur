@@ -8,7 +8,7 @@ export function CpToProductionSection() {
       id="cp-engineering"
       variant="muted"
       heading={{
-        eyebrow: 'Signature',
+        eyebrow: 'Background',
         title: cpToProduction.title,
         description: cpToProduction.description,
       }}

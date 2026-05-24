@@ -2,6 +2,7 @@ export { HeroSection } from './HeroSection';
 export { CpToProductionSection } from './CpToProductionSection';
 export { AboutSection } from './AboutSection';
 export { ExperienceSection } from './ExperienceSection';
+export { EducationSection } from './EducationSection';
 export { ProjectsSection } from './ProjectsSection';
 export { SkillsSection } from './SkillsSection';
 export { AchievementsSection } from './AchievementsSection';

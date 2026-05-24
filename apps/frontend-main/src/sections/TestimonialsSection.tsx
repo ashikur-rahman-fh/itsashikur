@@ -13,11 +13,12 @@ import { workingPrinciples } from '../data/portfolio';
 export function TestimonialsSection() {
   return (
     <Section
-      id="testimonials"
+      id="working-style"
       heading={{
         eyebrow: 'Working style',
-        title: 'How I show up on engineering teams',
-        description: 'The professional habits behind the production outcomes and project work.',
+        title: 'How I work with teams',
+        description:
+          'Habits that support reliable delivery, clear communication, and maintainable code on shared codebases.',
       }}
     >
       <div className="layout-card-grid sm:grid-cols-2">

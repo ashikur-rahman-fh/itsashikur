@@ -11,6 +11,7 @@ export type ExperienceCardProps = {
   period: string;
   location?: string;
   summary?: string;
+  highlight?: string;
   impacts: string[];
   techStack: string[];
   featured?: boolean;
@@ -23,6 +24,7 @@ export function ExperienceCard({
   period,
   location,
   summary,
+  highlight,
   impacts,
   techStack,
   featured = false,
@@ -55,11 +57,19 @@ export function ExperienceCard({
         ) : null}
       </CardHeader>
       <CardContent className="space-y-4">
-        <ul className="list-disc space-y-2 pl-5 text-body-sm leading-relaxed text-foreground/90">
-          {impacts.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+        {highlight ? (
+          <p className="rounded-md border border-info/30 bg-info/5 px-3 py-2 text-body-sm font-medium text-foreground">
+            {highlight}
+          </p>
+        ) : null}
+        <div>
+          <p className="text-ui font-semibold text-foreground">Key results</p>
+          <ul className="mt-2 list-disc space-y-2 pl-5 text-body-sm leading-relaxed text-foreground/90">
+            {impacts.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
         <div className="flex flex-wrap gap-2">
           {techStack.map((tech) => (
             <TechChip key={tech} label={tech} />

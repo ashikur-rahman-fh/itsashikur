@@ -6,23 +6,23 @@ import './globals.css';
 import { siteLinks } from '../config/site-links';
 
 const siteDescription =
-  'Ashikur Rahman — Software Developer at Nokia. Reliable software engineering, competitive programming (Codeforces Expert, 1792 peak), and production impact including 60%+ improved incident traceability.';
+  'Ashikur Rahman — Software Engineer at Nokia. Reliable production software, structured logging, and full-stack experience. Codeforces Expert with 1500+ problems solved.';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Ashikur Rahman — Software Developer at Nokia',
+    default: 'Ashikur Rahman — Software Engineer',
     template: '%s | Ashikur Rahman',
   },
   description: siteDescription,
   openGraph: {
-    title: 'Ashikur Rahman — Software Developer at Nokia',
+    title: 'Ashikur Rahman — Software Engineer',
     description: siteDescription,
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ashikur Rahman — Software Developer at Nokia',
+    title: 'Ashikur Rahman — Software Engineer',
     description: siteDescription,
   },
 };
@@ -31,7 +31,7 @@ const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Ashikur Rahman',
-  jobTitle: 'Software Developer',
+  jobTitle: 'Software Engineer',
   worksFor: {
     '@type': 'Organization',
     name: 'Nokia',

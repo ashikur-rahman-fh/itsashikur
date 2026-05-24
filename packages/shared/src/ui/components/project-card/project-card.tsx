@@ -1,12 +1,14 @@
 import * as React from 'react';
 
 import { cn } from '../../utils/cn';
+import { Badge } from '../badge';
 import { Button } from '../button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../card';
 import { TechChip } from '../tech-chip';
 
 export type ProjectCardProps = {
   title: string;
+  category?: string;
   description: string;
   problem: string;
   approach: string;
@@ -19,6 +21,7 @@ export type ProjectCardProps = {
 
 export function ProjectCard({
   title,
+  category,
   description,
   problem,
   approach,
@@ -32,7 +35,12 @@ export function ProjectCard({
 
   return (
     <Card className={cn('portfolio-card flex h-full flex-col', className)}>
-      <CardHeader className="portfolio-card-header">
+      <CardHeader className="portfolio-card-header space-y-2">
+        {category ? (
+          <Badge variant="secondary" className="w-fit">
+            {category}
+          </Badge>
+        ) : null}
         <CardTitle className="font-display font-semibold">{title}</CardTitle>
         <CardDescription className="leading-relaxed">{description}</CardDescription>
       </CardHeader>

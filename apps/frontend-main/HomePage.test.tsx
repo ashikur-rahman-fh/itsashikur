@@ -1,15 +1,16 @@
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { HomePage } from './src/app/HomePage';
-import { siteLinks } from './src/config/site-links';
+import { mailtoHref, siteLinks } from './src/config/site-links';
 import { profile } from './src/data/portfolio';
 
 describe('HomePage', () => {
   it('renders hero identity and headline', () => {
     render(<HomePage />);
+    const hero = screen.getByTestId('hero-section');
     expect(screen.getByRole('heading', { level: 1, name: profile.name })).toBeInTheDocument();
-    expect(screen.getByText(profile.role)).toBeInTheDocument();
-    expect(screen.getByText(profile.headline)).toBeInTheDocument();
+    expect(within(hero).getByText(profile.currentRole)).toBeInTheDocument();
+    expect(within(hero).getByText(profile.headline)).toBeInTheDocument();
   });
 
   it('renders primary navigation and section anchors', () => {
@@ -19,6 +20,11 @@ describe('HomePage', () => {
     expect(within(nav).getByRole('link', { name: 'Experience' })).toHaveAttribute(
       'href',
       '#experience',
+    );
+    expect(within(nav).getByRole('link', { name: 'Impact' })).toHaveAttribute('href', '#impact');
+    expect(within(nav).getByRole('link', { name: 'Education' })).toHaveAttribute(
+      'href',
+      '#education',
     );
     expect(within(nav).getByRole('link', { name: 'Projects' })).toHaveAttribute(
       'href',
@@ -32,53 +38,50 @@ describe('HomePage', () => {
     expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '#contact');
   });
 
-  it('renders hero CTAs and resume link', () => {
+  it('renders hero CTAs', () => {
     render(<HomePage />);
-    expect(screen.getByRole('link', { name: 'View Projects' })).toHaveAttribute(
+    const hero = screen.getByTestId('hero-section');
+    expect(within(hero).getByRole('link', { name: 'View experience' })).toHaveAttribute(
       'href',
-      '#projects',
+      '#experience',
     );
-    expect(screen.getAllByRole('link', { name: 'Resume' })[0]).toHaveAttribute(
+    expect(within(hero).getByRole('link', { name: 'Download resume' })).toHaveAttribute(
       'href',
       siteLinks.resumeUrl,
     );
-    expect(screen.getAllByRole('link', { name: 'GitHub' })[0]).toHaveAttribute(
-      'href',
-      siteLinks.githubUrl,
-    );
-    expect(screen.getAllByRole('link', { name: 'LinkedIn' })[0]).toHaveAttribute(
+    expect(within(hero).getByRole('link', { name: 'Email' })).toHaveAttribute('href', mailtoHref);
+    expect(within(hero).getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
       'href',
       siteLinks.linkedinUrl,
     );
-    expect(screen.getAllByRole('link', { name: 'Codeforces' })[0]).toHaveAttribute(
-      'href',
-      siteLinks.codeforcesUrl,
-    );
   });
 
-  it('renders credibility stats in hero', () => {
+  it('renders impact metrics beside hero', () => {
     render(<HomePage />);
     const hero = screen.getByTestId('hero-section');
-    expect(within(hero).getByText(/years professional experience/i)).toBeInTheDocument();
+    expect(within(hero).getByRole('heading', { name: /Impact at a glance/i })).toBeInTheDocument();
     expect(within(hero).getByText(/problems solved/i)).toBeInTheDocument();
-    expect(within(hero).getByText(/max Codeforces rating/i)).toBeInTheDocument();
+    expect(within(hero).getByText(/Codeforces rating/i)).toBeInTheDocument();
     expect(within(hero).getByText(/improved incident traceability/i)).toBeInTheDocument();
-    expect(within(hero).getByText(/reduced troubleshooting time/i)).toBeInTheDocument();
+    expect(document.getElementById('impact')).toBeInTheDocument();
   });
 
-  it('renders signature and experience sections', () => {
+  it('renders experience and background sections', () => {
     render(<HomePage />);
-    expect(
-      screen.getByRole('heading', { name: /Competitive Programming → Production Engineering/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Impact-first engineering/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Work experience/i })).toBeInTheDocument();
     expect(screen.getByText(/RFC-5424/i)).toBeInTheDocument();
+    expect(screen.getByText(/Enosis Solutions/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /How contest practice supports my engineering work/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /BSc Computer Science & Engineering/i }),
+    ).toBeInTheDocument();
   });
 
   it('renders contact email', () => {
     render(<HomePage />);
-    expect(screen.getByText(siteLinks.email)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Email me' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Email Ashikur' })).toHaveAttribute(
       'href',
       `mailto:${siteLinks.email}`,
     );

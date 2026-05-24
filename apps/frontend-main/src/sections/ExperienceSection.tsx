@@ -8,15 +8,15 @@ export function ExperienceSection() {
       id="experience"
       heading={{
         eyebrow: 'Experience',
-        title: 'Impact-first engineering',
+        title: 'Work experience',
         description:
-          'Roles focused on measurable outcomes — observability, developer productivity, and reliable production systems.',
+          'From embedded and production software at Nokia to full-stack product work and technical mentoring.',
       }}
     >
       <div className="relative space-y-8">
         <div className="absolute left-4 top-0 hidden h-full w-px bg-border lg:block" aria-hidden />
         {experience.map((item, index) => (
-          <Reveal key={item.company} delay={index * 80}>
+          <Reveal key={`${item.company}-${item.period}`} delay={index * 80}>
             <div className="relative lg:pl-12">
               <span
                 className="absolute left-[0.8125rem] top-7 hidden size-3 rounded-full border-2 border-info bg-card lg:block"

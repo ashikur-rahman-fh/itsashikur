@@ -9,6 +9,7 @@ import {
   AchievementsSection,
   ContactSection,
   CpToProductionSection,
+  EducationSection,
   ExperienceSection,
   HeroSection,
   ProjectsSection,
@@ -59,12 +60,13 @@ export function HomePage() {
     >
       <div id="main-content">
         <HeroSection />
-        <CpToProductionSection />
         <AboutSection />
         <ExperienceSection />
+        <EducationSection />
         <ProjectsSection />
         <SkillsSection />
         <AchievementsSection />
+        <CpToProductionSection />
         <TestimonialsSection />
         <ContactSection />
       </div>

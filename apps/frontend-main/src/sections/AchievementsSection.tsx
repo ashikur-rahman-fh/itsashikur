@@ -9,9 +9,9 @@ export function AchievementsSection() {
       variant="muted"
       heading={{
         eyebrow: 'Achievements',
-        title: 'Competitive programming & contests',
+        title: 'Contest achievements',
         description:
-          'Contest experience that reinforces algorithmic thinking, discipline, and performance under pressure.',
+          'Competitive programming results that complement production engineering and complex problem solving.',
       }}
     >
       <div className="layout-card-grid-dense sm:grid-cols-2 lg:grid-cols-4">
