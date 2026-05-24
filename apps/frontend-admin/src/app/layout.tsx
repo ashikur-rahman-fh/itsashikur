@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from '@ashikur-portfolio/shared/ui';
 import '@ashikur-portfolio/shared/ui/styles/globals.css';
 import { AdminAuthProvider } from '@/auth/AdminAuthProvider';
+import { fontClassNames } from './fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,7 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      className={fontClassNames}
+    >
       <body>
         <ThemeProvider>
           <AdminAuthProvider>{children}</AdminAuthProvider>

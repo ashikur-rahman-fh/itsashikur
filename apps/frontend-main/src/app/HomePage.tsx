@@ -6,6 +6,7 @@ import { SiteHeader } from '../components/SiteHeader';
 import {
   AboutSection,
   AchievementsSection,
+  CapabilitiesSection,
   ContactSection,
   CpToProductionSection,
   EducationSection,
@@ -31,6 +32,7 @@ export function HomePage() {
         <EducationSection />
         <ProjectsSection />
         <SkillsSection />
+        <CapabilitiesSection />
         <AchievementsSection />
         <CpToProductionSection />
         <TestimonialsSection />

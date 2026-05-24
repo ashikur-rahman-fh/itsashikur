@@ -1,16 +1,13 @@
 import type { MetadataRoute } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://itsashikur.com';
-
-const siteDescription =
-  'Ashikur Rahman — Software Engineer at Nokia. Reliable production software, structured logging, and full-stack experience.';
+import { homeDescription, siteName, siteUrl } from '../config/site-metadata';
 
 /** Web app manifest — PWA/Android icons and theme (complements file-based favicons). */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Ashikur Rahman — Software Engineer',
-    short_name: 'Ashikur Rahman',
-    description: siteDescription,
+    name: `${siteName} — Software Developer in Canada`,
+    short_name: siteName,
+    description: homeDescription,
     start_url: '/',
     scope: '/',
     id: siteUrl,

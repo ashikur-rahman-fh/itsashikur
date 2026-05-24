@@ -6,6 +6,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 cd "$ROOT"
 
 export NEXT_PUBLIC_BACKEND_MAIN_API_URL="${NEXT_PUBLIC_BACKEND_MAIN_API_URL:-https://api.example.test}"
+export NEXT_PUBLIC_SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://itsashikur.com}"
 
 bash "${ROOT}/infra/scripts/build/validate-backend-main-api-url.sh" "$NEXT_PUBLIC_BACKEND_MAIN_API_URL" production
 

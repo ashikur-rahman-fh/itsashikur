@@ -1,7 +1,7 @@
 import { Button, Reveal, Section } from '@ashikur-portfolio/shared/ui';
 
 import { mailtoHref, siteLinks } from '../config/site-links';
-import { profile } from '../data/portfolio';
+import { contactSectionDescription, profile } from '../data/portfolio';
 import { ContactForm } from './contact';
 
 export function ContactSection() {
@@ -12,8 +12,7 @@ export function ContactSection() {
       heading={{
         eyebrow: 'Contact',
         title: 'Get in touch',
-        description:
-          'Send a message about software engineering roles, collaboration, or a technical discussion.',
+        description: contactSectionDescription,
       }}
     >
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-10">

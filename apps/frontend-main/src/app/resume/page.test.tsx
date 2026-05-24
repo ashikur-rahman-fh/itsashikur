@@ -31,9 +31,12 @@ describe('ResumePage', () => {
       siteLinks.resumePdfUrl,
     );
 
-    expect(screen.queryByRole('link', { name: 'Contact' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'Portfolio' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'Back to portfolio' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /portfolio homepage/i })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'View projects' })).toHaveAttribute(
+      'href',
+      '/#projects',
+    );
+    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/#contact');
     expect(within(nav).queryByRole('link', { name: 'About' })).not.toBeInTheDocument();
   });
 });

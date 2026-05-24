@@ -31,6 +31,10 @@ describe('HomePage', () => {
       '#projects',
     );
     expect(within(nav).getByRole('link', { name: 'Skills' })).toHaveAttribute('href', '#skills');
+    expect(within(nav).getByRole('link', { name: 'Capabilities' })).toHaveAttribute(
+      'href',
+      '#capabilities',
+    );
     expect(within(nav).getByRole('link', { name: 'Achievements' })).toHaveAttribute(
       'href',
       '#achievements',
@@ -69,11 +73,17 @@ describe('HomePage', () => {
   it('renders experience and background sections', () => {
     render(<HomePage />);
     expect(screen.getByRole('heading', { name: /Work experience/i })).toBeInTheDocument();
-    expect(screen.getByText(/RFC-5424/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/RFC-5424/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/Enosis Solutions/i)).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /How contest practice supports my engineering work/i }),
+      screen.getByRole('heading', {
+        name: /How contest practice supports production engineering/i,
+      }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /Technical skills & CS fundamentals/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /What I can help with/i })).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: /BSc Computer Science & Engineering/i }),
     ).toBeInTheDocument();

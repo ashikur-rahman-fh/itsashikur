@@ -11,7 +11,10 @@ export type ProjectCardProps = {
   category?: string;
   description: string;
   problem: string;
+  constraints?: string;
   approach: string;
+  engineeringChoices?: string;
+  validation?: string;
   techStack: string[];
   result?: string;
   githubUrl?: string;
@@ -19,12 +22,30 @@ export type ProjectCardProps = {
   className?: string;
 };
 
+type DetailBlockProps = {
+  label: string;
+  value: string;
+  valueClassName?: string;
+};
+
+function DetailBlock({ label, value, valueClassName }: DetailBlockProps) {
+  return (
+    <div>
+      <p className="font-semibold text-foreground">{label}</p>
+      <p className={cn('mt-1 leading-relaxed text-muted-foreground', valueClassName)}>{value}</p>
+    </div>
+  );
+}
+
 export function ProjectCard({
   title,
   category,
   description,
   problem,
+  constraints,
   approach,
+  engineeringChoices,
+  validation,
   techStack,
   result,
   githubUrl,
@@ -45,19 +66,15 @@ export function ProjectCard({
         <CardDescription className="leading-relaxed">{description}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4 text-body-sm">
-        <div>
-          <p className="font-semibold text-foreground">Problem</p>
-          <p className="mt-1 leading-relaxed text-muted-foreground">{problem}</p>
-        </div>
-        <div>
-          <p className="font-semibold text-foreground">Approach</p>
-          <p className="mt-1 leading-relaxed text-muted-foreground">{approach}</p>
-        </div>
+        <DetailBlock label="Problem" value={problem} />
+        {constraints ? <DetailBlock label="Constraints" value={constraints} /> : null}
+        <DetailBlock label="Approach" value={approach} />
+        {engineeringChoices ? (
+          <DetailBlock label="Engineering choices" value={engineeringChoices} />
+        ) : null}
+        {validation ? <DetailBlock label="Validation" value={validation} /> : null}
         {result ? (
-          <div>
-            <p className="font-semibold text-success">Result</p>
-            <p className="mt-1 leading-relaxed text-muted-foreground">{result}</p>
-          </div>
+          <DetailBlock label="Result" value={result} valueClassName="text-success" />
         ) : null}
         <div className="flex flex-wrap gap-2">
           {techStack.map((tech) => (

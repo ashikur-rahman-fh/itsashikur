@@ -5,17 +5,17 @@ export const profile = {
   role: 'Software Engineer',
   currentRole: 'Software Developer at Nokia',
   locationLine:
-    'Ottawa, Canada · Open to software engineering collaboration, or a technical discussion',
+    'Ottawa, Ontario, Canada · Software developer available in Canada · Open to software engineering roles',
   headline:
-    'Software developer focused on reliable production systems, clear debugging, and code that teams can maintain and extend.',
+    'Software engineer in Ottawa, Canada — backend and full-stack developer with strong CS fundamentals, data structures, algorithms, and systematic debugging in production.',
   supportingParagraph:
-    'Over four years in industry, I have shipped work in embedded environments, backend services, APIs, and web interfaces. I work well in Agile teams and communicate through documentation, reviews, and mentoring.',
+    'Over four years in industry, I have shipped embedded, backend, and web software with clean code habits, performance focus, and maintainability. As a full-stack developer with algorithmic thinking, I apply DSA and strong problem-solving to API design, logging, and reliability—not only contest-style problems.',
   aboutParagraph:
-    'Strong debugging and logging are central to how I work. At Nokia, that meant structured logging for OTOS; on earlier products, it meant faster APIs and clearer form flows. I have also mentored 80+ students in algorithms and data structures, which keeps my explanations practical and patient.',
+    'Systematic debugging and clear engineering judgment are central to how I work. At Nokia, that meant RFC-5424 structured logging and faster incident analysis; on earlier products, it meant faster REST APIs and clearer form flows. I have also mentored 80+ students in algorithms and data structures, which keeps my explanations practical and interview-ready without replacing production discipline.',
   highlights: [
-    'Production software at Nokia: structured logging, better incident traceability, and developer tooling adoption',
-    'Full-stack delivery with Django, React, and REST APIs on HIPAA-aware web products',
-    'Deep algorithms background: Codeforces Expert, 1500+ problems solved, contest training experience',
+    'Production software at Nokia: structured logging, 60%+ better incident traceability, and stronger developer workflows',
+    'Full-stack delivery with Django REST Framework, React, and PostgreSQL on HIPAA-aware web products',
+    'Strong CS fundamentals: data structures, algorithms, problem-solving, and Codeforces Expert (1500+ problems solved)',
   ],
   primaryStack: ['C++', 'Python', 'Linux', 'React', 'REST APIs'],
   softSkills: [
@@ -48,16 +48,54 @@ export const algorithmMetrics: StatItemData[] = [
 export const heroStats: StatItemData[] = [...productionMetrics, ...algorithmMetrics];
 
 export const cpToProduction = {
-  title: 'How contest practice supports my engineering work',
+  title: 'How contest practice supports production engineering',
   description:
-    'Competitive programming is not a substitute for production experience, but it strengthens how I reason about correctness, complexity, and edge cases.',
+    'Competitive programming is not a substitute for shipping production software, but it strengthens complexity analysis, edge-case thinking, and readable implementations under constraints.',
   bullets: [
-    'Break problems into parts that are easier to test and review',
-    'Think through edge cases before changes go to production',
-    'Choose approaches that respect time and memory limits',
-    'Keep implementations readable for the next engineer',
+    'Break problems into testable parts with clear interfaces and reviewable steps',
+    'Reason about edge cases and invariants before changes reach production',
+    'Choose approaches that respect time, memory, and operational limits',
+    'Keep code clean and maintainable for the next engineer on the team',
   ],
 };
+
+export const capabilities = [
+  {
+    title: 'Problem-solving & CS fundamentals',
+    description:
+      'Data structures, algorithms, complexity analysis, and structured debugging—applied to production code and technical interviews.',
+  },
+  {
+    title: 'Backend & APIs',
+    description:
+      'REST APIs, backend API development, service boundaries, and data modeling for validation, observability, and production-grade software development.',
+  },
+  {
+    title: 'Full-stack web',
+    description:
+      'Full-stack web application development with Django REST Framework, React, Next.js, and clear client/server contracts.',
+  },
+  {
+    title: 'Systems & embedded',
+    description:
+      'C/C++, Linux, and embedded-style constraints where performance and hardware limits matter.',
+  },
+  {
+    title: 'Observability & debugging',
+    description:
+      'Structured logging, incident traceability, and systematic root-cause analysis in large codebases.',
+  },
+  {
+    title: 'Automation & delivery',
+    description:
+      'CI/CD, Docker, DevOps-style delivery, and automation developer workflows that keep releases predictable on cloud and Linux platforms.',
+  },
+  {
+    title: 'Technical mentoring',
+    description:
+      'Algorithms and data structures coaching for students and teammates, with practical explanations.',
+  },
+] as const;
 
 export const experience = [
   {
@@ -67,7 +105,7 @@ export const experience = [
     location: 'Ottawa, Ontario, Canada · Hybrid',
     highlight: '60%+ better incident traceability · 25% less troubleshooting time',
     summary:
-      'Build and improve software where logging, debugging, and developer workflow matter in large engineering environments.',
+      'Build and improve production software where logging, debugging, and developer workflow matter in large engineering environments.',
     impacts: [
       'Designed RFC-5424 structured logging for OTOS so logs are machine-readable and easier to analyze.',
       'Improved incident traceability by 60%+ and reduced manual troubleshooting time by 25%.',
@@ -96,7 +134,7 @@ export const experience = [
     period: 'Nov 2021 – Aug 2022',
     location: 'Dhaka, Bangladesh',
     summary:
-      'Delivered full-stack features with developers and QA in Scrum, from payment flows to HIPAA-compliant digital forms.',
+      'Delivered full-stack features and Django REST API project work with developers and QA in Scrum—from payment flows to HIPAA-compliant digital forms.',
     impacts: [
       'Built and tested payment and automated campaign features for client products.',
       'Refactored UIs and improved REST API performance for HIPAA-compliant form applications.',
@@ -163,46 +201,100 @@ export const projects = [
     title: 'Movie Genre Prediction',
     category: 'Machine learning',
     description:
-      'Text classifier that predicts movie genres from plot summaries across overlapping labels.',
-    problem: 'Plot text is noisy, and titles often belong to several genres at once.',
+      'Multi-label text classifier that predicts movie genres from plot summaries using a PyTorch pipeline.',
+    problem: 'Plot text is noisy, and each title can belong to several genres at once.',
+    constraints:
+      '19 overlapping labels, thousands of training plots, and held-out evaluation required for fair accuracy reporting.',
     approach:
-      'Built a PyTorch pipeline with scikit-learn preprocessing, text features, and tuned models for 19 labels.',
+      'Built preprocessing and feature extraction with scikit-learn, then trained and tuned PyTorch models for multi-label prediction.',
+    engineeringChoices:
+      'Separated preprocessing, training, and evaluation steps so experiments stayed reproducible and errors were easier to trace.',
+    validation: 'Measured accuracy on 4,456 held-out plots rather than training accuracy alone.',
     techStack: ['Python', 'PyTorch', 'scikit-learn'],
     result: '49%+ accuracy on 4,456 held-out plots across 19 genres.',
   },
   {
     title: 'Shop Management System',
     category: 'Databases',
-    description: 'Distributed database design for shop and inventory data across multiple sites.',
-    problem: 'Inventory had to stay consistent across separate Oracle database nodes.',
+    description:
+      'Distributed database design for shop and inventory data across multiple Oracle nodes.',
+    problem: 'Inventory had to stay consistent across separate database sites.',
+    constraints:
+      'Data was split across nodes while queries still needed correct joins and integrity rules.',
     approach:
-      'Designed schemas, distribution rules, and SQL for cross-site queries with integrity constraints.',
+      'Designed schemas, distribution rules, and SQL for cross-site queries with explicit integrity constraints.',
+    engineeringChoices:
+      'Modeled entities and relationships for maintainable multi-site access instead of ad hoc copies per store.',
+    validation:
+      'Verified cross-node queries and constraints against representative shop and inventory scenarios.',
     techStack: ['Oracle SQL', 'Distributed databases'],
     result: 'Demonstrated a maintainable pattern for multi-site shop data.',
   },
   {
     title: 'Todo App',
     category: 'Full-stack',
-    description: 'Task and reminder application with a separated API and React client.',
+    description:
+      'Full-stack project portfolio piece: task and reminder app with a Node.js REST API and React client.',
     problem: 'Users needed dependable task tracking with clear due dates.',
+    constraints:
+      'Client and server had to stay in sync with a stable API contract and persistent storage.',
     approach:
-      'Implemented a Node.js REST API and React UI with persistent storage and explicit client/server boundaries.',
+      'Implemented REST endpoints and a React UI with explicit boundaries between presentation and data access.',
+    engineeringChoices:
+      'Kept API resources predictable and documented so the UI could evolve without breaking persistence.',
+    validation:
+      'Exercised create/update flows through the API and UI to confirm reliable task persistence.',
     techStack: ['Node.js', 'React', 'REST APIs'],
     result: 'Reliable task persistence with a straightforward API contract.',
   },
   {
     title: 'Cleaning Car',
     category: 'Embedded',
-    description: 'Embedded controller that follows programmed paths to clean a flat surface.',
+    description:
+      'C++ software project: embedded controller that follows programmed paths to clean a flat surface.',
     problem: 'Motor control and sensor feedback had to stay stable under hardware limits.',
+    constraints:
+      'Limited onboard resources, real-time sensor noise, and repeatable movement on a flat test surface.',
     approach:
       'Wrote control logic with sensor input, movement commands, and iterative on-device testing.',
+    engineeringChoices:
+      'Structured state transitions so movement commands stayed readable and easier to debug on hardware.',
+    validation: 'Ran repeated on-device tests until paths were stable across trials.',
     techStack: ['C', 'Embedded systems'],
     result: 'Completed repeatable cleaning paths on a flat test surface.',
   },
 ];
 
-export const skillGroups = [
+export type SkillGroup = {
+  name: string;
+  blurb: string;
+  skills: string[];
+  featured?: boolean;
+};
+
+export const csFundamentalsGroup: SkillGroup = {
+  name: 'Computer Science Fundamentals',
+  featured: true,
+  blurb:
+    'Core CS depth used in production and complex problem solving—data structures, algorithms, debugging, and scalable design choices.',
+  skills: [
+    'Data structures',
+    'Algorithms',
+    'Problem-solving',
+    'Complexity analysis',
+    'Operating systems',
+    'Debugging',
+    'Design patterns',
+    'OOP',
+    'System design',
+    'Performance optimization',
+    'Software engineering fundamentals',
+    'Machine learning',
+  ],
+};
+
+export const skillGroups: SkillGroup[] = [
+  csFundamentalsGroup,
   {
     name: 'Core Languages',
     blurb: 'Languages used across embedded, backend, and tooling work.',
@@ -216,7 +308,7 @@ export const skillGroups = [
   {
     name: 'Frontend',
     blurb: 'Interfaces shipped with React and modern CSS.',
-    skills: ['React', 'HTML', 'CSS', 'Material UI'],
+    skills: ['React', 'HTML', 'CSS', 'Material UI', 'Next.js'],
   },
   {
     name: 'Systems & Tools',
@@ -238,11 +330,6 @@ export const skillGroups = [
       'Technical documentation',
       'Structured logging',
     ],
-  },
-  {
-    name: 'Computer Science',
-    blurb: 'Foundations that support performance and correctness decisions.',
-    skills: ['Data structures', 'Algorithms', 'Operating systems', 'Machine learning'],
   },
 ];
 
@@ -308,6 +395,32 @@ export const workingPrinciples = [
   },
 ];
 
+export const projectsSectionDescription =
+  'Backend API and full-stack project portfolio: problem-solving software projects with design choices and validation across machine learning, databases, React, Next.js, and embedded systems.';
+
+export const contactSectionDescription =
+  'Open to software engineering roles in Canada—reach out about backend, full-stack, or systems opportunities and hiring conversations.';
+
+/** Searchable on-page copy for SEO coverage tests (not rendered directly as a block). */
+export const seoVisibleCopy = [
+  profile.headline,
+  profile.supportingParagraph,
+  profile.aboutParagraph,
+  profile.locationLine,
+  ...profile.highlights,
+  cpToProduction.title,
+  cpToProduction.description,
+  projectsSectionDescription,
+  contactSectionDescription,
+  ...capabilities.map((c) => `${c.title} ${c.description}`),
+  ...projects.map(
+    (p) =>
+      `${p.title} ${p.category} ${p.description} ${p.problem ?? ''} ${p.approach ?? ''} ${p.techStack.join(' ')}`,
+  ),
+  ...experience.map((e) => `${e.role} ${e.summary} ${e.techStack.join(' ')}`),
+  ...skillGroups.flatMap((g) => [g.name, g.blurb, ...g.skills]),
+].join('\n');
+
 export const navItems = [
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
@@ -315,6 +428,17 @@ export const navItems = [
   { label: 'Education', href: '#education' },
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Capabilities', href: '#capabilities' },
   { label: 'Achievements', href: '#achievements' },
+  { label: 'Contact', href: '#contact' },
+] as const;
+
+/** Hash links for footer; resume path is resolved in SiteFooter via siteLinks.resumeUrl. */
+export const footerNavItems = [
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Resume', href: '__resume__' },
   { label: 'Contact', href: '#contact' },
 ] as const;

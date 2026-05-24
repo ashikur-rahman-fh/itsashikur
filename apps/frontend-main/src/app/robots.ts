@@ -1,14 +1,16 @@
 import type { MetadataRoute } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://itsashikur.com';
+import { siteUrl } from '../config/site-metadata';
 
-/** Allow crawlers to fetch pages and favicon assets (required for Google Search favicons). */
 export default function robots(): MetadataRoute.Robots {
+  const host = new URL(siteUrl).host;
+
   return {
     rules: {
       userAgent: '*',
       allow: '/',
     },
-    host: new URL(siteUrl).host,
+    host,
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

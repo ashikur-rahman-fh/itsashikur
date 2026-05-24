@@ -11,7 +11,7 @@ export function AboutSection() {
         eyebrow: 'About',
         title: 'What I bring to engineering teams',
         description:
-          'Production experience, full-stack delivery, and a strong algorithms foundation for hard technical problems.',
+          'Production experience, computer science fundamentals, and full-stack delivery for teams that care about problem-solving and maintainable software.',
       }}
     >
       <div className="space-y-10">

@@ -205,6 +205,7 @@ jobs:
           build-args: |
             NEXT_PUBLIC_BACKEND_MAIN_API_URL=${{ vars.NEXT_PUBLIC_BACKEND_MAIN_API_URL }}
             NEXT_PUBLIC_BASE_PATH=${{ vars.NEXT_PUBLIC_BASE_PATH }}
+            NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
           cache-from: type=gha,scope=${{ matrix.image_suffix }}
           cache-to: type=gha,mode=max,scope=${{ matrix.image_suffix }}
 

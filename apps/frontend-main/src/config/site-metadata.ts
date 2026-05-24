@@ -1,0 +1,210 @@
+import type { Metadata } from 'next';
+
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://itsashikur.com';
+
+export const siteName = 'Ashikur Rahman';
+
+export const personName = 'Ashikur Rahman';
+
+export const defaultOgImagePath = '/og-image.png';
+
+export const ogImageAlt = `${personName} — Software Engineer in Ottawa, Canada`;
+
+/** Tier A — Geo, role, and portfolio intent. */
+export const primaryKeywords = [
+  'software developer Canada',
+  'software engineer Canada',
+  'backend developer Canada',
+  'full-stack developer Canada',
+  'software developer Ottawa',
+  'software engineer Ottawa',
+  'backend engineer Canada',
+  'full-stack engineer Canada',
+  'software engineering portfolio',
+  'backend developer portfolio',
+  'full-stack developer portfolio',
+] as const;
+
+/** Tier B — Recruiter and hiring-intent phrases. */
+export const recruiterKeywords = [
+  'software engineer with strong problem solving',
+  'software developer with data structures and algorithms',
+  'backend developer with CS fundamentals',
+  'full-stack developer with algorithmic thinking',
+  'software engineer strong in DSA',
+  'software developer skilled in debugging',
+  'software developer with clean code experience',
+  'software engineer portfolio Canada',
+  'software developer available in Canada',
+  'hire software developer Canada',
+] as const;
+
+/** Tier C — Stack and technical role phrases. */
+export const technicalKeywords = [
+  'React developer Canada',
+  'Next.js developer Canada',
+  'Python developer Canada',
+  'Rust developer Canada',
+  'C++ developer Canada',
+  'Node.js developer Canada',
+  'TypeScript developer Canada',
+  'Django REST Framework developer',
+  'API developer Canada',
+  'PostgreSQL developer',
+  'cloud developer Canada',
+  'DevOps developer Canada',
+  'systems programmer Canada',
+] as const;
+
+/** Tier D — Commercial and service phrases (meta + schema only). */
+export const commercialKeywords = [
+  'custom software developer Canada',
+  'software consulting Canada',
+  'backend API development Canada',
+  'full-stack web application development',
+  'production-grade software development',
+  'business software solutions Canada',
+  'automation developer Canada',
+  'web application developer Canada',
+] as const;
+
+/** Project and portfolio showcase phrases. */
+export const projectKeywords = [
+  'software engineering projects',
+  'backend API portfolio',
+  'full-stack project portfolio',
+  'React Next.js portfolio',
+  'Django REST API project',
+  'Rust systems programming project',
+  'C++ software project',
+  'data structures algorithms project',
+  'problem-solving software project',
+] as const;
+
+function dedupeKeywords(groups: readonly (readonly string[])[]): string[] {
+  return [...new Set(groups.flat())];
+}
+
+/** Full target keyword list (~51 phrases). */
+export const seoKeywords = dedupeKeywords([
+  primaryKeywords,
+  recruiterKeywords,
+  technicalKeywords,
+  commercialKeywords,
+  projectKeywords,
+]);
+
+/** Homepage meta keywords — Tier A, B, C, and project terms. */
+export const homeSeoKeywords = dedupeKeywords([
+  primaryKeywords,
+  recruiterKeywords,
+  technicalKeywords,
+  projectKeywords,
+]);
+
+/** Resume page meta keywords — geo, role, recruiter, and portfolio terms. */
+export const resumeSeoKeywords = dedupeKeywords([
+  primaryKeywords,
+  recruiterKeywords,
+  projectKeywords,
+]);
+
+export const homeTitle =
+  'Ashikur Rahman | Software Engineer Ottawa, Canada | Backend, Full-Stack & CS Fundamentals';
+
+export const homeDescription =
+  'Software engineer in Ottawa, Canada — backend and full-stack developer available in Canada. DSA, TypeScript, Next.js, Node.js, PostgreSQL, and production debugging. 4+ years.';
+
+export const resumeTitle = 'Resume | Software Engineer Portfolio Canada';
+
+export const resumeDescription =
+  'Software engineer portfolio Canada: resume for Ashikur Rahman — full-stack developer portfolio with DSA, clean code, debugging, and 4+ years of industry experience in Canada.';
+
+export const layoutDescription = homeDescription;
+
+export type BuildPageMetadataOptions = {
+  path: string;
+  title: string;
+  description: string;
+  /** Use for homepage to avoid title template suffix. */
+  absoluteTitle?: boolean;
+  ogImagePath?: string;
+  robots?: Metadata['robots'];
+  keywords?: readonly string[];
+};
+
+function absoluteUrl(path: string): string {
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  return new URL(normalized, siteUrl).toString();
+}
+
+function buildOgImages(imagePath: string) {
+  const url = absoluteUrl(imagePath);
+  return [
+    {
+      url,
+      width: 1200,
+      height: 630,
+      alt: ogImageAlt,
+    },
+  ];
+}
+
+export function buildPageMetadata(options: BuildPageMetadataOptions): Metadata {
+  const {
+    path,
+    title,
+    description,
+    absoluteTitle = false,
+    ogImagePath = defaultOgImagePath,
+    robots,
+    keywords = seoKeywords,
+  } = options;
+
+  const canonical = absoluteUrl(path);
+  const images = buildOgImages(ogImagePath);
+
+  return {
+    title: absoluteTitle ? { absolute: title } : title,
+    description,
+    keywords: [...keywords],
+    authors: [{ name: personName, url: siteUrl }],
+    alternates: { canonical },
+    robots,
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName,
+      locale: 'en_CA',
+      type: 'website',
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: images.map((image) => image.url),
+    },
+  };
+}
+
+export const homeMetadata = buildPageMetadata({
+  path: '/',
+  title: homeTitle,
+  description: homeDescription,
+  absoluteTitle: true,
+  keywords: homeSeoKeywords,
+});
+
+export const resumeMetadata = buildPageMetadata({
+  path: '/resume',
+  title: resumeTitle,
+  description: resumeDescription,
+  keywords: resumeSeoKeywords,
+});
+
+export const redirectPageRobots: Metadata['robots'] = {
+  index: false,
+  follow: true,
+};

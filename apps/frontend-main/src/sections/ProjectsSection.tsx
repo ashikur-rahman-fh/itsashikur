@@ -1,6 +1,6 @@
 import { ProjectCard, Reveal, Section } from '@ashikur-portfolio/shared/ui';
 
-import { projects } from '../data/portfolio';
+import { projects, projectsSectionDescription } from '../data/portfolio';
 
 export function ProjectsSection() {
   return (
@@ -9,9 +9,8 @@ export function ProjectsSection() {
       variant="muted"
       heading={{
         eyebrow: 'Projects',
-        title: 'Selected projects',
-        description:
-          'Examples across machine learning, databases, full-stack apps, and embedded systems.',
+        title: 'Selected software engineering projects',
+        description: projectsSectionDescription,
       }}
     >
       <div className="layout-card-grid md:grid-cols-2">

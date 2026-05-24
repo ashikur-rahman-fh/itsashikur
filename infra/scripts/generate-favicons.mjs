@@ -79,6 +79,48 @@ function encodeIco(pngBuffers, sizes) {
   return out;
 }
 
+/** Open Graph / social preview for frontend-main (1200×630). */
+async function generateOgImage() {
+  const width = 1200;
+  const height = 630;
+  const logoSize = 200;
+  const logo = await sharp(SOURCE)
+    .resize(logoSize, logoSize, { fit: 'cover', kernel: sharp.kernel.lanczos3 })
+    .png()
+    .toBuffer();
+
+  const svg = `
+<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#0a1628"/>
+  <text x="80" y="200" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700">Ashikur Rahman</text>
+  <text x="80" y="270" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="28">Software Developer in Canada</text>
+  <text x="80" y="330" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="24">Backend · Full-Stack · Data Structures &amp; Algorithms</text>
+  <text x="80" y="380" fill="#64748b" font-family="Arial, Helvetica, sans-serif" font-size="22">Ottawa, Ontario, Canada</text>
+</svg>`;
+
+  const textLayer = await sharp(Buffer.from(svg)).png().toBuffer();
+
+  const out = await sharp({
+    create: {
+      width,
+      height,
+      channels: 4,
+      background: '#0a1628',
+    },
+  })
+    .composite([
+      { input: textLayer, top: 0, left: 0 },
+      { input: logo, top: 80, left: width - logoSize - 80 },
+    ])
+    .png({ compressionLevel: 9 })
+    .toBuffer();
+
+  const publicDir = path.join(ROOT, 'apps/frontend-main/public');
+  await mkdir(publicDir, { recursive: true });
+  await writeFile(path.join(publicDir, 'og-image.png'), out);
+  console.log('Wrote og-image.png → apps/frontend-main/public/');
+}
+
 async function generateIcons() {
   const [icoBuffers, icon48, icon96, applePng, icon192, icon512] = await Promise.all([
     Promise.all(ICO_SIZES.map((size) => resizePng(size, { rgba: true }))),
@@ -109,6 +151,7 @@ async function generateIcons() {
   }
 
   console.log(`Done (${APPS.length} apps, ICO sizes: ${ICO_SIZES.join(', ')})`);
+  await generateOgImage();
 }
 
 generateIcons().catch((err) => {

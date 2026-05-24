@@ -5,6 +5,7 @@ export { ExperienceSection } from './ExperienceSection';
 export { EducationSection } from './EducationSection';
 export { ProjectsSection } from './ProjectsSection';
 export { SkillsSection } from './SkillsSection';
+export { CapabilitiesSection } from './CapabilitiesSection';
 export { AchievementsSection } from './AchievementsSection';
 export { TestimonialsSection } from './TestimonialsSection';
 export { ContactSection } from './ContactSection';
