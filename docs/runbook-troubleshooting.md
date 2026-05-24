@@ -186,14 +186,25 @@ Fix:
 
 ## Migration issues
 
-Symptoms: `django.db.migrations.exceptions...` or “relation does not exist”.
+Symptoms: `django.db.migrations.exceptions...`, “relation does not exist”, backend container **Error** / nginx **dependency failed**, or:
 
-**Development:**
+```text
+[backend] Model changes need migration files. Run: make backend-makemigrations
+```
 
-- Backend startup runs `wait_for_db` then `migrate --noinput`. If the container exits immediately, check logs: `make dev-logs`
-- Message about missing migration files → `make backend-makemigrations`, then restart
-- `make backend-migrate` for a manual apply
-- `make backend-check-migrations` before pushing (same as CI)
+**Development (step-by-step):**
+
+1. Read backend logs: `make dev-logs` or `docker compose … logs backend --tail 80`
+2. If you see `Model changes need migration files`:
+   - Logs showing `Migrations for 'api':` / `+ Create model …` are a **dry-run preview**, not auto-created files
+   - Recreate files: `make backend-makemigrations`, or if backend is down:  
+     `docker compose … run --rm backend python manage.py makemigrations`
+   - Confirm `apps/backend/api/migrations/0001_*.py` exists on the host
+   - `make dev-restart`
+3. Manual apply if needed: `make backend-migrate`
+4. Before PR: `make backend-check-migrations`
+
+Full workflow, naming, and “do not delete volumes to fix missing files”: [Development guide — Database migrations](development.md#database-migrations).
 
 **Production deploy failed during release tasks:**
 

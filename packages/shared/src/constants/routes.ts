@@ -1,6 +1,9 @@
 export const API_ROUTES = {
   health: '/api/health/',
   hello: '/api/hello/',
+  publicContact: '/api/public/contact/',
+  adminContactMessages: '/api/admin/contact-messages/',
+  adminContactMessage: (id: string) => `/api/admin/contact-messages/${id}/`,
   adminAuth: {
     csrf: '/api/admin/auth/csrf/',
     login: '/api/admin/auth/login/',

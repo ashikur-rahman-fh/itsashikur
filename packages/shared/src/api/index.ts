@@ -1,4 +1,6 @@
 export { adminAuthApi, ensureAdminCsrf } from './admin-auth';
+export { adminContactMessagesApi } from './admin-contact-messages';
+export { contactApi } from './contact';
 export {
   backendAdminApi,
   backendMainApi,
@@ -29,6 +31,27 @@ export type {
   RetryConfig,
 } from './core/types';
 export { getHello } from './hello';
+export {
+  CONTACT_COPY,
+  MESSAGE_MAX_LENGTH,
+  MESSAGE_MIN_LENGTH,
+  NAME_MAX_LENGTH,
+} from '../messages/contact';
+export {
+  mapContactApiErrorToFields,
+  validateContactFormClient,
+  type ContactFieldErrors,
+  type ContactFormErrorState,
+} from '../messages/contact-errors';
+export type {
+  ContactMessageDetail,
+  ContactMessageListItem,
+  ContactMessageListParams,
+  ContactMessageListResponse,
+  ContactMessageReadStatusRequest,
+  ContactSubmitRequest,
+  ContactSubmitResponse,
+} from '../types/contact';
 export { ADMIN_AUTH_ERROR_CODES } from '../types/admin-auth';
 export type {
   AdminAuthErrorCode,

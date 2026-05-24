@@ -7,9 +7,9 @@ Ashikur Portfolio is a **multi-container** system orchestrated by Docker Compose
 ### Backend (`apps/backend`)
 
 - **Framework**: Django + Django REST Framework
-- **Public API** (custom): `GET /api/health/`, `GET /api/hello/`, `GET /api/public/meta/`
+- **Public API** (custom): `GET /api/health/`, `GET /api/hello/`, `GET /api/public/meta/`, `POST /api/public/contact/`
 - **API errors**: JSON envelope with `success: false` and `error.code`, `error.message`, `error.details` (safe messages only; no stack traces)
-- **Admin API** (session auth): `GET /api/admin/auth/csrf/`, `POST /api/admin/auth/login/`, `POST /api/admin/auth/logout/`, `GET /api/admin/auth/me/` — active **superusers** only
+- **Admin API** (session auth): `GET /api/admin/auth/csrf/`, `POST /api/admin/auth/login/`, `POST /api/admin/auth/logout/`, `GET /api/admin/auth/me/`, `GET/PATCH /api/admin/contact-messages/` — active **superusers** only
 - **Django admin UI**: built-in HTML admin at `/admin/` (separate from the Next admin app)
 - **Data**: PostgreSQL via `DATABASES`
 - **Cache**: Redis via `django-redis` (`CACHES`)

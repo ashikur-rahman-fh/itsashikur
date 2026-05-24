@@ -108,29 +108,190 @@ make debug-up
 
 ## Database migrations
 
-The **development backend container** applies committed migrations automatically on startup (`wait_for_db` → migration file check → `migrate --noinput`). You do not need to run `make backend-migrate` after every normal schema change once migration files exist.
+### How startup works
 
-After you change Django models, create migration files (not auto-generated at startup):
+The **development backend container** does **not** run `makemigrations` on startup. It runs ([`apps/backend/docker-entrypoint-dev-common.sh`](../apps/backend/docker-entrypoint-dev-common.sh)):
+
+1. `wait_for_db`
+2. `makemigrations --check --dry-run` — fails if models changed but migration **files** are missing
+3. `migrate --noinput` — applies committed migrations
+4. `runserver` (or debugpy)
+
+If step 2 fails, the container exits with:
+
+```text
+[backend] Model changes need migration files. Run: make backend-makemigrations
+```
+
+Logs may still show something like:
+
+```text
+Migrations for 'api':
+  api/migrations/0001_initial.py
+    + Create model ContactMessage
+```
+
+That is only a **preview** of what Django would generate (`--dry-run`). **No file is written** until you run `makemigrations` yourself.
+
+Production and CI never auto-generate migrations; they only apply committed files.
+
+### Create migration files after model changes
+
+With the dev stack running and the `backend` service up:
 
 ```bash
 make backend-makemigrations
 ```
 
-Restart the backend container (or `make dev-restart`) so the new migrations are applied.
+Restart so migrations apply (`make dev-restart` or `make dev-up`). You usually do **not** need `make backend-migrate` after that — startup runs `migrate`.
 
-Manual migrate (troubleshooting or one-off):
+**If the backend keeps crash-looping** (for example you deleted a migration file), `make backend-makemigrations` uses `exec` and needs a healthy container. Use a one-off container instead (postgres/redis must be up):
+
+```bash
+docker compose --project-directory . \
+  -f infra/docker/compose/docker-compose.dev.yml \
+  run --rm backend python manage.py makemigrations
+```
+
+Optional custom suffix (Django chooses the `0001_`, `0002_`, … prefix):
+
+```bash
+docker compose --project-directory . \
+  -f infra/docker/compose/docker-compose.dev.yml \
+  run --rm backend python manage.py makemigrations api --name contact_message
+```
+
+Creates `api/migrations/0001_contact_message.py` instead of `0001_initial.py`.
+
+Limit to one app:
+
+```bash
+docker compose --project-directory . \
+  -f infra/docker/compose/docker-compose.dev.yml \
+  run --rm backend python manage.py makemigrations api
+```
+
+Confirm files exist on the host: `apps/backend/api/migrations/` (bind-mounted into the container).
+
+### Migration file names
+
+Django names files `{number}_{description}.py`, for example `0001_initial.py`:
+
+| Part | Meaning |
+|------|---------|
+| `0001` | First migration for that app (then `0002`, …) |
+| `initial` | Default label when it is the first migration that creates tables |
+
+Use `--name your_suffix` when running `makemigrations` to replace `initial` with something clearer (e.g. `contact_message`). Do not rename migration files by hand after they exist unless you know how to fix dependencies and database state.
+
+### Manual migrate
 
 ```bash
 make backend-migrate
 ```
 
-Verify migration files are committed before opening a PR:
+### Verify before a PR
 
 ```bash
 make backend-check-migrations
 ```
 
-CI runs the same checks (`manage.py check` and `makemigrations --check --dry-run`).
+Same idea as CI: `manage.py check` and `makemigrations --check --dry-run`.
+
+### Common errors and fixes
+
+#### Missing migration file (backend exits immediately)
+
+**Symptoms**
+
+- `make dev-logs` shows: `[backend] Model changes need migration files. Run: make backend-makemigrations`
+- Logs may also show `Migrations for 'api':` and `+ Create model ContactMessage` — that is **not** a created file; it is the `--check --dry-run` preview (see [How startup works](#how-startup-works))
+- `docker compose ps` shows `backend` restarting or exited
+- Compose may show: `Container … backend … Error` and `dependency … failed` for **nginx**
+
+**Cause**
+
+You changed or added models in `apps/backend/` but there is no matching file under `apps/backend/<app>/migrations/`, or you deleted a migration file (for example `api/migrations/0001_initial.py`) while the model still exists.
+
+**Fix**
+
+1. Ensure postgres is running (`make dev-up` or at least postgres + redis).
+2. Create migration files on the host (pick one):
+
+   ```bash
+   # Preferred when backend container is running
+   make backend-makemigrations
+
+   # When backend is crash-looping (one-off container; does not need backend to stay up)
+   docker compose --project-directory . \
+     -f infra/docker/compose/docker-compose.dev.yml \
+     run --rm backend python manage.py makemigrations
+   ```
+
+3. Confirm the file exists: `ls apps/backend/api/migrations/` should list `0001_*.py` (or the next number if you already had earlier migrations).
+4. Restart: `make dev-restart`
+5. Optional: `make dev-logs` — you should see `[backend] Migrations completed.` and the server starting.
+
+#### `make backend-makemigrations` fails (container not running)
+
+**Symptoms**
+
+- `service "backend" is not running` or `exec` errors when running `make backend-makemigrations`
+
+**Fix**
+
+Use `docker compose … run --rm backend python manage.py makemigrations` (see [Create migration files](#create-migration-files-after-model-changes)). `run` starts a temporary container; `exec` requires the long-lived `backend` service to be up.
+
+#### Nginx / dependency failed but frontend-main started
+
+**Symptoms**
+
+```text
+✘ Container …-backend-1  Error dependency …
+✔ Container …-frontend-main-1  Started
+```
+
+**Cause**
+
+[`docker-compose.dev.yml`](../infra/docker/compose/docker-compose.dev.yml) configures **nginx** with `depends_on: backend: condition: service_healthy`. If the backend never becomes healthy (often because of the migration check above), nginx fails. **frontend-main** only depends on `backend` starting, not being healthy, so it may still run on port **3000**.
+
+**Fix**
+
+Fix the backend first (missing migrations). Portfolio UI on :3000 may load, but API routes (contact form, health via nginx on :8080) need a healthy backend.
+
+#### “Relation does not exist” / migration applied in DB but file missing (or the reverse)
+
+**Symptoms**
+
+- API errors mentioning `api_contactmessage` or similar tables missing
+- Or migrations fail because DB state does not match files
+
+**Fix**
+
+- If the **file** is missing: recreate with `makemigrations` (see above), then `make dev-restart` (startup runs `migrate`).
+- If you deleted the file but the **table already exists** in Postgres from an earlier run, you may need a one-off reset in dev only: stop stack, remove the postgres dev volume (wipes data), `make dev-up`, `makemigrations`, `migrate`, recreate superuser. See [Migration issues](runbook-troubleshooting.md#migration-issues).
+
+#### Will removing all Docker images or volumes help?
+
+**Usually no** for a missing migration file.
+
+| Action | Effect |
+|--------|--------|
+| Delete **images** | Rebuild containers; does **not** recreate `api/migrations/*.py` on disk |
+| Delete **postgres** volume | **Wipes the database**; you still must run `makemigrations` and `migrate` |
+
+Migration files live under `apps/backend/` on your machine (bind mount), not inside a backend image or volume.
+
+#### Inspect logs
+
+```bash
+make dev-logs
+# backend only:
+docker compose --project-directory . \
+  -f infra/docker/compose/docker-compose.dev.yml logs backend --tail 80
+```
+
+See also [Migration issues](runbook-troubleshooting.md#migration-issues) in the troubleshooting runbook.
 
 ## Django admin superuser
 

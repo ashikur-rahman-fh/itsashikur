@@ -81,7 +81,7 @@ describe('HomePage', () => {
 
   it('renders contact email', () => {
     render(<HomePage />);
-    expect(screen.getByRole('link', { name: 'Email Ashikur' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Email me directly' })).toHaveAttribute(
       'href',
       `mailto:${siteLinks.email}`,
     );
