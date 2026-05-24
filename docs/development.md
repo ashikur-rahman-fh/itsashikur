@@ -422,6 +422,29 @@ import '@ashikur-portfolio/shared/ui/styles/globals.css';
 
 Run UI tests: `npx pnpm@9.15.0 --filter @ashikur-portfolio/shared test`
 
+### Resume PDF (frontend-main)
+
+The portfolio resume is served from [`apps/frontend-main/public/AshikurRahmanResume.pdf`](../apps/frontend-main/public/AshikurRahmanResume.pdf). Replace that file to update the downloadable PDF; `/resume` previews it inline.
+
+Optional override for a CDN or alternate path: `NEXT_PUBLIC_RESUME_PDF_URL` (see [`site-links.ts`](../apps/frontend-main/src/config/site-links.ts)).
+
+The nginx path must match the default PDF filename (`/AshikurRahmanResume.pdf`). Dev and prod nginx use [`security-headers-frameable.conf`](../infra/nginx/snippets/security-headers-frameable.conf) for that location so the PDF can load in a same-origin iframe (global nginx headers use `X-Frame-Options: DENY`).
+
+If the iframe preview shows "refused to connect" or a CSP `frame-ancestors 'none'` error behind dev nginx (`:8080`), verify headers and restart nginx:
+
+```bash
+curl -I http://localhost:8080/AshikurRahmanResume.pdf | grep -Ei 'x-frame|content-security'
+# Expected: X-Frame-Options: SAMEORIGIN (not DENY)
+# Through nginx, upstream CSP is stripped; iframe embed relies on SAMEORIGIN + no frame-ancestors none.
+# Direct Next (port 3000) should send frame-ancestors 'self':
+curl -I http://localhost:3000/AshikurRahmanResume.pdf | grep -i content-security-policy
+# Expected: frame-ancestors 'self', not 'none'
+
+docker compose --project-directory . -f infra/docker/compose/docker-compose.dev.yml restart nginx
+```
+
+After changing the prod nginx template, re-render config with `make prod-nginx-config` before deploy.
+
 ### Backend API client
 
 All browser-to-backend HTTP goes through `@ashikur-portfolio/shared`. **Do not** install or import Axios in `apps/frontend-main` or `apps/frontend-admin`.

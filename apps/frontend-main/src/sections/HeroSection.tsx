@@ -27,7 +27,7 @@ export function HeroSection() {
                   <a href="#experience">View experience</a>
                 </Button>
                 <Button size="lg" asChild className="min-h-11 px-5">
-                  <a href={siteLinks.resumeUrl}>Download resume</a>
+                  <a href={siteLinks.resumeUrl}>View resume</a>
                 </Button>
               </div>
               <div className="flex flex-wrap gap-2">

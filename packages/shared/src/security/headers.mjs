@@ -49,10 +49,13 @@ export function buildConnectSrc(options = {}) {
 
 /**
  * Build full Content-Security-Policy header value (exported for tests).
- * @param {{ apiBaseUrl?: string, isProduction?: boolean }} [options]
+ * @param {{ apiBaseUrl?: string, isProduction?: boolean, allowSameOriginFraming?: boolean }} [options]
  */
 export function buildContentSecurityPolicy(options = {}) {
   const production = options.isProduction ?? process.env.NODE_ENV === 'production';
+  const frameAncestors = options.allowSameOriginFraming
+    ? "frame-ancestors 'self'"
+    : "frame-ancestors 'none'";
 
   const scriptSrc = production
     ? "script-src 'self' 'unsafe-inline'"
@@ -65,27 +68,40 @@ export function buildContentSecurityPolicy(options = {}) {
     "img-src 'self' data: blob:",
     "font-src 'self'",
     buildConnectSrc(options),
-    "frame-ancestors 'none'",
+    frameAncestors,
     "base-uri 'self'",
     "form-action 'self'",
   ].join('; ');
 }
 
+const SHARED_SECURITY_HEADERS = [
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=()',
+  },
+];
+
 /** @type {import('next').Headers} */
 export function securityHeaders() {
   const contentSecurityPolicy = buildContentSecurityPolicy();
+  const frameablePdfCsp = buildContentSecurityPolicy({ allowSameOriginFraming: true });
 
   return [
+    {
+      source: '/AshikurRahmanResume.pdf',
+      headers: [
+        { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+        ...SHARED_SECURITY_HEADERS,
+        { key: 'Content-Security-Policy', value: frameablePdfCsp },
+      ],
+    },
     {
       source: '/:path*',
       headers: [
         { key: 'X-Frame-Options', value: 'DENY' },
-        { key: 'X-Content-Type-Options', value: 'nosniff' },
-        { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-        {
-          key: 'Permissions-Policy',
-          value: 'camera=(), microphone=(), geolocation=()',
-        },
+        ...SHARED_SECURITY_HEADERS,
         { key: 'Content-Security-Policy', value: contentSecurityPolicy },
       ],
     },

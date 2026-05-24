@@ -148,7 +148,7 @@ export const education = [
   {
     degree: 'BSc in Computer Science & Engineering',
     institution: 'Ahsanullah University of Science and Technology (AUST)',
-    period: '2017 – 2021',
+    period: '2016 – 2021',
     location: 'Dhaka, Bangladesh',
     focus: 'Strong foundation in algorithms, systems, and software engineering practice.',
     highlights: [

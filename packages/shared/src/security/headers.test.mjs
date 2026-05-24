@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { buildConnectSrc, buildContentSecurityPolicy, CSP_API_PLACEHOLDER } from './headers.mjs';
+import {
+  buildConnectSrc,
+  buildContentSecurityPolicy,
+  CSP_API_PLACEHOLDER,
+  securityHeaders,
+} from './headers.mjs';
 
 /** Arbitrary production API URL — tests behavior for any https origin, not a fixed deploy domain. */
 const SAMPLE_PRODUCTION_API = 'https://api.example.com';
@@ -69,5 +74,41 @@ describe('buildContentSecurityPolicy', () => {
   it('uses the production placeholder when API URL is missing', () => {
     const policy = buildContentSecurityPolicy({ apiBaseUrl: '', isProduction: true });
     expect(policy).toContain(originFrom(CSP_API_PLACEHOLDER));
+  });
+
+  it('uses frame-ancestors none by default', () => {
+    const policy = buildContentSecurityPolicy();
+    expect(policy).toContain("frame-ancestors 'none'");
+    expect(policy).not.toContain("frame-ancestors 'self'");
+  });
+
+  it('allows same-origin framing when allowSameOriginFraming is set', () => {
+    const policy = buildContentSecurityPolicy({ allowSameOriginFraming: true });
+    expect(policy).toContain("frame-ancestors 'self'");
+    expect(policy).not.toContain("frame-ancestors 'none'");
+  });
+});
+
+describe('securityHeaders', () => {
+  it('allows same-origin framing for the resume PDF', () => {
+    const rules = securityHeaders();
+    const pdfRule = rules.find((rule) => rule.source === '/AshikurRahmanResume.pdf');
+    const catchAllRule = rules.find((rule) => rule.source === '/:path*');
+
+    expect(pdfRule).toBeDefined();
+    expect(catchAllRule).toBeDefined();
+    expect(pdfRule.headers).toContainEqual({ key: 'X-Frame-Options', value: 'SAMEORIGIN' });
+    expect(catchAllRule.headers).toContainEqual({ key: 'X-Frame-Options', value: 'DENY' });
+
+    const pdfCsp = pdfRule.headers.find(
+      (header) => header.key === 'Content-Security-Policy',
+    )?.value;
+    const catchAllCsp = catchAllRule.headers.find(
+      (header) => header.key === 'Content-Security-Policy',
+    )?.value;
+
+    expect(pdfCsp).toContain("frame-ancestors 'self'");
+    expect(pdfCsp).not.toContain("frame-ancestors 'none'");
+    expect(catchAllCsp).toContain("frame-ancestors 'none'");
   });
 });

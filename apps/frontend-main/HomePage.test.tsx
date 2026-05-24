@@ -45,7 +45,7 @@ describe('HomePage', () => {
       'href',
       '#experience',
     );
-    expect(within(hero).getByRole('link', { name: 'Download resume' })).toHaveAttribute(
+    expect(within(hero).getByRole('link', { name: 'View resume' })).toHaveAttribute(
       'href',
       siteLinks.resumeUrl,
     );

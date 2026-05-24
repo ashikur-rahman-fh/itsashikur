@@ -39,6 +39,18 @@ server {
 
     client_max_body_size ${CLIENT_MAX_BODY_SIZE};
 
+    location = /AshikurRahmanResume.pdf {
+        limit_req zone=general burst=20 nodelay;
+        proxy_pass http://main_frontend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_hide_header X-Frame-Options;
+        proxy_hide_header Content-Security-Policy;
+        include /etc/nginx/snippets/security-headers-frameable.conf;
+    }
+
     location / {
         limit_req zone=general burst=20 nodelay;
         proxy_pass http://main_frontend;
