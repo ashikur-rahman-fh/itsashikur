@@ -15,6 +15,9 @@ else
   PNPM=(npx --yes pnpm@9.15.0)
 fi
 
+echo "==> Generating favicons for Next.js apps"
+"${PNPM[@]}" favicons:generate
+
 echo "==> Building @ashikur-portfolio/frontend-main (NEXT_PUBLIC_BACKEND_MAIN_API_URL=${NEXT_PUBLIC_BACKEND_MAIN_API_URL})"
 "${PNPM[@]}" --filter @ashikur-portfolio/frontend-main run build
 

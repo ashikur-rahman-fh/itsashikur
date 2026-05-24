@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { ThemeProvider } from '@ashikur-portfolio/shared/ui';
 import '@ashikur-portfolio/shared/ui/styles/globals.css';
 import './globals.css';
@@ -8,7 +8,18 @@ import { siteLinks } from '../config/site-links';
 const siteDescription =
   'Ashikur Rahman — Software Engineer at Nokia. Reliable production software, structured logging, and full-stack experience. Codeforces Expert with 1500+ problems solved.';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://itsashikur.com';
+
+/** Brand background from logo — used for browser chrome and manifest. */
+const themeColor = '#0a1628';
+
+export const viewport: Viewport = {
+  themeColor,
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  applicationName: 'Ashikur Rahman',
   title: {
     default: 'Ashikur Rahman — Software Engineer',
     template: '%s | Ashikur Rahman',

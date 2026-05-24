@@ -7,6 +7,11 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Ashikur Portfolio — Admin',
   description: 'Content admin for Ashikur Portfolio',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
 };
 
 export default function RootLayout({
