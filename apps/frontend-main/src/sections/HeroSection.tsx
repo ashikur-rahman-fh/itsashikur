@@ -16,6 +16,9 @@ export function HeroSection() {
                 <p className="type-eyebrow text-accent-foreground">{profile.currentRole}</p>
                 <h1 className="font-display text-hero font-bold text-foreground">{profile.name}</h1>
               </div>
+              <p className="max-w-xl text-body leading-relaxed text-foreground">
+                {profile.recruiterSummary}
+              </p>
               <p className="max-w-xl text-lead font-medium text-foreground">{profile.headline}</p>
               <p className="max-w-xl text-body leading-relaxed text-muted-foreground">
                 {profile.supportingParagraph}

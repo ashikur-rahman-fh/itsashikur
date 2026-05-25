@@ -18,7 +18,7 @@ export default function ResumePage() {
     <PageShell
       className="surface-grid-default"
       contentClassName="max-w-none px-0 py-0"
-      header={<SiteHeader mode="resume" />}
+      header={<SiteHeader />}
     >
       <JsonLd data={buildResumeBreadcrumbJsonLd()} />
       <Container id="main-content" className="py-10 sm:py-14">
@@ -41,13 +41,13 @@ export default function ResumePage() {
             </p>
             <p className="flex flex-wrap gap-x-4 gap-y-2 text-body-sm">
               <Link
-                href="/#projects"
+                href="/projects"
                 className="font-medium text-accent-foreground underline-offset-4 hover:underline"
               >
                 View projects
               </Link>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="font-medium text-accent-foreground underline-offset-4 hover:underline"
               >
                 Contact

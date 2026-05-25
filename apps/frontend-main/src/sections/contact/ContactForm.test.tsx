@@ -34,7 +34,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 const validMessage =
-  'Hello Ashikur, I would like to discuss a software engineering opportunity with you.';
+  'Hello Ashikur, I would like to discuss a software development opportunity with you.';
 
 describe('ContactForm', () => {
   it('shows client validation for empty submit', async () => {

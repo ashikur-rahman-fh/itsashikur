@@ -8,7 +8,7 @@ This document summarizes the SEO program implemented for the portfolio app (`app
 
 ### Technical SEO
 
-- **`/sitemap.xml`** — [`apps/frontend-main/src/app/sitemap.ts`](../apps/frontend-main/src/app/sitemap.ts): `/`, `/resume`
+- **`/sitemap.xml`** — [`apps/frontend-main/src/app/sitemap.ts`](../apps/frontend-main/src/app/sitemap.ts): `/`, `/resume`, `/projects`, `/contact`, landing pages, project detail pages
 - **`/robots.txt`** — [`apps/frontend-main/src/app/robots.ts`](../apps/frontend-main/src/app/robots.ts): `allow: /`, `sitemap` URL, `host`
 - **Canonical URLs** — per-route via [`site-metadata.ts`](../apps/frontend-main/src/config/site-metadata.ts)
 - **www → apex 301** — [`infra/nginx/prod/conf.d/default.conf.template`](../infra/nginx/prod/conf.d/default.conf.template)
@@ -19,22 +19,27 @@ This document summarizes the SEO program implemented for the portfolio app (`app
 
 | Route | Index | Title / notes |
 |-------|-------|----------------|
-| `/` | yes | Absolute homepage title; `homeSeoKeywords` (Tier A–C + project); full OG + Twitter |
-| `/resume` | yes | `resumeSeoKeywords` (Tier A + B + project); recruiter-focused description |
-| `/about`, `/projects` | no | Redirect to hash sections; `noindex` |
+| `/` | yes | `Ashikur Rahman \| Software Engineer in Ottawa, Canada`; `shortMetaKeywords`; full OG + Twitter |
+| `/resume` | yes | Natural recruiter-focused description; `shortMetaKeywords` |
+| `/projects` | yes | Projects hub with cards linking to detail pages |
+| `/projects/[slug]` | yes | Per-project `seoTitle` / `seoDescription` + CreativeWork JSON-LD |
+| `/contact` | yes | Contact form + Ottawa/Canada hiring copy |
+| `/software-developer-ottawa` (301 from `/software-engineer-ottawa`), `/backend-developer-canada`, `/full-stack-developer-canada` | yes | Focused landing pages with unique H1 and content |
+| `/about` | no | Redirect to `/#about`; `noindex` |
 
 Central builder: [`buildPageMetadata()`](../apps/frontend-main/src/config/site-metadata.ts)
 
-Keyword groups: `primaryKeywords`, `recruiterKeywords`, `technicalKeywords`, `commercialKeywords`, `projectKeywords` → deduped `seoKeywords` (~51 phrases).
+Keyword groups: `primaryKeywords`, `recruiterKeywords`, `technicalKeywords`, `commercialKeywords`, `projectKeywords` → deduped `seoKeywords` (~51 phrases) for **coverage tests and visible copy/schema**. HTML `<meta name="keywords">` uses `shortMetaKeywords` (~12 phrases) on indexed pages only.
 
 ### Structured data (JSON-LD)
 
 Homepage `@graph` in [`json-ld.ts`](../apps/frontend-main/src/lib/json-ld.ts):
 
-- **Person** — Ottawa address, expanded `knowsAbout`, `sameAs`, Nokia `worksFor`
+- **Person** — Ottawa address, natural description, expanded `knowsAbout`, `sameAs`, Nokia `worksFor`
 - **WebSite** — `en-CA`, publisher → Person
 - **ProfilePage** — software engineering portfolio
-- **ItemList** — projects as `CreativeWork`; capabilities as `Service` (Tier D commercial phrases in schema-only service descriptions)
+- **ItemList** — projects as `CreativeWork` with URLs; capabilities as `Service` (Tier D commercial phrases in schema-only service descriptions)
+- **CreativeWork** — per-project JSON-LD on `/projects/[slug]`
 - **BreadcrumbList** — on `/resume` only
 
 ### Content & UX
@@ -64,9 +69,9 @@ Homepage `@graph` in [`json-ld.ts`](../apps/frontend-main/src/lib/json-ld.ts):
 | **A — Primary** | Geo, role, portfolio | Title, meta description, hero, footer, Person JSON-LD |
 | **B — Recruiter** | DSA, debugging, clean code, problem-solving | About, capabilities, skills, resume metadata |
 | **C — Technical** | Stack + Canada | Skills, experience stacks, `knowsAbout`, meta keywords |
-| **D — Commercial** | Hire, consulting, custom software | **`commercialKeywords` in full `seoKeywords` only** + Service schema extras (not hero/agency copy) |
+| **D — Commercial** | Hire, consulting, custom software | **`commercialKeywords` in full `seoKeywords` only** + Service schema extras + landing page copy (not HTML meta keywords) |
 
-Homepage meta uses `homeSeoKeywords` (A + B + C + project). Resume uses `resumeSeoKeywords` (A + B + project). Full `seoKeywords` union is the source of truth for coverage tests.
+Indexed pages emit `shortMetaKeywords` in HTML meta. Full `seoKeywords` union remains the source of truth for coverage tests across homepage copy, landing pages, projects hub, and schema.
 
 ### Full keyword inventory
 
@@ -142,13 +147,13 @@ Phrases are distributed across title, meta description, hero, about, skills, cap
 
 ## 3. Metadata summary
 
-- **Home title:** `Ashikur Rahman | Software Engineer Ottawa, Canada | Backend, Full-Stack & CS Fundamentals`
-- **Home description:** Ottawa engineer, available in Canada, DSA, TypeScript, Next.js, Node.js, PostgreSQL, 4+ years
-- **Resume title:** `Resume | Software Engineer Portfolio Canada`
-- **Resume description:** full-stack developer portfolio, DSA, clean code, debugging, 4+ years
+- **Home title:** `Ashikur Rahman | Software Engineer in Ottawa, Canada`
+- **Home description:** Backend and full-stack software engineer in Ottawa; TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, C++
+- **Resume title:** `Resume | Ashikur Rahman — Software Engineer in Ottawa, Canada`
+- **Resume description:** Downloadable resume; backend and full-stack experience; 4+ years in industry
+- **Meta keywords (HTML):** `shortMetaKeywords` (~12 phrases) on indexed pages
 - **OG/Twitter:** `summary_large_image`, `/og-image.png`, `en_CA` locale; alt text includes Ottawa
 - **Author:** Ashikur Rahman with site URL
-- **Meta keywords:** 40+ phrases per indexed page (see `site-metadata.ts`)
 
 ---
 
@@ -168,7 +173,7 @@ Phrases are distributed across title, meta description, hero, about, skills, cap
 1. **Google Search Console** — verify `https://itsashikur.com`, submit `https://itsashikur.com/sitemap.xml`
 2. **Inspect URL** — confirm www redirects to apex and canonical tags match
 3. **Monitor queries** — “software developer Ottawa”, “backend developer Canada”, etc.
-4. **Optional v2** — per-project pages (`/projects/[slug]`), headshot with alt text, technical blog posts
+4. **Optional v3** — technical blog posts when content is ready (empty blog hurts more than helps)
 5. **Backlinks** — LinkedIn profile, GitHub README, open-source contributions
 
 ---

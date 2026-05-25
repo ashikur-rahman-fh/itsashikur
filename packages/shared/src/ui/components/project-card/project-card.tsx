@@ -19,6 +19,7 @@ export type ProjectCardProps = {
   result?: string;
   githubUrl?: string;
   demoUrl?: string;
+  detailsHref?: string;
   className?: string;
 };
 
@@ -50,9 +51,10 @@ export function ProjectCard({
   result,
   githubUrl,
   demoUrl,
+  detailsHref,
   className,
 }: ProjectCardProps) {
-  const hasActions = Boolean(githubUrl || demoUrl);
+  const hasActions = Boolean(githubUrl || demoUrl || detailsHref);
 
   return (
     <Card className={cn('portfolio-card flex h-full flex-col', className)}>
@@ -84,6 +86,11 @@ export function ProjectCard({
       </CardContent>
       {hasActions ? (
         <CardFooter className="mt-auto flex flex-wrap gap-2">
+          {detailsHref ? (
+            <Button variant="default" size="sm" asChild>
+              <a href={detailsHref}>View details</a>
+            </Button>
+          ) : null}
           {githubUrl ? (
             <Button variant="outline" size="sm" asChild>
               <a href={githubUrl} target="_blank" rel="noopener noreferrer">

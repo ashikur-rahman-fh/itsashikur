@@ -22,18 +22,18 @@ export function HomePage() {
   return (
     <PageShell
       contentClassName="max-w-none px-0 py-0"
-      header={<SiteHeader mode="home" />}
+      header={<SiteHeader />}
       footer={<SiteFooter />}
     >
       <div id="main-content">
         <HeroSection />
         <AboutSection />
         <ExperienceSection />
-        <EducationSection />
         <ProjectsSection />
         <SkillsSection />
-        <CapabilitiesSection />
         <AchievementsSection />
+        <CapabilitiesSection />
+        <EducationSection />
         <CpToProductionSection />
         <TestimonialsSection />
         <ContactSection />

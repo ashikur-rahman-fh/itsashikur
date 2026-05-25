@@ -94,31 +94,31 @@ export const seoKeywords = dedupeKeywords([
   projectKeywords,
 ]);
 
-/** Homepage meta keywords — Tier A, B, C, and project terms. */
-export const homeSeoKeywords = dedupeKeywords([
-  primaryKeywords,
-  recruiterKeywords,
-  technicalKeywords,
-  projectKeywords,
-]);
+/** Short meta keywords for indexed pages (HTML meta tag only). */
+export const shortMetaKeywords = [
+  'software engineer',
+  'backend developer',
+  'full-stack developer',
+  'Ottawa',
+  'Canada',
+  'TypeScript',
+  'Next.js',
+  'Node.js',
+  'PostgreSQL',
+  'Python',
+  'Rust',
+  'C++',
+] as const;
 
-/** Resume page meta keywords — geo, role, recruiter, and portfolio terms. */
-export const resumeSeoKeywords = dedupeKeywords([
-  primaryKeywords,
-  recruiterKeywords,
-  projectKeywords,
-]);
-
-export const homeTitle =
-  'Ashikur Rahman | Software Engineer Ottawa, Canada | Backend, Full-Stack & CS Fundamentals';
+export const homeTitle = 'Ashikur Rahman | Software Engineer in Ottawa, Canada';
 
 export const homeDescription =
-  'Software engineer in Ottawa, Canada — backend and full-stack developer available in Canada. DSA, TypeScript, Next.js, Node.js, PostgreSQL, and production debugging. 4+ years.';
+  'Backend and full-stack software engineer based in Ottawa, Canada. I build reliable web applications, APIs, and software projects using TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, and C++.';
 
-export const resumeTitle = 'Resume | Software Engineer Portfolio Canada';
+export const resumeTitle = 'Resume | Ashikur Rahman — Software Engineer in Ottawa, Canada';
 
 export const resumeDescription =
-  'Software engineer portfolio Canada: resume for Ashikur Rahman — full-stack developer portfolio with DSA, clean code, debugging, and 4+ years of industry experience in Canada.';
+  'Download the resume for Ashikur Rahman, a backend and full-stack software engineer in Ottawa, Canada. Experience with production APIs, TypeScript, Next.js, Node.js, PostgreSQL, and 4+ years in industry.';
 
 export const layoutDescription = homeDescription;
 
@@ -194,14 +194,14 @@ export const homeMetadata = buildPageMetadata({
   title: homeTitle,
   description: homeDescription,
   absoluteTitle: true,
-  keywords: homeSeoKeywords,
+  keywords: shortMetaKeywords,
 });
 
 export const resumeMetadata = buildPageMetadata({
   path: '/resume',
   title: resumeTitle,
   description: resumeDescription,
-  keywords: resumeSeoKeywords,
+  keywords: shortMetaKeywords,
 });
 
 export const redirectPageRobots: Metadata['robots'] = {

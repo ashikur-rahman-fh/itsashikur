@@ -41,7 +41,7 @@ function NavLinks({
   onNavigate?: () => void;
 }) {
   return (
-    <ul className={cn('flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-1', className)}>
+    <ul className={cn('flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2', className)}>
       {items.map((item) => (
         <li key={item.href}>
           <a
@@ -130,7 +130,9 @@ export function Navbar({
               </SheetTrigger>
               <SheetContent side="right" className="w-[min(100%,20rem)]">
                 <SheetHeader>
-                  <SheetTitle>{appName}</SheetTitle>
+                  <SheetTitle className={cn(logo && 'uppercase tracking-wide')}>
+                    {appName}
+                  </SheetTitle>
                   <SheetDescription className="sr-only">
                     Navigation links for {appName}
                   </SheetDescription>

@@ -5,11 +5,13 @@ export const profile = {
   role: 'Software Engineer',
   currentRole: 'Software Developer at Nokia',
   locationLine:
-    'Ottawa, Ontario, Canada · Software developer available in Canada · Open to software engineering roles',
+    'Based in Ottawa, Ontario, Canada · Open to software development, backend development, and full-stack development opportunities across Canada',
+  recruiterSummary:
+    'I am a software developer based in Ottawa, Canada with experience building backend systems, full-stack applications, APIs, dashboards, and developer tools.',
   headline:
-    'Software engineer in Ottawa, Canada — backend and full-stack developer with strong CS fundamentals, data structures, algorithms, and systematic debugging in production.',
+    'Backend and full-stack software developer in Ottawa, Canada — production APIs, reliable web applications, and strong CS fundamentals.',
   supportingParagraph:
-    'Over four years in industry, I have shipped embedded, backend, and web software with clean code habits, performance focus, and maintainability. As a full-stack developer with algorithmic thinking, I apply DSA and strong problem-solving to API design, logging, and reliability—not only contest-style problems.',
+    'Over four years in industry, I have shipped embedded, backend, and web software with clean code habits, performance focus, and maintainability. I apply data structures, algorithms, and systematic debugging to API design, logging, and reliability in production—not only contest-style problems.',
   aboutParagraph:
     'Systematic debugging and clear engineering judgment are central to how I work. At Nokia, that meant RFC-5424 structured logging and faster incident analysis; on earlier products, it meant faster REST APIs and clearer form flows. I have also mentored 80+ students in algorithms and data structures, which keeps my explanations practical and interview-ready without replacing production discipline.',
   highlights: [
@@ -129,7 +131,7 @@ export const experience = [
     featured: true,
   },
   {
-    role: 'Software Engineer',
+    role: 'Software Developer',
     company: 'Enosis Solutions',
     period: 'Nov 2021 – Aug 2022',
     location: 'Dhaka, Bangladesh',
@@ -188,7 +190,7 @@ export const education = [
     institution: 'Ahsanullah University of Science and Technology (AUST)',
     period: '2016 – 2021',
     location: 'Dhaka, Bangladesh',
-    focus: 'Strong foundation in algorithms, systems, and software engineering practice.',
+    focus: 'Strong foundation in algorithms, systems, and software development practice.',
     highlights: [
       'Core coursework in algorithms, operating systems, and software engineering',
       'Active in ACM Lab-02 competitive programming community',
@@ -196,10 +198,33 @@ export const education = [
   },
 ];
 
-export const projects = [
+export type PortfolioProject = {
+  slug: string;
+  title: string;
+  category: string;
+  description: string;
+  seoTitle: string;
+  seoDescription: string;
+  problem: string;
+  constraints: string;
+  approach: string;
+  engineeringChoices: string;
+  validation: string;
+  techStack: string[];
+  result: string;
+  githubUrl?: string;
+  demoUrl?: string;
+  featured?: boolean;
+};
+
+export const projects: PortfolioProject[] = [
   {
+    slug: 'movie-genre-prediction',
     title: 'Movie Genre Prediction',
     category: 'Machine learning',
+    seoTitle: 'Movie Genre Prediction | Machine Learning Software Engineering',
+    seoDescription:
+      'A machine learning software engineering project that predicts movie genres from plot summaries using Python, PyTorch, and scikit-learn with held-out evaluation.',
     description:
       'Multi-label text classifier that predicts movie genres from plot summaries using a PyTorch pipeline.',
     problem: 'Plot text is noisy, and each title can belong to several genres at once.',
@@ -212,10 +237,15 @@ export const projects = [
     validation: 'Measured accuracy on 4,456 held-out plots rather than training accuracy alone.',
     techStack: ['Python', 'PyTorch', 'scikit-learn'],
     result: '49%+ accuracy on 4,456 held-out plots across 19 genres.',
+    featured: true,
   },
   {
+    slug: 'shop-management-system',
     title: 'Shop Management System',
     category: 'Databases',
+    seoTitle: 'Shop Management System | Distributed Database Software Project',
+    seoDescription:
+      'A database software engineering project with distributed Oracle SQL design for shop and inventory data across multiple nodes with integrity constraints.',
     description:
       'Distributed database design for shop and inventory data across multiple Oracle nodes.',
     problem: 'Inventory had to stay consistent across separate database sites.',
@@ -231,8 +261,12 @@ export const projects = [
     result: 'Demonstrated a maintainable pattern for multi-site shop data.',
   },
   {
+    slug: 'todo-app',
     title: 'Todo App',
     category: 'Full-stack',
+    seoTitle: 'Todo App | Full-Stack Software Engineering with Node.js and React',
+    seoDescription:
+      'A full-stack software engineering project with a Node.js REST API and React client for dependable task tracking and clear API contracts.',
     description:
       'Full-stack project portfolio piece: task and reminder app with a Node.js REST API and React client.',
     problem: 'Users needed dependable task tracking with clear due dates.',
@@ -246,10 +280,15 @@ export const projects = [
       'Exercised create/update flows through the API and UI to confirm reliable task persistence.',
     techStack: ['Node.js', 'React', 'REST APIs'],
     result: 'Reliable task persistence with a straightforward API contract.',
+    featured: true,
   },
   {
+    slug: 'cleaning-car',
     title: 'Cleaning Car',
     category: 'Embedded',
+    seoTitle: 'Cleaning Car | Embedded C++ Software Engineering Project',
+    seoDescription:
+      'An embedded C++ software project with sensor feedback and motor control for repeatable path cleaning under hardware constraints.',
     description:
       'C++ software project: embedded controller that follows programmed paths to clean a flat surface.',
     problem: 'Motor control and sensor feedback had to stay stable under hardware limits.',
@@ -264,6 +303,27 @@ export const projects = [
     result: 'Completed repeatable cleaning paths on a flat test surface.',
   },
 ];
+
+export function getProjectBySlug(slug: string): PortfolioProject | undefined {
+  return projects.find((project) => project.slug === slug);
+}
+
+export const featuredProjects = (() => {
+  const marked = projects.filter((project) => project.featured);
+  return marked.length > 0 ? marked : projects.slice(0, 3);
+})();
+
+export const projectSlugs = projects.map((project) => project.slug);
+
+export const projectsPageTitle = 'Projects | Backend & Full-Stack Software Engineering';
+
+export const projectsPageMetaDescription =
+  'Selected backend API, full-stack, machine learning, database, and embedded software engineering projects with problem statements, tech stacks, and validation outcomes.';
+
+export const projectsPageDescription =
+  'Selected backend API, full-stack, machine learning, database, and embedded software development projects with problem statements, tech stacks, and validation outcomes.';
+
+export const projectsHubSeoCopy = `${projectsPageTitle} ${projectsPageMetaDescription} ${projects.map((p) => `${p.seoTitle} ${p.seoDescription}`).join(' ')}`;
 
 export type SkillGroup = {
   name: string;
@@ -288,7 +348,7 @@ export const csFundamentalsGroup: SkillGroup = {
     'OOP',
     'System design',
     'Performance optimization',
-    'Software engineering fundamentals',
+    'Software development fundamentals',
     'Machine learning',
   ],
 };
@@ -396,13 +456,20 @@ export const workingPrinciples = [
 ];
 
 export const projectsSectionDescription =
-  'Backend API and full-stack project portfolio: problem-solving software projects with design choices and validation across machine learning, databases, React, Next.js, and embedded systems.';
+  'Backend API and full-stack project portfolio: problem-solving software development projects with design choices and validation across machine learning, databases, React, Next.js, and embedded systems.';
+
+export const contactSectionMetaDescription =
+  'Based in Ottawa, Ontario, Canada. Open to software engineering, backend development, and full-stack development opportunities across Canada—reach out for hiring conversations.';
 
 export const contactSectionDescription =
-  'Open to software engineering roles in Canada—reach out about backend, full-stack, or systems opportunities and hiring conversations.';
+  'Based in Ottawa, Ontario, Canada. Open to software development, backend development, and full-stack development opportunities across Canada—reach out for hiring conversations.';
 
 /** Searchable on-page copy for SEO coverage tests (not rendered directly as a block). */
 export const seoVisibleCopy = [
+  profile.role,
+  projectsPageMetaDescription,
+  contactSectionMetaDescription,
+  profile.recruiterSummary,
   profile.headline,
   profile.supportingParagraph,
   profile.aboutParagraph,
@@ -421,24 +488,32 @@ export const seoVisibleCopy = [
   ...skillGroups.flatMap((g) => [g.name, g.blurb, ...g.skills]),
 ].join('\n');
 
+/** Homepage section ids tracked for scroll-aware nav highlighting. */
+export const navSectionIds = ['about', 'experience', 'skills', 'contact'] as const;
+
+export type NavSectionId = (typeof navSectionIds)[number];
+
 export const navItems = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Impact', href: '#impact' },
-  { label: 'Education', href: '#education' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Achievements', href: '#achievements' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '/#about' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Skills', href: '/#skills' },
+  { label: 'Resume', href: '__resume__' },
+  { label: 'Contact', href: '/#contact' },
 ] as const;
 
-/** Hash links for footer; resume path is resolved in SiteFooter via siteLinks.resumeUrl. */
+/** Footer mirrors primary nav; resume path is resolved in SiteFooter via siteLinks.resumeUrl. */
 export const footerNavItems = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
+  { label: 'About', href: '/#about' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Skills', href: '/#skills' },
   { label: 'Resume', href: '__resume__' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '/#contact' },
+] as const;
+
+export const footerSeoNavItems = [
+  { label: 'Software developer Ottawa', href: '/software-developer-ottawa' },
+  { label: 'Backend developer Canada', href: '/backend-developer-canada' },
+  { label: 'Full-stack developer Canada', href: '/full-stack-developer-canada' },
 ] as const;

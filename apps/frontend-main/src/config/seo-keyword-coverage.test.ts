@@ -1,19 +1,21 @@
 import { describe, expect, it } from 'vitest';
 
-import { seoVisibleCopy } from '../data/portfolio';
+import { landingPagesSeoCopy } from './landing-pages';
+import { projectsHubSeoCopy, seoVisibleCopy } from '../data/portfolio';
 import { buildSeoSchemaCorpus } from '../lib/json-ld';
 import {
   commercialKeywords,
   homeDescription,
-  homeSeoKeywords,
+  homeMetadata,
   homeTitle,
   primaryKeywords,
   projectKeywords,
   recruiterKeywords,
   resumeDescription,
-  resumeSeoKeywords,
+  resumeMetadata,
   resumeTitle,
   seoKeywords,
+  shortMetaKeywords,
   technicalKeywords,
 } from './site-metadata';
 
@@ -34,6 +36,8 @@ function buildSeoCorpus(): string {
     resumeTitle,
     resumeDescription,
     seoVisibleCopy,
+    landingPagesSeoCopy,
+    projectsHubSeoCopy,
     buildSeoSchemaCorpus(),
     seoKeywords.join('\n'),
   ].join('\n');
@@ -47,11 +51,17 @@ describe('seo keyword coverage', () => {
     }
   });
 
-  it('includes commercial phrases on the full list only', () => {
+  it('includes commercial phrases on the full list only, not in HTML meta keywords', () => {
     for (const phrase of commercialKeywords) {
       expect(seoKeywords).toContain(phrase);
-      expect(homeSeoKeywords).not.toContain(phrase);
+      expect(homeMetadata.keywords).not.toContain(phrase);
+      expect(resumeMetadata.keywords).not.toContain(phrase);
     }
+  });
+
+  it('emits short meta keywords on indexed pages only', () => {
+    expect(homeMetadata.keywords).toEqual([...shortMetaKeywords]);
+    expect(resumeMetadata.keywords).toEqual([...shortMetaKeywords]);
   });
 
   it('covers every target phrase in metadata, visible copy, or schema', () => {
@@ -67,12 +77,10 @@ describe('seo keyword coverage', () => {
     expect(missing, `Missing phrases:\n${missing.join('\n')}`).toEqual([]);
   });
 
-  it('uses recruiter-heavy keywords on the resume page', () => {
-    for (const phrase of [
-      'software engineer portfolio Canada',
-      'software developer with data structures and algorithms',
-    ]) {
-      expect(resumeSeoKeywords).toContain(phrase);
-    }
+  it('mentions recruiter topics in resume metadata description', () => {
+    const lower = resumeDescription.toLowerCase();
+    expect(lower).toContain('ottawa');
+    expect(lower).toContain('backend');
+    expect(lower).toContain('full-stack');
   });
 });

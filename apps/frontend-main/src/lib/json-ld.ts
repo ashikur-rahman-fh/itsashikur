@@ -1,34 +1,44 @@
 import { siteLinks } from '../config/site-links';
-import { siteUrl, personName, defaultOgImagePath } from '../config/site-metadata';
-import { capabilities, profile, projects, skillGroups } from '../data/portfolio';
+import { homeDescription, siteUrl, personName, defaultOgImagePath } from '../config/site-metadata';
+import {
+  capabilities,
+  profile,
+  projects,
+  skillGroups,
+  type PortfolioProject,
+} from '../data/portfolio';
 
 const PERSON_ID = `${siteUrl}/#person`;
 const WEBSITE_ID = `${siteUrl}/#website`;
 
 const csFundamentalsGroup = skillGroups.find((g) => g.featured) ?? skillGroups[0];
 
-const schemaSkillTerms = [
-  'Next.js',
+const schemaCoreTopics = [
+  'Software Engineering',
+  'Backend Development',
+  'Full-Stack Development',
+  'Data Structures and Algorithms',
   'TypeScript',
+  'Next.js',
   'Node.js',
-  'Rust',
   'PostgreSQL',
-  'DevOps',
-  'Cloud',
+  'Python',
+  'Rust',
+  'C++',
   'API development',
-  'systems programmer',
+  'Production debugging',
 ] as const;
 
 export const knowsAboutSkills = [
   ...new Set([
+    ...schemaCoreTopics,
     ...(csFundamentalsGroup?.skills ?? []),
     ...profile.primaryStack,
-    ...schemaSkillTerms,
+    'DevOps',
+    'Cloud',
     'Problem-solving',
-    'Software engineering fundamentals',
     'System design',
     'Performance optimization',
-    'Technical interview readiness',
   ]),
 ];
 
@@ -62,8 +72,7 @@ export function buildPersonJsonLd() {
     url: siteUrl,
     email: siteLinks.email,
     image: new URL(defaultOgImagePath, siteUrl).toString(),
-    description:
-      'Software engineer in Ottawa, Canada and full-stack engineer Canada — backend developer with CS fundamentals, data structures, algorithms, systematic debugging, and production-ready systems.',
+    description: homeDescription,
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Ottawa',
@@ -118,8 +127,24 @@ export function buildProjectsItemListJsonLd() {
           .filter(Boolean)
           .join(' '),
         keywords: project.techStack.join(', '),
+        url: `${siteUrl}/projects/${project.slug}`,
       },
     })),
+  };
+}
+
+export function buildProjectPageJsonLd(project: PortfolioProject) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.description,
+    url: `${siteUrl}/projects/${project.slug}`,
+    author: { '@id': PERSON_ID },
+    keywords: project.techStack.join(', '),
+    abstract: [project.approach, project.engineeringChoices, project.validation]
+      .filter(Boolean)
+      .join(' '),
   };
 }
 

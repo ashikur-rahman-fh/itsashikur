@@ -3,11 +3,12 @@ import { describe, expect, it } from 'vitest';
 
 import {
   buildPageMetadata,
+  commercialKeywords,
   homeMetadata,
   homeTitle,
-  recruiterKeywords,
   resumeMetadata,
   seoKeywords,
+  shortMetaKeywords,
   siteUrl,
 } from './site-metadata';
 
@@ -44,16 +45,19 @@ describe('site-metadata', () => {
 
   it('keeps resume and home descriptions distinct', () => {
     expect(homeMetadata.description).not.toBe(resumeMetadata.description);
-    expect(resumeMetadata.title).toBe('Resume | Software Engineer Portfolio Canada');
+    expect(resumeMetadata.title).toBe(
+      'Resume | Ashikur Rahman — Software Engineer in Ottawa, Canada',
+    );
   });
 
-  it('exports a broad homepage keyword set', () => {
-    expect(homeMetadata.keywords?.length).toBeGreaterThanOrEqual(40);
+  it('uses short meta keywords on indexed pages', () => {
+    expect(homeMetadata.keywords).toEqual([...shortMetaKeywords]);
+    expect(resumeMetadata.keywords).toEqual([...shortMetaKeywords]);
+    expect(homeMetadata.keywords?.length).toBeGreaterThanOrEqual(10);
+    expect(homeMetadata.keywords?.length).toBeLessThanOrEqual(15);
+    for (const phrase of commercialKeywords) {
+      expect(homeMetadata.keywords).not.toContain(phrase);
+    }
     expect(seoKeywords.length).toBeGreaterThanOrEqual(40);
-  });
-
-  it('includes recruiter keywords on the resume page', () => {
-    const sample = recruiterKeywords[0];
-    expect(resumeMetadata.keywords).toContain(sample);
   });
 });

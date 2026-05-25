@@ -1,5 +1,9 @@
 import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+vi.mock('next/navigation', () => ({
+  usePathname: vi.fn(() => '/resume'),
+}));
 
 import { siteLinks } from '../../config/site-links';
 import { profile } from '../../data/portfolio';
@@ -9,11 +13,14 @@ describe('ResumePage', () => {
   it('renders PDF preview and download actions', () => {
     render(<ResumePage />);
 
-    expect(screen.getByRole('heading', { level: 1, name: profile.name })).toBeInTheDocument();
-    expect(screen.getByText('Resume')).toBeInTheDocument();
-
     const nav = screen.getByRole('navigation', { name: /Ashikur Rahman navigation/i });
+
+    expect(screen.getByRole('heading', { level: 1, name: profile.name })).toBeInTheDocument();
     expect(within(nav).getByRole('link', { name: 'Ashikur Rahman' })).toHaveAttribute('href', '/');
+    expect(within(nav).getByRole('link', { name: 'Resume' })).toHaveAttribute(
+      'href',
+      siteLinks.resumeUrl,
+    );
 
     const iframe = screen.getByTitle('Ashikur Rahman resume (PDF preview)');
     expect(iframe).toHaveAttribute('src', siteLinks.resumePdfUrl);
@@ -34,9 +41,9 @@ describe('ResumePage', () => {
     expect(screen.getByRole('link', { name: /portfolio homepage/i })).toHaveAttribute('href', '/');
     expect(screen.getByRole('link', { name: 'View projects' })).toHaveAttribute(
       'href',
-      '/#projects',
+      '/projects',
     );
-    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/#contact');
-    expect(within(nav).queryByRole('link', { name: 'About' })).not.toBeInTheDocument();
+    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/#about');
+    expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/#contact');
   });
 });

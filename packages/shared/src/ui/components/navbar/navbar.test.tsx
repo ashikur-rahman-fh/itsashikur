@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
@@ -65,5 +65,20 @@ describe('Navbar', () => {
     await user.click(screen.getByRole('button', { name: 'Open navigation menu' }));
 
     expect(screen.getByRole('link', { name: 'Resume' })).toHaveAttribute('href', '/resume');
+  });
+
+  it('closes the mobile menu when Escape is pressed', async () => {
+    const user = userEvent.setup();
+    render(<Navbar appName="Ashikur Portfolio" items={items} />);
+
+    const menuButton = screen.getByRole('button', { name: 'Open navigation menu' });
+    await user.click(menuButton);
+    expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+
+    await user.keyboard('{Escape}');
+
+    await waitFor(() => {
+      expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+    });
   });
 });
