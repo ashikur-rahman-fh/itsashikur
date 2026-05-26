@@ -498,7 +498,7 @@ The admin client uses `withCredentials: true` and `csrf.tokenProvider` backed by
 
 ## Common commands
 
-See the root [`README.md`](../README.md) Makefile table.
+See the [Makefile reference](./TECHNICAL_SETUP.md#makefile-reference) in [TECHNICAL_SETUP.md](./TECHNICAL_SETUP.md).
 
 ## Regular dev vs debug dev
 
