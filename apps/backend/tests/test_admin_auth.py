@@ -75,6 +75,16 @@ def _authenticated_post(client: APIClient, url: str, data=None):
     return client.post(url, data or {}, format="json", HTTP_X_CSRFTOKEN=token)
 
 
+def _authenticated_patch(client: APIClient, url: str, data):
+    token = _fetch_csrf(client)
+    return client.patch(url, data, format="json", HTTP_X_CSRFTOKEN=token)
+
+
+def _authenticated_delete(client: APIClient, url: str):
+    token = _fetch_csrf(client)
+    return client.delete(url, HTTP_X_CSRFTOKEN=token)
+
+
 def _assert_safe_user_payload(body: dict, user: User):
     assert set(body.keys()) == SAFE_USER_RESPONSE_KEYS
     assert body["id"] == user.pk

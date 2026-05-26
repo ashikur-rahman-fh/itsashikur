@@ -6,6 +6,7 @@
 
 @import 'basecoat-css';
 @import './theme.css';
+@import './blog-prose.css';
 
 @layer base {
   * {

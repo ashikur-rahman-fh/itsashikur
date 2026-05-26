@@ -52,6 +52,10 @@ With format-on-save enabled, VS Code/Cursor uses Prettier for layout and ESLint 
 
 Full CI parity: `pnpm check` then `make test` (backend pytest + admin smoke in Docker). See [`testing.md`](testing.md).
 
+### Blog (CMS + public site)
+
+See [`blog.md`](blog.md) for workflows (save vs unpublish, SEO, resilience). For on-demand ISR after publish, set `BLOG_REVALIDATE_SECRET` and `FRONTEND_MAIN_URL` on admin and main (documented in [`environment-variables.md`](environment-variables.md)). Relevant tests: `apps/backend/tests/test_blog_posts.py`, `packages/shared/src/markdown/*.test.*`, `apps/frontend-admin/src/app/blog-posts/`, `apps/frontend-main/src/config/blog-metadata.test.ts`.
+
 Deploying Docker images via a deployment branch uses the same test suite in CI first — see [`runbook-docker-deploy.md`](runbook-docker-deploy.md).
 
 ### Next.js production builds only

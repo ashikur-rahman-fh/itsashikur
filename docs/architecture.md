@@ -7,9 +7,10 @@ Ashikur Portfolio is a **multi-container** system orchestrated by Docker Compose
 ### Backend (`apps/backend`)
 
 - **Framework**: Django + Django REST Framework
-- **Public API** (custom): `GET /api/health/`, `GET /api/hello/`, `GET /api/public/meta/`, `POST /api/public/contact/`
+- **Public API** (custom): `GET /api/health/`, `GET /api/hello/`, `GET /api/public/meta/`, `POST /api/public/contact/`, `GET /api/public/blog/posts/`, `GET /api/public/blog/posts/<slug>/`, `GET /api/public/blog/sitemap-entries/`
 - **API errors**: JSON envelope with `success: false` and `error.code`, `error.message`, `error.details` (safe messages only; no stack traces)
-- **Admin API** (session auth): `GET /api/admin/auth/csrf/`, `POST /api/admin/auth/login/`, `POST /api/admin/auth/logout/`, `GET /api/admin/auth/me/`, `GET/PATCH /api/admin/contact-messages/` — active **superusers** only
+- **Admin API** (session auth): `GET /api/admin/auth/csrf/`, `POST /api/admin/auth/login/`, `POST /api/admin/auth/logout/`, `GET /api/admin/auth/me/`, `GET/PATCH /api/admin/contact-messages/`, `GET/POST/PATCH/DELETE /api/admin/blog-posts/` — active **superusers** only (`_require_authorized_admin` on blog routes)
+- **Blog modules:** public serializers/querysets in `api/public/blog_serializers.py`, `api/public/blog_querysets.py`; admin write serializers in `api/admin/blog_post_serializers.py`; shared pagination in `api/pagination.py`
 - **Django admin UI**: built-in HTML admin at `/admin/` (separate from the Next admin app)
 - **Data**: PostgreSQL via `DATABASES`
 - **Cache**: Redis via `django-redis` (`CACHES`)

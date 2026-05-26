@@ -204,6 +204,88 @@ export function buildResumeBreadcrumbJsonLd() {
   };
 }
 
+export function buildBlogBreadcrumbJsonLd(postTitle: string, slug: string, canonicalUrl?: string) {
+  const postItem = canonicalUrl?.trim() || `${siteUrl}/blog/${slug}`;
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: `${siteUrl}/blog`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: postTitle,
+        item: postItem,
+      },
+    ],
+  };
+}
+
+export function buildBlogPostJsonLd(post: {
+  title: string;
+  slug: string;
+  excerpt: string;
+  authorName: string;
+  publishedAt: string;
+  updatedAt: string;
+  readingTimeMinutes?: number;
+  coverImageUrl?: string;
+  category?: string;
+  tags?: string[];
+  canonicalUrl?: string;
+}) {
+  const url = post.canonicalUrl?.trim() || `${siteUrl}/blog/${post.slug}`;
+  const image = post.coverImageUrl?.startsWith('http')
+    ? post.coverImageUrl
+    : post.coverImageUrl
+      ? new URL(post.coverImageUrl, siteUrl).toString()
+      : new URL(defaultOgImagePath, siteUrl).toString();
+
+  return {
+    '@type': 'BlogPosting',
+    '@id': url,
+    headline: post.title,
+    description: post.excerpt,
+    url,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    isPartOf: {
+      '@type': 'Blog',
+      '@id': `${siteUrl}/blog`,
+      name: `${personName} Blog`,
+      url: `${siteUrl}/blog`,
+    },
+    image,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    author: {
+      '@type': 'Person',
+      name: post.authorName,
+      url: siteUrl,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: personName,
+      url: siteUrl,
+    },
+    articleSection: post.category,
+    keywords: post.tags?.join(', '),
+    timeRequired: post.readingTimeMinutes ? `PT${post.readingTimeMinutes}M` : undefined,
+  };
+}
+
 /** Serialized JSON-LD strings for SEO coverage tests. */
 export function buildSeoSchemaCorpus(): string {
   return JSON.stringify(buildHomePageJsonLdGraph());

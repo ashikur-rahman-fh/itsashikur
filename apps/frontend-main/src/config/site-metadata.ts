@@ -129,8 +129,10 @@ export type BuildPageMetadataOptions = {
   /** Use for homepage to avoid title template suffix. */
   absoluteTitle?: boolean;
   ogImagePath?: string;
+  ogImageAlt?: string;
   robots?: Metadata['robots'];
   keywords?: readonly string[];
+  alternates?: Metadata['alternates'];
 };
 
 function absoluteUrl(path: string): string {
@@ -138,14 +140,14 @@ function absoluteUrl(path: string): string {
   return new URL(normalized, siteUrl).toString();
 }
 
-function buildOgImages(imagePath: string) {
-  const url = absoluteUrl(imagePath);
+function buildOgImages(imagePath: string, imageAlt = ogImageAlt) {
+  const url = imagePath.startsWith('http') ? imagePath : absoluteUrl(imagePath);
   return [
     {
       url,
       width: 1200,
       height: 630,
-      alt: ogImageAlt,
+      alt: imageAlt,
     },
   ];
 }
@@ -157,19 +159,21 @@ export function buildPageMetadata(options: BuildPageMetadataOptions): Metadata {
     description,
     absoluteTitle = false,
     ogImagePath = defaultOgImagePath,
+    ogImageAlt: imageAlt = ogImageAlt,
     robots,
     keywords = seoKeywords,
+    alternates: alternatesOverride,
   } = options;
 
   const canonical = absoluteUrl(path);
-  const images = buildOgImages(ogImagePath);
+  const images = buildOgImages(ogImagePath, imageAlt);
 
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
     keywords: [...keywords],
     authors: [{ name: personName, url: siteUrl }],
-    alternates: { canonical },
+    alternates: alternatesOverride ?? { canonical },
     robots,
     openGraph: {
       title,
@@ -201,6 +205,17 @@ export const resumeMetadata = buildPageMetadata({
   path: '/resume',
   title: resumeTitle,
   description: resumeDescription,
+  keywords: shortMetaKeywords,
+});
+
+export const blogHubTitle = 'Blog — Software engineering articles';
+export const blogHubDescription =
+  'Technical articles on software engineering, full-stack development, backend systems, data structures, projects, and career learning by Ashikur Rahman in Ottawa, Canada.';
+
+export const blogHubMetadata = buildPageMetadata({
+  path: '/blog',
+  title: blogHubTitle,
+  description: blogHubDescription,
   keywords: shortMetaKeywords,
 });
 

@@ -1,0 +1,79 @@
+@import 'highlight.js/styles/github.min.css';
+
+.blog-prose {
+  @apply text-body leading-relaxed text-foreground;
+}
+
+.blog-prose h1 {
+  @apply font-display text-page-title font-bold text-foreground mt-10 mb-4 scroll-mt-24;
+}
+
+.blog-prose h2 {
+  @apply font-display text-section-title font-bold text-foreground mt-10 mb-3 scroll-mt-24;
+}
+
+.blog-prose h3 {
+  @apply font-display text-lg font-semibold text-foreground mt-8 mb-2 scroll-mt-24;
+}
+
+.blog-prose p {
+  @apply mb-4 text-muted-foreground;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  @apply mb-4 ml-6 space-y-2 text-muted-foreground;
+}
+
+.blog-prose ul {
+  @apply list-disc;
+}
+
+.blog-prose ol {
+  @apply list-decimal;
+}
+
+.blog-prose li {
+  @apply leading-relaxed;
+}
+
+.blog-prose blockquote {
+  @apply my-6 border-l-4 border-accent pl-4 italic text-muted-foreground;
+}
+
+.blog-prose a {
+  @apply font-medium text-accent-foreground underline-offset-4 hover:underline;
+}
+
+.blog-prose code:not(pre code) {
+  @apply rounded bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground;
+}
+
+.blog-prose pre {
+  @apply my-6 overflow-x-auto rounded-lg border border-border bg-muted/50 p-4;
+}
+
+.blog-prose pre code {
+  @apply bg-transparent p-0 text-sm;
+}
+
+.blog-prose table {
+  @apply my-6 w-full border-collapse overflow-hidden rounded-lg border border-border text-sm;
+}
+
+.blog-prose th,
+.blog-prose td {
+  @apply border border-border px-4 py-2 text-left;
+}
+
+.blog-prose th {
+  @apply bg-muted font-semibold text-foreground;
+}
+
+.blog-prose hr {
+  @apply my-10 border-border;
+}
+
+.blog-prose img {
+  @apply my-6 max-w-full rounded-lg;
+}

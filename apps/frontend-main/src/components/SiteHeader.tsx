@@ -41,6 +41,11 @@ function isNavItemActive(
     return currentPath === projectsPath || currentPath.startsWith(`${projectsPath}/`);
   }
 
+  if (resolved === withBasePath('/blog')) {
+    const blogPath = withBasePath('/blog');
+    return currentPath === blogPath || currentPath.startsWith(`${blogPath}/`);
+  }
+
   if (resolved === siteLinks.resumeUrl) {
     return currentPath === siteLinks.resumeUrl;
   }

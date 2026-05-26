@@ -7,6 +7,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from api.models import ContactMessage
+from api.pagination import parse_positive_int
 
 from .auth_views import SESSION_AUTH, _require_authorized_admin
 from .contact_message_serializers import (
@@ -17,18 +18,6 @@ from .contact_message_serializers import (
 
 DEFAULT_PAGE_SIZE = 20
 MAX_PAGE_SIZE = 50
-
-
-def _parse_positive_int(value, default: int, *, maximum: int | None = None) -> int:
-    try:
-        parsed = int(value)
-    except (TypeError, ValueError):
-        return default
-    if parsed < 1:
-        return default
-    if maximum is not None and parsed > maximum:
-        return maximum
-    return parsed
 
 
 def _contact_message_queryset(*, status: str, q: str, sort: str):
@@ -57,8 +46,8 @@ def _contact_message_queryset(*, status: str, q: str, sort: str):
 def admin_contact_messages_list(request):
     _require_authorized_admin(request)
 
-    page = _parse_positive_int(request.query_params.get("page"), 1)
-    page_size = _parse_positive_int(
+    page = parse_positive_int(request.query_params.get("page"), 1)
+    page_size = parse_positive_int(
         request.query_params.get("pageSize"),
         DEFAULT_PAGE_SIZE,
         maximum=MAX_PAGE_SIZE,

@@ -4,6 +4,8 @@ import { landingPagesSeoCopy } from './landing-pages';
 import { projectsHubSeoCopy, seoVisibleCopy } from '../data/portfolio';
 import { buildSeoSchemaCorpus } from '../lib/json-ld';
 import {
+  blogHubDescription,
+  blogHubTitle,
   commercialKeywords,
   homeDescription,
   homeMetadata,
@@ -35,6 +37,8 @@ function buildSeoCorpus(): string {
     homeDescription,
     resumeTitle,
     resumeDescription,
+    blogHubTitle,
+    blogHubDescription,
     seoVisibleCopy,
     landingPagesSeoCopy,
     projectsHubSeoCopy,
