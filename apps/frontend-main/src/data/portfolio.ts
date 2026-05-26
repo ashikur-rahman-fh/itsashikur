@@ -31,6 +31,11 @@ export const sectionCopy = {
     description:
       'Contest results that back up strong fundamentals—complexity, edge cases, and clean implementations.',
   },
+  recommendations: {
+    title: 'What People Say',
+    description:
+      'A few words from engineers and leads I’ve worked with, highlighting how I approach problem solving, teamwork, and software quality.',
+  },
   contact: {
     title: 'Get in touch',
     description:

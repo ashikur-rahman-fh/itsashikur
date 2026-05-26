@@ -46,6 +46,11 @@ export function HeroSection() {
                   </a>
                 </Button>
                 <Button variant="outline" size="sm" asChild className="min-h-10">
+                  <a href={siteLinks.youtubeUrl} target="_blank" rel="noopener noreferrer">
+                    YouTube
+                  </a>
+                </Button>
+                <Button variant="outline" size="sm" asChild className="min-h-10">
                   <a href={siteLinks.codeforcesUrl} target="_blank" rel="noopener noreferrer">
                     Codeforces
                   </a>

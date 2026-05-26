@@ -58,6 +58,21 @@ describe('HomePage', () => {
       'href',
       siteLinks.linkedinUrl,
     );
+    expect(within(hero).getByRole('link', { name: 'YouTube' })).toHaveAttribute(
+      'href',
+      siteLinks.youtubeUrl,
+    );
+  });
+
+  it('renders footer YouTube link', () => {
+    render(<HomePage />);
+    const youtubeLinks = screen.getAllByRole('link', { name: 'YouTube' });
+    expect(youtubeLinks.length).toBeGreaterThanOrEqual(1);
+    for (const link of youtubeLinks) {
+      expect(link).toHaveAttribute('href', siteLinks.youtubeUrl);
+      expect(link).toHaveAttribute('target', '_blank');
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    }
   });
 
   it('renders impact metrics beside hero', () => {
@@ -78,6 +93,26 @@ describe('HomePage', () => {
       'href',
       '/projects',
     );
+  });
+
+  it('renders recommendations section with featured quotes and LinkedIn CTA', () => {
+    render(<HomePage />);
+    expect(document.getElementById('recommendations')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: sectionCopy.recommendations.title }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/excellent problem-solving, technical, and communication skills/i),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/Redoan Ur Rahman/i)).not.toBeInTheDocument();
+
+    const linkedInCta = screen.getByRole('link', {
+      name: /View Ashikur Rahman’s full LinkedIn recommendations/i,
+    });
+    expect(linkedInCta).toHaveAttribute('href', siteLinks.linkedinRecommendationsUrl);
+    expect(linkedInCta).toHaveAttribute('target', '_blank');
+    expect(linkedInCta).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(linkedInCta).toHaveTextContent('View full recommendations on LinkedIn');
   });
 
   it('renders experience and background sections', () => {

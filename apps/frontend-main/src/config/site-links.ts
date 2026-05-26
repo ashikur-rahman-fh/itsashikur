@@ -24,6 +24,11 @@ export const siteLinks = {
   githubUrl: env('NEXT_PUBLIC_GITHUB_URL', 'https://github.com/ashikur-rahman-fh'),
   codeforcesUrl: env('NEXT_PUBLIC_CODEFORCES_URL', 'https://codeforces.com/profile/5-head'),
   linkedinUrl: env('NEXT_PUBLIC_LINKEDIN_URL', 'https://www.linkedin.com/in/ashikur-5h'),
+  linkedinRecommendationsUrl: env(
+    'NEXT_PUBLIC_LINKEDIN_RECOMMENDATIONS_URL',
+    'https://www.linkedin.com/in/ashikur-5h/details/recommendations/',
+  ),
+  youtubeUrl: env('NEXT_PUBLIC_YOUTUBE_URL', 'https://www.youtube.com/@ashikur-rahman-5h'),
   email: env('NEXT_PUBLIC_CONTACT_EMAIL', 'me@itsashikur.com'),
 } as const;
 

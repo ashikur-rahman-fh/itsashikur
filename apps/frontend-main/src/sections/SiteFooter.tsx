@@ -82,6 +82,15 @@ export function SiteFooter() {
           >
             GitHub
           </a>
+          {' · '}
+          <a
+            href={siteLinks.youtubeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-foreground underline-offset-4 hover:underline"
+          >
+            YouTube
+          </a>
         </p>
         <p className="text-body-sm text-muted-foreground">
           © {year} {profile.name}. All rights reserved.

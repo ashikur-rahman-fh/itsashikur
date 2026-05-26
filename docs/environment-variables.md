@@ -90,6 +90,8 @@ Never commit real passwords. Prefer env sync for bootstrap and `make *-reset-use
 | `NEXT_PUBLIC_BASE_PATH`    | Optional Next `basePath` for the **admin** app when using path-based routing. Leave empty in default dev (`:3001/`) and production (separate hostnames). |
 | `NEXT_PUBLIC_SITE_URL` | Public site origin for **frontend-main** `metadataBase`, canonical URLs, sitemap, robots, and JSON-LD. **Production:** use apex HTTPS (e.g. `https://itsashikur.com`); nginx redirects `www` → apex. Passed at **Docker build time** for frontend-main. Default in code: `https://itsashikur.com` ([`apps/frontend-main/src/config/site-metadata.ts`](../apps/frontend-main/src/config/site-metadata.ts)). |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Portfolio contact email for `mailto:` links and schema.org metadata in **frontend-main**. Default in code: `me@itsashikur.com` ([`apps/frontend-main/src/config/site-links.ts`](../apps/frontend-main/src/config/site-links.ts)). |
+| `NEXT_PUBLIC_YOUTUBE_URL` | YouTube channel URL for profile links and JSON-LD `sameAs` in **frontend-main**. Default in code: `https://www.youtube.com/@ashikur-rahman-5h` ([`apps/frontend-main/src/config/site-links.ts`](../apps/frontend-main/src/config/site-links.ts)). |
+| `NEXT_PUBLIC_LINKEDIN_RECOMMENDATIONS_URL` | LinkedIn recommendations page URL for the portfolio “What People Say” CTA in **frontend-main**. Default in code: `https://www.linkedin.com/in/ashikur-5h/details/recommendations/` ([`apps/frontend-main/src/config/site-links.ts`](../apps/frontend-main/src/config/site-links.ts)). |
 
 ## Hostname documentation fields
 

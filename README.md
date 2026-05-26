@@ -75,4 +75,5 @@ For installation, Docker workflows, environment variables, scripts, testing, and
 - **Email:** [me@itsashikur.com](mailto:me@itsashikur.com)
 - **LinkedIn:** [linkedin.com/in/ashikur-5h](https://www.linkedin.com/in/ashikur-5h)
 - **GitHub:** [github.com/ashikur-rahman-fh](https://github.com/ashikur-rahman-fh)
+- **YouTube:** [youtube.com/@ashikur-rahman-5h](https://www.youtube.com/@ashikur-rahman-5h)
 - **Codeforces:** [codeforces.com/profile/5-head](https://codeforces.com/profile/5-head)

@@ -83,7 +83,12 @@ export function buildPersonJsonLd() {
       '@type': 'Organization',
       name: 'Nokia',
     },
-    sameAs: [siteLinks.githubUrl, siteLinks.codeforcesUrl, siteLinks.linkedinUrl],
+    sameAs: [
+      siteLinks.githubUrl,
+      siteLinks.codeforcesUrl,
+      siteLinks.linkedinUrl,
+      siteLinks.youtubeUrl,
+    ],
     knowsAbout: knowsAboutSkills,
   };
 }

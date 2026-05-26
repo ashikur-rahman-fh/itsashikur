@@ -43,6 +43,11 @@ export function ContactSection() {
                     GitHub
                   </a>
                 </Button>
+                <Button variant="outline" size="lg" asChild className="min-h-11">
+                  <a href={siteLinks.youtubeUrl} target="_blank" rel="noopener noreferrer">
+                    YouTube
+                  </a>
+                </Button>
               </div>
             </div>
             <div className="space-y-1 border-t border-border pt-6 text-body-sm text-muted-foreground">

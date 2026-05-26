@@ -13,6 +13,7 @@ import {
   ExperienceSection,
   HeroSection,
   ProjectsSection,
+  RecommendationsSection,
   SiteFooter,
   SkillsSection,
   TestimonialsSection,
@@ -30,6 +31,7 @@ export function HomePage() {
         <AboutSection />
         <ExperienceSection />
         <ProjectsSection />
+        <RecommendationsSection />
         <SkillsSection />
         <AchievementsSection />
         <CapabilitiesSection />
