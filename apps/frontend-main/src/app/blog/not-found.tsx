@@ -3,8 +3,11 @@ import Link from 'next/link';
 
 import { Button, Container, PageShell } from '@ashikur-portfolio/shared/ui';
 
+import { blogNotFoundMetadata } from '../../config/site-metadata';
 import { SiteHeader } from '../../components/SiteHeader';
 import { SiteFooter } from '../../sections/SiteFooter';
+
+export const metadata = blogNotFoundMetadata;
 
 export default function BlogNotFound() {
   return (

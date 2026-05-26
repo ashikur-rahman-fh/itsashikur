@@ -17,17 +17,22 @@ This document summarizes the SEO program implemented for the portfolio app (`app
 
 ### Metadata (every route)
 
-| Route | Index | Title / notes |
-|-------|-------|----------------|
-| `/` | yes | `Ashikur Rahman \| Software Developer in Ottawa, Canada`; `shortMetaKeywords`; full OG + Twitter |
-| `/resume` | yes | Natural recruiter-focused description; `shortMetaKeywords` |
-| `/projects` | yes | Projects hub with cards linking to detail pages |
-| `/projects/[slug]` | yes | Per-project `seoTitle` / `seoDescription` + CreativeWork JSON-LD |
-| `/contact` | yes | Contact form + Ottawa/Canada hiring copy |
-| `/software-developer-ottawa` (301 from `/software-engineer-ottawa`), `/backend-developer-canada`, `/full-stack-developer-canada` | yes | Focused landing pages with unique H1 and content |
-| `/about` | no | Redirect to `/#about`; `noindex` |
+**Title composition:** Root layout uses `title.template` (`%s | Ashikur Rahman`). Most pages pass a **short segment** only; `buildPageMetadata()` sets Open Graph/Twitter to the **full** title (segment + brand once). Homepage, contact, and CMS blog `metaTitle` use **absolute** titles (no template). All public titles are ≤ 70 characters; meta descriptions ≤ 160.
 
-Central builder: [`buildPageMetadata()`](../apps/frontend-main/src/config/site-metadata.ts)
+| Route | Index | Document title (≤ 70 chars) |
+|-------|-------|------------------------------|
+| `/` | yes | `Ashikur Rahman \| Software Developer in Canada` (absolute) |
+| `/resume` | yes | `Resume \| Ashikur Rahman` |
+| `/projects` | yes | `Software Projects \| Ashikur Rahman` |
+| `/projects/[slug]` | yes | `{Project name} Project \| Ashikur Rahman` + per-project description |
+| `/contact` | yes | `Contact Ashikur Rahman` (absolute) |
+| `/blog` | yes | `Blog \| Ashikur Rahman` |
+| `/blog/[slug]` | yes | CMS `metaTitle` (absolute, max 70) or truncated post title + brand |
+| `/software-developer-ottawa` (301 from `/software-engineer-ottawa`), `/backend-developer-canada`, `/full-stack-developer-canada`, `/embedded-developer-canada` | yes | `{Role} in {location} \| Ashikur Rahman` |
+| `/about` | no | Redirect to `/#about`; `noindex` |
+| 404 / blog article 404 | no | `Page not found` / `Article not found` + brand; `noindex` |
+
+Central builder: [`buildPageMetadata()`](../apps/frontend-main/src/config/site-metadata.ts) — see [`page-titles.test.ts`](../apps/frontend-main/src/config/page-titles.test.ts) for length/uniqueness checks.
 
 Keyword groups: `primaryKeywords`, `recruiterKeywords`, `technicalKeywords`, `commercialKeywords`, `projectKeywords` → deduped `seoKeywords` (~51 phrases) for **coverage tests and visible copy/schema**. HTML `<meta name="keywords">` uses `shortMetaKeywords` (~12 phrases) on indexed pages only.
 

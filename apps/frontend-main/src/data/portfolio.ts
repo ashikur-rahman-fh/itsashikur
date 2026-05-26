@@ -252,7 +252,7 @@ export const projects: PortfolioProject[] = [
     slug: 'movie-genre-prediction',
     title: 'Movie Genre Prediction',
     category: 'Machine learning',
-    seoTitle: 'Movie Genre Prediction | Machine learning with PyTorch',
+    seoTitle: 'Movie Genre Prediction Project',
     seoDescription:
       'Python and PyTorch multi-label genre classifier from plot text, evaluated on held-out data.',
     description: 'Predicts movie genres from plot summaries with a PyTorch pipeline.',
@@ -272,7 +272,7 @@ export const projects: PortfolioProject[] = [
     slug: 'shop-management-system',
     title: 'Shop Management System',
     category: 'Databases',
-    seoTitle: 'Shop Management System | Distributed Oracle SQL',
+    seoTitle: 'Shop Management System Project',
     seoDescription:
       'Distributed database design for shop and inventory data across Oracle nodes with integrity constraints.',
     description: 'Shop and inventory data split across Oracle nodes with consistent queries.',
@@ -290,7 +290,7 @@ export const projects: PortfolioProject[] = [
     slug: 'todo-app',
     title: 'Todo App',
     category: 'Full-stack',
-    seoTitle: 'Todo App | Node.js and React full-stack',
+    seoTitle: 'Todo App Project',
     seoDescription:
       'Node.js REST API and React task app with a clear API contract and persistent storage.',
     description: 'Task and reminder app with a Node.js REST API and React client.',
@@ -309,7 +309,7 @@ export const projects: PortfolioProject[] = [
     slug: 'cleaning-car',
     title: 'Cleaning Car',
     category: 'Embedded',
-    seoTitle: 'Cleaning Car | Embedded C++',
+    seoTitle: 'Cleaning Car Project',
     seoDescription:
       'Embedded controller with sensor feedback and motor control for repeatable path cleaning under hardware constraints.',
     description: 'Embedded controller that follows paths to clean a flat test surface.',
@@ -337,7 +337,7 @@ export const featuredProjects = (() => {
 
 export const projectSlugs = projects.map((project) => project.slug);
 
-export const projectsPageTitle = 'Projects | Ashikur Rahman';
+export const projectsPageTitle = 'Software Projects';
 
 export const projectsPageMetaDescription =
   "Ashikur Rahman's software projects: backend APIs, full-stack web, ML, databases, and embedded work—with stacks and outcomes.";

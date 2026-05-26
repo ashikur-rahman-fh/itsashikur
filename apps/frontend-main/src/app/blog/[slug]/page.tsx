@@ -15,8 +15,10 @@ import { BlogTableOfContents } from '../../../components/blog/BlogTableOfContent
 import { JsonLd } from '../../../components/JsonLd';
 import {
   buildPageMetadata,
+  formatBlogPostTitleSegment,
   redirectPageRobots,
   shortMetaKeywords,
+  truncateMetaDescription,
 } from '../../../config/site-metadata';
 import { SiteHeader } from '../../../components/SiteHeader';
 import { pickRelatedPosts } from '../../../lib/blog';
@@ -55,8 +57,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   const post = result;
-  const title = post.metaTitle || post.title;
-  const description = post.metaDescription || post.excerpt;
+  const customMetaTitle = post.metaTitle?.trim();
+  const title = customMetaTitle || formatBlogPostTitleSegment(post.title);
+  const rawDescription = post.metaDescription?.trim() || post.excerpt;
+  const description = truncateMetaDescription(rawDescription);
   const path = `/blog/${post.slug}`;
   const ogImage = post.coverImageUrl?.trim() || undefined;
   const postKeywords = [...shortMetaKeywords, ...post.tags, post.category].filter(Boolean);
@@ -65,6 +69,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     path,
     title,
     description,
+    absoluteTitle: Boolean(customMetaTitle),
     keywords: postKeywords,
     ogImagePath: ogImage,
     ogImageAlt: post.coverImageAlt?.trim() || post.title,

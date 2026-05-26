@@ -6,10 +6,14 @@ import {
   commercialKeywords,
   homeMetadata,
   homeTitle,
+  resolveFullTitle,
   resumeMetadata,
+  resumeTitle,
   seoKeywords,
   shortMetaKeywords,
   siteUrl,
+  TITLE_MAX_LENGTH,
+  truncateMetaDescription,
 } from './site-metadata';
 
 function firstOpenGraphImageUrl(
@@ -43,11 +47,15 @@ describe('site-metadata', () => {
     expect(homeMetadata.alternates?.canonical).toBe(`${siteUrl}/`);
   });
 
+  it('uses title segment for resume and full title for OG', () => {
+    expect(resumeMetadata.title).toBe('Resume');
+    expect(resumeMetadata.openGraph?.title).toBe(resolveFullTitle(resumeTitle));
+    expect(String(resumeMetadata.openGraph?.title).length).toBeLessThanOrEqual(TITLE_MAX_LENGTH);
+  });
+
   it('keeps resume and home descriptions distinct', () => {
     expect(homeMetadata.description).not.toBe(resumeMetadata.description);
-    expect(resumeMetadata.title).toBe(
-      'Resume | Ashikur Rahman — Software Developer in Ottawa, Canada',
-    );
+    expect(resumeTitle).toBe('Resume');
   });
 
   it('uses short meta keywords on indexed pages', () => {
@@ -59,5 +67,12 @@ describe('site-metadata', () => {
       expect(homeMetadata.keywords).not.toContain(phrase);
     }
     expect(seoKeywords.length).toBeGreaterThanOrEqual(40);
+  });
+
+  it('truncates long meta descriptions', () => {
+    const long = 'x'.repeat(200);
+    const result = truncateMetaDescription(long);
+    expect(result.length).toBeLessThanOrEqual(160);
+    expect(result.endsWith('...')).toBe(true);
   });
 });

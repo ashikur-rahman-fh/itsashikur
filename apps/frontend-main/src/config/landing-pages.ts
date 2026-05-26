@@ -17,7 +17,7 @@ export type LandingPageConfig = {
 export const landingPages: LandingPageConfig[] = [
   {
     path: '/software-developer-ottawa',
-    title: 'Software Developer in Ottawa, Canada | Ashikur Rahman',
+    title: 'Software Developer in Ottawa',
     description:
       'Software developer in Ottawa building APIs, web apps, and developer tools—with backend, full-stack, and embedded experience.',
     h1: 'Software developer in Ottawa',
@@ -42,7 +42,7 @@ export const landingPages: LandingPageConfig[] = [
   },
   {
     path: '/backend-developer-canada',
-    title: 'Backend Developer in Canada | Ashikur Rahman',
+    title: 'Backend Developer in Canada',
     description:
       'Backend developer in Canada specializing in APIs, structured logging, PostgreSQL, Python, TypeScript, Node.js, and production debugging for reliable services.',
     h1: 'Backend developer in Canada',
@@ -67,7 +67,7 @@ export const landingPages: LandingPageConfig[] = [
   },
   {
     path: '/full-stack-developer-canada',
-    title: 'Full-Stack Developer in Canada | Ashikur Rahman',
+    title: 'Full-Stack Developer in Canada',
     description:
       'Full-stack developer in Canada building web applications with TypeScript, Next.js, React, Node.js, PostgreSQL, and clear client/server contracts.',
     h1: 'Full-stack developer in Canada',
@@ -92,7 +92,7 @@ export const landingPages: LandingPageConfig[] = [
   },
   {
     path: '/embedded-developer-canada',
-    title: 'Embedded Developer in Canada | Ashikur Rahman',
+    title: 'Embedded Developer in Canada',
     description:
       'Embedded and systems developer in Canada with C/C++, Linux, and production experience at Nokia—plus backend and full-stack delivery.',
     h1: 'Embedded developer in Canada',

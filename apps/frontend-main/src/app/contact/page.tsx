@@ -17,8 +17,9 @@ import { ContactForm } from '../../sections/contact';
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/contact',
-  title: 'Contact | Ashikur Rahman — Software Developer in Ottawa, Canada',
+  title: 'Contact Ashikur Rahman',
   description: contactSectionMetaDescription,
+  absoluteTitle: true,
   keywords: shortMetaKeywords,
 });
 

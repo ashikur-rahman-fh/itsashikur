@@ -6,6 +6,12 @@ export const siteName = 'Ashikur Rahman';
 
 export const personName = 'Ashikur Rahman';
 
+export const TITLE_MAX_LENGTH = 70;
+
+export const META_DESCRIPTION_MAX_LENGTH = 160;
+
+export const titleBrandSuffix = ` | ${personName}`;
+
 export const defaultOgImagePath = '/og-image.png';
 
 export const ogImageAlt = `${personName} — Software Developer in Ottawa, Canada`;
@@ -110,23 +116,101 @@ export const shortMetaKeywords = [
   'C++',
 ] as const;
 
-export const homeTitle = 'Ashikur Rahman | Software Developer in Ottawa, Canada';
+export const homeTitle = 'Ashikur Rahman | Software Developer in Canada';
 
 export const homeDescription =
-  'Software developer in Ottawa, Canada. I build backend systems, embedded software, and full-stack web apps with TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, and C++.';
+  'Software developer in Ottawa, Canada—backend, embedded, and full-stack apps with TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, and C++.';
 
-export const resumeTitle = 'Resume | Ashikur Rahman — Software Developer in Ottawa, Canada';
+export const resumeTitle = 'Resume';
 
 export const resumeDescription =
-  'Resume for Ashikur Rahman—software developer in Ottawa with 4+ years across embedded, backend, and full-stack work (C++, Python, TypeScript, Next.js, Node.js, PostgreSQL).';
+  'Resume for Ashikur Rahman—Ottawa software developer with 4+ years in embedded, backend, and full-stack roles (C++, Python, TypeScript, Next.js, PostgreSQL).';
 
 export const layoutDescription = homeDescription;
+
+export const notFoundTitle = 'Page not found';
+
+export const notFoundDescription =
+  'This page is not on the Ashikur Rahman portfolio. Head home or browse software projects and the blog.';
+
+export const blogNotFoundTitle = 'Article not found';
+
+export const blogNotFoundDescription =
+  'This blog article could not be found. Browse engineering notes or return to the blog hub.';
+
+export type ResolvePageTitlesOptions = {
+  absoluteTitle?: boolean;
+};
+
+export type ResolvedPageTitles = {
+  metadataTitle: Metadata['title'];
+  socialTitle: string;
+  usesTemplate: boolean;
+};
+
+function titleAlreadyBranded(title: string): boolean {
+  return title.includes(titleBrandSuffix) || title === personName;
+}
+
+/** Final document title when the root layout title template is applied. */
+export function resolveFullTitle(title: string, options: ResolvePageTitlesOptions = {}): string {
+  const { absoluteTitle = false } = options;
+  if (absoluteTitle || titleAlreadyBranded(title)) {
+    return title;
+  }
+  return `${title}${titleBrandSuffix}`;
+}
+
+export function resolvePageTitles(
+  title: string,
+  options: ResolvePageTitlesOptions = {},
+): ResolvedPageTitles {
+  const { absoluteTitle = false } = options;
+  const useAbsolute = absoluteTitle || titleAlreadyBranded(title);
+
+  if (useAbsolute) {
+    return {
+      metadataTitle: { absolute: title },
+      socialTitle: title,
+      usesTemplate: false,
+    };
+  }
+
+  const socialTitle = resolveFullTitle(title);
+  return {
+    metadataTitle: title,
+    socialTitle,
+    usesTemplate: true,
+  };
+}
+
+export function truncateMetaDescription(
+  description: string,
+  maxLength = META_DESCRIPTION_MAX_LENGTH,
+): string {
+  const trimmed = description.trim();
+  if (trimmed.length <= maxLength) {
+    return trimmed;
+  }
+  return `${trimmed.slice(0, maxLength - 3).trimEnd()}...`;
+}
+
+const maxTitleSegmentLength = TITLE_MAX_LENGTH - titleBrandSuffix.length;
+
+/** Segment for layout template when post has no custom meta title. */
+export function formatBlogPostTitleSegment(postTitle: string): string {
+  const trimmed = postTitle.trim();
+  if (trimmed.length <= maxTitleSegmentLength) {
+    return trimmed;
+  }
+  return `${trimmed.slice(0, maxTitleSegmentLength - 1).trimEnd()}…`;
+}
 
 export type BuildPageMetadataOptions = {
   path: string;
   title: string;
   description: string;
-  /** Use for homepage to avoid title template suffix. */
+  /** Use for homepage, contact, and CMS meta titles (full string, no template). */
   absoluteTitle?: boolean;
   ogImagePath?: string;
   ogImageAlt?: string;
@@ -167,17 +251,19 @@ export function buildPageMetadata(options: BuildPageMetadataOptions): Metadata {
 
   const canonical = absoluteUrl(path);
   const images = buildOgImages(ogImagePath, imageAlt);
+  const metaDescription = truncateMetaDescription(description);
+  const { metadataTitle, socialTitle } = resolvePageTitles(title, { absoluteTitle });
 
   return {
-    title: absoluteTitle ? { absolute: title } : title,
-    description,
+    title: metadataTitle,
+    description: metaDescription,
     keywords: [...keywords],
     authors: [{ name: personName, url: siteUrl }],
     alternates: alternatesOverride ?? { canonical },
     robots,
     openGraph: {
-      title,
-      description,
+      title: socialTitle,
+      description: metaDescription,
       url: canonical,
       siteName,
       locale: 'en_CA',
@@ -186,8 +272,8 @@ export function buildPageMetadata(options: BuildPageMetadataOptions): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title,
-      description,
+      title: socialTitle,
+      description: metaDescription,
       images: images.map((image) => image.url),
     },
   };
@@ -208,14 +294,31 @@ export const resumeMetadata = buildPageMetadata({
   keywords: shortMetaKeywords,
 });
 
-export const blogHubTitle = 'Engineering notes · Ashikur Rahman';
+export const blogHubTitle = 'Blog';
+
 export const blogHubDescription =
-  "Notes on building software, debugging production systems, and what I'm learning—by Ashikur Rahman in Ottawa.";
+  'Engineering notes on building software, debugging production systems, and lessons learned—by Ashikur Rahman in Ottawa, Canada.';
 
 export const blogHubMetadata = buildPageMetadata({
   path: '/blog',
   title: blogHubTitle,
   description: blogHubDescription,
+  keywords: shortMetaKeywords,
+});
+
+export const notFoundMetadata = buildPageMetadata({
+  path: '/404',
+  title: notFoundTitle,
+  description: notFoundDescription,
+  robots: { index: false, follow: true },
+  keywords: shortMetaKeywords,
+});
+
+export const blogNotFoundMetadata = buildPageMetadata({
+  path: '/blog/not-found',
+  title: blogNotFoundTitle,
+  description: blogNotFoundDescription,
+  robots: { index: false, follow: true },
   keywords: shortMetaKeywords,
 });
 

@@ -1,16 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { SITE_UX } from '@ashikur-portfolio/shared/api';
 import { Button, Container, PageShell } from '@ashikur-portfolio/shared/ui';
 
+import { notFoundMetadata } from '../config/site-metadata';
 import { SiteHeader } from '../components/SiteHeader';
 import { SiteFooter } from '../sections/SiteFooter';
 
-export const metadata: Metadata = {
-  title: 'Page not found',
-  robots: { index: false, follow: true },
-};
+export const metadata = notFoundMetadata;
 
 export default function NotFound() {
   return (
