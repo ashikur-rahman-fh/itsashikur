@@ -1,6 +1,6 @@
 # SEO implementation report — itsashikur.com
 
-Last updated: 2026-05-24
+Last updated: 2026-05-26
 
 This document summarizes the SEO program implemented for the portfolio app (`apps/frontend-main`). It does **not** guarantee search rankings; it records the technical and content foundation in place.
 
@@ -164,18 +164,49 @@ Phrases are distributed across title, meta description, hero, about, skills, cap
 - [x] `next build` — static routes include `sitemap.xml`, `robots.txt`
 - [ ] Manual: [Google Rich Results Test](https://search.google.com/test/rich-results)
 - [ ] Manual: LinkedIn Post Inspector / Twitter Card Validator
-- [ ] Manual: Google Search Console — add property, submit sitemap after deploy
+- [x] Production sitemap — `https://itsashikur.com/sitemap.xml` returns 200, `application/xml`, valid urlset
+- [ ] Manual: Google Search Console — submit apex sitemap (see section 5)
 - [ ] Manual: Lighthouse mobile on `/` and `/resume`
+
+### Sitemap production verification
+
+Canonical host is **apex** (`https://itsashikur.com`). `www` redirects to apex via nginx/Cloudflare (expected).
+
+```bash
+# Apex sitemap — must be 200 + XML
+curl -I https://itsashikur.com/sitemap.xml
+curl https://itsashikur.com/sitemap.xml
+
+# www sitemap — must 301 to apex (do not submit www URL in GSC)
+curl -I https://www.itsashikur.com/sitemap.xml
+
+# robots.txt — must reference apex sitemap
+curl -I https://itsashikur.com/robots.txt
+curl https://itsashikur.com/robots.txt
+```
 
 ---
 
 ## 5. Recommended next steps (post-deploy)
 
-1. **Google Search Console** — verify `https://itsashikur.com`, submit `https://itsashikur.com/sitemap.xml`
-2. **Inspect URL** — confirm www redirects to apex and canonical tags match
-3. **Monitor queries** — “software developer Ottawa”, “backend developer Canada”, etc.
-4. **Optional v3** — technical blog posts when content is ready (empty blog hurts more than helps)
-5. **Backlinks** — LinkedIn profile, GitHub README, open-source contributions
+### Google Search Console (sitemap)
+
+The site is **apex-canonical**. Do **not** submit `https://www.itsashikur.com/sitemap.xml` on a www URL-prefix property — GSC may report “Couldn’t fetch” / “Unknown” because www 301s to apex and all `<loc>` URLs use `https://itsashikur.com`.
+
+1. Use a **Domain property** for `itsashikur.com` (covers www and apex), **or** a URL-prefix property **`https://itsashikur.com/`** (not www).
+2. **Remove** any failing sitemap entry for `https://www.itsashikur.com/sitemap.xml`.
+3. **Submit** `https://itsashikur.com/sitemap.xml` only.
+4. **URL Inspection** on `https://itsashikur.com/` — confirm canonical tags use apex.
+5. Re-fetch sitemap after deploy if status is stale (minutes to 48 hours).
+
+Confirm production env: `NEXT_PUBLIC_SITE_URL=https://itsashikur.com` ([`infra/env/prod/.env.example`](../infra/env/prod/.env.example)).
+
+### Other SEO follow-ups
+
+1. **Inspect URL** — confirm www redirects to apex and canonical tags match
+2. **Monitor queries** — “software developer Ottawa”, “backend developer Canada”, etc.
+3. **Optional v3** — technical blog posts when content is ready (empty blog hurts more than helps)
+4. **Backlinks** — LinkedIn profile, GitHub README, open-source contributions
 
 ---
 
