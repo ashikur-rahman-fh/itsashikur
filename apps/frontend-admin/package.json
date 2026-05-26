@@ -7,9 +7,10 @@
     "dev": "next dev -H 0.0.0.0 -p 3001",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3001",
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --max-warnings 0 --fix",
-    "typecheck": "tsc --noEmit",
+    "typegen": "next typegen",
+    "lint": "pnpm run typegen && eslint . --max-warnings 0",
+    "lint:fix": "pnpm run typegen && eslint . --max-warnings 0 --fix",
+    "typecheck": "pnpm run typegen && tsc --noEmit",
     "test": "vitest run"
   },
   "dependencies": {

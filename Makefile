@@ -78,13 +78,13 @@ editor-happy:
 build:
 	bash infra/scripts/build/build-frontends.sh
 
-# Read-only quality gate (does not modify files): Prettier check, ESLint, TypeScript,
-# Vitest, Next.js production builds (both frontends), Ruff format check + lint (backend).
+# Read-only quality gate (does not modify files): Next typegen, Prettier check, ESLint,
+# TypeScript, Vitest, Next.js production builds (both frontends), Ruff (backend).
 check-code-quality:
 	npx pnpm@9.15.0 check
 
-# Auto-fix formatting and lint (modifies files): Prettier write + ESLint --fix (JS/TS
-# monorepo), then Ruff format + Ruff lint --fix (apps/backend).
+# Auto-fix formatting and lint (modifies files): Next typegen, Prettier write, ESLint --fix
+# (JS/TS monorepo), then Ruff format + Ruff lint --fix (apps/backend).
 fix-code-quality:
 	npx pnpm@9.15.0 fix && npx pnpm@9.15.0 python:format && npx pnpm@9.15.0 python:lint:fix
 

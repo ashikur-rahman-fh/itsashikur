@@ -1,6 +1,6 @@
 [tool.basedpyright]
 include = ["."]
-exclude = [".venv", "**/__pycache__", ".pytest_cache", "staticfiles"]
+exclude = [".venv", "**/__pycache__", ".pytest_cache", "staticfiles", "**/migrations"]
 venvPath = "."
 venv = ".venv"
 extraPaths = ["."]
@@ -8,7 +8,7 @@ pythonVersion = "3.12"
 
 [tool.pyright]
 include = ["."]
-exclude = [".venv", "**/__pycache__", ".pytest_cache", "staticfiles"]
+exclude = [".venv", "**/__pycache__", ".pytest_cache", "staticfiles", "**/migrations"]
 venvPath = "."
 venv = ".venv"
 extraPaths = ["."]
@@ -18,7 +18,7 @@ pythonVersion = "3.12"
 line-length = 100
 target-version = "py312"
 src = ["."]
-exclude = [".venv", "__pycache__", ".pytest_cache", "staticfiles"]
+exclude = [".venv", "__pycache__", ".pytest_cache", "staticfiles", "**/migrations"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]

@@ -2,7 +2,10 @@
   "name": "ashikur-portfolio",
   "private": true,
   "scripts": {
+    "typegen": "pnpm --filter @ashikur-portfolio/frontend-main --filter @ashikur-portfolio/frontend-admin run typegen",
+    "preformat": "pnpm typegen",
     "format": "prettier . --write",
+    "preformat:check": "pnpm typegen",
     "format:check": "prettier . --check",
     "lint": "pnpm -r --if-present lint",
     "lint:fix": "pnpm format && pnpm -r --if-present lint:fix",
