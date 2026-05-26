@@ -63,10 +63,10 @@ describe('HomePage', () => {
   it('renders impact metrics beside hero', () => {
     render(<HomePage />);
     const hero = screen.getByTestId('hero-section');
-    expect(within(hero).getByRole('heading', { name: /Impact at a glance/i })).toBeInTheDocument();
+    expect(within(hero).getByRole('heading', { name: /By the numbers/i })).toBeInTheDocument();
     expect(within(hero).getByText(/problems solved/i)).toBeInTheDocument();
     expect(within(hero).getByText(/Codeforces rating/i)).toBeInTheDocument();
-    expect(within(hero).getByText(/improved incident traceability/i)).toBeInTheDocument();
+    expect(within(hero).getByText(/better incident traceability/i)).toBeInTheDocument();
     expect(document.getElementById('impact')).toBeInTheDocument();
   });
 
@@ -86,9 +86,7 @@ describe('HomePage', () => {
     expect(screen.getAllByText(/RFC-5424/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/Enosis Solutions/i)).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', {
-        name: /How contest practice supports production engineering/i,
-      }),
+      screen.getByRole('heading', { name: /From contests to production/i }),
     ).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: sectionCopy.skills.title })).toBeInTheDocument();
     expect(

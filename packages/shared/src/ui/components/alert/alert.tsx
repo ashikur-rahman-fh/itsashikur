@@ -34,6 +34,7 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> &
     variant?: AlertVariant;
     title?: string;
     description?: string;
+    live?: 'polite' | 'assertive' | 'off';
   };
 
 export function Alert({
@@ -42,6 +43,7 @@ export function Alert({
   title,
   description,
   children,
+  live,
   ...props
 }: AlertProps) {
   const Icon = iconMap[variant];
@@ -51,6 +53,7 @@ export function Alert({
     <ShadcnAlert
       variant={shadcnVariant}
       className={cn(alertVariants({ variant }), className)}
+      aria-live={live}
       {...props}
     >
       <Icon className="h-4 w-4" aria-hidden />
@@ -66,7 +69,7 @@ export function InfoAlert(props: Omit<AlertProps, 'variant'>) {
 }
 
 export function SuccessAlert(props: Omit<AlertProps, 'variant'>) {
-  return <Alert variant="success" {...props} />;
+  return <Alert variant="success" live={props.live ?? 'polite'} {...props} />;
 }
 
 export function WarningAlert(props: Omit<AlertProps, 'variant'>) {
@@ -74,5 +77,5 @@ export function WarningAlert(props: Omit<AlertProps, 'variant'>) {
 }
 
 export function ErrorAlert(props: Omit<AlertProps, 'variant'>) {
-  return <Alert variant="error" {...props} />;
+  return <Alert variant="error" live={props.live ?? 'assertive'} {...props} />;
 }

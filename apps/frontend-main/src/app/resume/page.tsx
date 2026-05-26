@@ -30,12 +30,12 @@ export default function ResumePage() {
             </h1>
             <p className="max-w-2xl text-body-sm text-muted-foreground">
               Preview the latest PDF resume below, or download a copy. For projects, skills, and
-              contact details, return to the{' '}
+              contact details, return{' '}
               <Link
                 href="/"
                 className="font-medium text-foreground underline-offset-4 hover:underline"
               >
-                portfolio homepage
+                home
               </Link>
               .
             </p>

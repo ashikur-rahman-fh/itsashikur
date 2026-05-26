@@ -15,6 +15,7 @@ export function HeroSection() {
               <div className="space-y-2">
                 <p className="type-eyebrow text-accent-foreground">{profile.currentRole}</p>
                 <h1 className="font-display text-hero font-bold text-foreground">{profile.name}</h1>
+                <p className="text-body-sm text-muted-foreground">{profile.headline}</p>
               </div>
               <p className="max-w-xl text-body leading-relaxed text-foreground">{profile.intro}</p>
               <p className="max-w-xl text-body leading-relaxed text-muted-foreground">
@@ -56,7 +57,7 @@ export function HeroSection() {
 
           <div id="impact" className="scroll-mt-14 space-y-4 sm:scroll-mt-16 lg:sticky lg:top-24">
             <h2 className="font-display text-section-title font-bold text-foreground">
-              Impact at a glance
+              By the numbers
             </h2>
             <StatGrid items={heroStats} columns={5} />
           </div>

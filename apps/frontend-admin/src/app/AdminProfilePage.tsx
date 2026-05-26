@@ -11,6 +11,7 @@ import {
   CardTitle,
   EmptyState,
   ErrorAlert,
+  FormField,
   Input,
   SuccessAlert,
 } from '@ashikur-portfolio/shared/ui';
@@ -146,51 +147,38 @@ export function AdminProfilePage() {
                     {error ? (
                       <ErrorAlert
                         id={errorId}
-                        title="Could not save profile"
+                        title={ADMIN_AUTH_COPY.profileSaveFailedTitle}
                         description={error}
                         role="alert"
                         aria-live="polite"
                         data-testid="admin-profile-error"
                       />
                     ) : null}
-                    <div className="space-y-2">
-                      <label htmlFor={firstNameId} className="text-ui font-medium text-foreground">
-                        First name
-                      </label>
+                    <FormField id={firstNameId} label={ADMIN_AUTH_COPY.firstNameLabel}>
                       <Input
-                        id={firstNameId}
                         name="firstName"
                         value={firstName}
                         onChange={(event) => setFirstName(event.target.value)}
                         autoComplete="given-name"
                       />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor={lastNameId} className="text-ui font-medium text-foreground">
-                        Last name
-                      </label>
+                    </FormField>
+                    <FormField id={lastNameId} label={ADMIN_AUTH_COPY.lastNameLabel}>
                       <Input
-                        id={lastNameId}
                         name="lastName"
                         value={lastName}
                         onChange={(event) => setLastName(event.target.value)}
                         autoComplete="family-name"
                       />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor={emailId} className="text-ui font-medium text-foreground">
-                        Email
-                      </label>
+                    </FormField>
+                    <FormField id={emailId} label={ADMIN_AUTH_COPY.emailLabel} required>
                       <Input
-                        id={emailId}
                         name="email"
                         type="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                         autoComplete="email"
-                        required
                       />
-                    </div>
+                    </FormField>
                     <div className="flex flex-col-reverse gap-2 sm:flex-row">
                       <Button type="submit" disabled={!canSave} aria-busy={isSaving}>
                         {isSaving ? ADMIN_AUTH_COPY.savingProfile : ADMIN_AUTH_COPY.saveProfile}

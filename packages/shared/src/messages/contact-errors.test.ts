@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { ApiError } from '../api/core/errors';
+import { CONTACT_COPY } from './contact';
 import { mapContactApiErrorToFields, validateContactFormClient } from './contact-errors';
 
 describe('validateContactFormClient', () => {
@@ -19,6 +20,24 @@ describe('validateContactFormClient', () => {
     });
     expect(Object.keys(result.fieldErrors)).toHaveLength(0);
   });
+
+  it('rejects names over the max length', () => {
+    const result = validateContactFormClient({
+      name: 'a'.repeat(121),
+      email: 'jane@example.com',
+      message: 'Hello, I would like to connect about a role.',
+    });
+    expect(result.fieldErrors.name).toBe(CONTACT_COPY.validation.nameTooLong);
+  });
+
+  it('uses email example in invalid email message', () => {
+    const result = validateContactFormClient({
+      name: 'Jane',
+      email: 'not-an-email',
+      message: 'Hello, I would like to connect about a role.',
+    });
+    expect(result.fieldErrors.email).toContain('name@example.com');
+  });
 });
 
 describe('mapContactApiErrorToFields', () => {
@@ -32,5 +51,10 @@ describe('mapContactApiErrorToFields', () => {
     });
     const result = mapContactApiErrorToFields(error);
     expect(result.fieldErrors.email).toContain('valid email');
+  });
+
+  it('falls back to contact generic message for unknown errors', () => {
+    const result = mapContactApiErrorToFields(new Error('boom'));
+    expect(result.formError).toBe(CONTACT_COPY.errors.generic);
   });
 });

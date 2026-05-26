@@ -1,13 +1,23 @@
 'use client';
 
 import {
+  ADMIN_ALERT_COPY,
+  ADMIN_DIALOG_COPY,
   adminBlogPostsApi,
   getUserFacingMessage,
   isApiError,
   type BlogPostListItem,
   type BlogStatus,
 } from '@ashikur-portfolio/shared/api';
-import { Badge, Button, EmptyState, Input, LoadingState } from '@ashikur-portfolio/shared/ui';
+import {
+  Badge,
+  Button,
+  EmptyState,
+  ErrorAlert,
+  Input,
+  LoadingState,
+  useConfirmDialog,
+} from '@ashikur-portfolio/shared/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
@@ -39,6 +49,7 @@ function statusBadgeVariant(status: BlogStatus): 'default' | 'secondary' | 'outl
 
 export function BlogPostsListPage() {
   const router = useRouter();
+  const { confirm, dialog } = useConfirmDialog(ADMIN_DIALOG_COPY.cancel);
   const [posts, setPosts] = useState<BlogPostListItem[]>([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
@@ -151,11 +162,13 @@ export function BlogPostsListPage() {
   }
 
   async function handleArchive(post: BlogPostListItem) {
-    if (
-      !window.confirm(
-        `${BLOG_POSTS_COPY.confirm.archiveTitle}\n${BLOG_POSTS_COPY.confirm.archiveDescription}`,
-      )
-    ) {
+    const confirmed = await confirm({
+      title: ADMIN_DIALOG_COPY.archivePost.title,
+      description: ADMIN_DIALOG_COPY.archivePost.description,
+      confirmLabel: ADMIN_DIALOG_COPY.archivePost.confirm,
+      cancelLabel: ADMIN_DIALOG_COPY.cancel,
+    });
+    if (!confirmed) {
       return;
     }
     await runAction(
@@ -170,11 +183,14 @@ export function BlogPostsListPage() {
   }
 
   async function handleDelete(post: BlogPostListItem) {
-    if (
-      !window.confirm(
-        `${BLOG_POSTS_COPY.confirm.deleteTitle}\n${BLOG_POSTS_COPY.confirm.deleteDescription}`,
-      )
-    ) {
+    const confirmed = await confirm({
+      title: ADMIN_DIALOG_COPY.deletePost.title,
+      description: ADMIN_DIALOG_COPY.deletePost.description,
+      confirmLabel: ADMIN_DIALOG_COPY.deletePost.confirm,
+      cancelLabel: ADMIN_DIALOG_COPY.cancel,
+      variant: 'destructive',
+    });
+    if (!confirmed) {
       return;
     }
     await runAction(
@@ -268,9 +284,7 @@ export function BlogPostsListPage() {
           </div>
 
           {actionError ? (
-            <p className="text-body-sm text-destructive" role="alert">
-              {actionError}
-            </p>
+            <ErrorAlert title={ADMIN_ALERT_COPY.couldNotCompleteAction} description={actionError} />
           ) : null}
 
           {isLoading ? (
@@ -435,6 +449,7 @@ export function BlogPostsListPage() {
             </>
           )}
         </div>
+        {dialog}
       </AdminShell>
     </RequireAdminAuth>
   );

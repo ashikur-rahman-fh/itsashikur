@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  ADMIN_DIALOG_COPY,
   adminBlogPostsApi,
   getUserFacingMessage,
   isApiError,
@@ -18,6 +19,7 @@ import {
   LoadingState,
   SuccessAlert,
   Textarea,
+  useConfirmDialog,
 } from '@ashikur-portfolio/shared/ui';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -28,7 +30,7 @@ import { RequireAdminAuth } from '@/auth/guards';
 import { ADMIN_APP_ROUTES } from '@/auth/routes';
 import { BlogPostPreview } from '@/app/blog-posts/components/BlogPostPreview';
 import { LabeledField } from '@/app/blog-posts/components/LabeledField';
-import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard';
+import { unsavedLeaveDialogOptions, useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard';
 import { triggerBlogRevalidation } from '@/lib/triggerBlogRevalidation';
 import { BLOG_POSTS_COPY } from '@/messages/blog-posts';
 
@@ -145,7 +147,10 @@ export function BlogPostEditorPage({ mode, postId }: BlogPostEditorPageProps) {
   const slugManuallyEdited = useRef(false);
 
   const isDirty = JSON.stringify(form) !== savedSnapshot;
-  const { confirmLeave } = useUnsavedChangesGuard(isDirty, BLOG_POSTS_COPY.messages.unsavedWarning);
+  const { confirm, dialog } = useConfirmDialog(ADMIN_DIALOG_COPY.cancel);
+  const { confirmLeaveIfDirty } = useUnsavedChangesGuard(isDirty, () =>
+    confirm(unsavedLeaveDialogOptions()),
+  );
 
   useEffect(() => {
     if (mode !== 'edit' || !postId) return;
@@ -259,14 +264,17 @@ export function BlogPostEditorPage({ mode, postId }: BlogPostEditorPageProps) {
     }
   }
 
-  function handleBack() {
-    if (!confirmLeave()) return;
+  async function handleBack() {
+    if (!(await confirmLeaveIfDirty())) return;
     router.push(ADMIN_APP_ROUTES.blogPosts);
   }
 
-  function handleCancelClick(event: MouseEvent<HTMLAnchorElement>) {
-    if (!confirmLeave()) {
-      event.preventDefault();
+  async function handleCancelClick(event: MouseEvent<HTMLAnchorElement>) {
+    if (!isDirty) return;
+
+    event.preventDefault();
+    if (await confirmLeaveIfDirty()) {
+      router.push(ADMIN_APP_ROUTES.blogPosts);
     }
   }
 
@@ -302,7 +310,7 @@ export function BlogPostEditorPage({ mode, postId }: BlogPostEditorPageProps) {
               <Button type="button" onClick={() => setLoadToken((t) => t + 1)}>
                 {BLOG_POSTS_COPY.actions.retry}
               </Button>
-              <Button type="button" variant="outline" onClick={handleBack}>
+              <Button type="button" variant="outline" onClick={() => void handleBack()}>
                 {BLOG_POSTS_COPY.actions.backToList}
               </Button>
             </div>
@@ -334,7 +342,7 @@ export function BlogPostEditorPage({ mode, postId }: BlogPostEditorPageProps) {
         />
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Button type="button" variant="outline" size="sm" onClick={handleBack}>
+          <Button type="button" variant="outline" size="sm" onClick={() => void handleBack()}>
             {BLOG_POSTS_COPY.actions.backToList}
           </Button>
           <Badge variant={form.status === 'published' ? 'default' : 'secondary'}>
@@ -398,13 +406,17 @@ export function BlogPostEditorPage({ mode, postId }: BlogPostEditorPageProps) {
               variant="outline"
               disabled={isSaving || !editorReady}
               onClick={() => {
-                if (
-                  window.confirm(
-                    `${BLOG_POSTS_COPY.confirm.archiveTitle}\n${BLOG_POSTS_COPY.confirm.archiveDescription}`,
-                  )
-                ) {
-                  void persist('archived');
-                }
+                void (async () => {
+                  const confirmed = await confirm({
+                    title: ADMIN_DIALOG_COPY.archivePost.title,
+                    description: ADMIN_DIALOG_COPY.archivePost.description,
+                    confirmLabel: ADMIN_DIALOG_COPY.archivePost.confirm,
+                    cancelLabel: ADMIN_DIALOG_COPY.cancel,
+                  });
+                  if (confirmed) {
+                    void persist('archived');
+                  }
+                })();
               }}
             >
               {BLOG_POSTS_COPY.actions.archive}
@@ -621,6 +633,7 @@ export function BlogPostEditorPage({ mode, postId }: BlogPostEditorPageProps) {
             {BLOG_POSTS_COPY.actions.cancel}
           </Link>
         </p>
+        {dialog}
       </AdminShell>
     </RequireAdminAuth>
   );

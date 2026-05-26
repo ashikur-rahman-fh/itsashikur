@@ -2,18 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { BLOG_UX } from '@ashikur-portfolio/shared/api';
 import { safeFetchPublicBlogPosts } from '@ashikur-portfolio/shared/api/server/blog-fetch';
 import { getCachedPublicBlogPost, isBlogFetchError } from '../../../lib/blog-server';
 import { BlogMarkdown, extractTableOfContents } from '@ashikur-portfolio/shared/markdown';
-import {
-  Badge,
-  Button,
-  Container,
-  EmptyState,
-  PageShell,
-  TechChip,
-} from '@ashikur-portfolio/shared/ui';
+import { Badge, Button, Container, PageShell, TechChip } from '@ashikur-portfolio/shared/ui';
 
+import { BlogRetryEmptyState } from '../../../components/blog/BlogRetryEmptyState';
 import { BlogCard } from '../../../components/blog/BlogCard';
 import { BlogPostCta } from '../../../components/blog/BlogPostCta';
 import { BlogTableOfContents } from '../../../components/blog/BlogTableOfContents';
@@ -49,8 +44,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   if (isBlogFetchError(result)) {
     return buildPageMetadata({
       path: `/blog/${slug}`,
-      title: 'Article unavailable',
-      description: 'This article could not be loaded.',
+      title: BLOG_UX.articleLoadError.title,
+      description: BLOG_UX.articleLoadError.description,
       robots: redirectPageRobots,
     });
   }
@@ -121,13 +116,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         footer={<SiteFooter />}
       >
         <Container id="main-content" className="py-10 sm:py-14">
-          <div className="mx-auto max-w-lg space-y-6 text-center">
-            <h1 className="font-display text-page-title font-bold text-foreground">
-              Article temporarily unavailable
-            </h1>
-            <EmptyState
-              title="Unable to load this article"
-              description="Please try again shortly."
+          <div className="mx-auto max-w-lg">
+            <BlogRetryEmptyState
+              title={BLOG_UX.articleLoadError.title}
+              description={BLOG_UX.articleLoadError.description}
             />
           </div>
         </Container>

@@ -9,9 +9,7 @@ EMAIL_MAX_LENGTH = 254
 MESSAGE_MIN_LENGTH = 20
 MESSAGE_MAX_LENGTH = 5000
 
-CONTACT_SUCCESS_MESSAGE = (
-    "Thank you for reaching out. Your message was received and I will get back to you soon."
-)
+CONTACT_SUCCESS_MESSAGE = "Thanks—your message was sent successfully. I'll get back to you soon."
 
 
 class ContactMessageSubmitSerializer(serializers.Serializer):
@@ -23,7 +21,7 @@ class ContactMessageSubmitSerializer(serializers.Serializer):
         error_messages={
             "required": "Please enter your name so I know who is reaching out.",
             "blank": "Please enter your name so I know who is reaching out.",
-            "max_length": f"Your name can be at most {NAME_MAX_LENGTH} characters.",
+            "max_length": "Your name can be at most 120 characters.",
         },
     )
     email = serializers.EmailField(
@@ -34,7 +32,7 @@ class ContactMessageSubmitSerializer(serializers.Serializer):
         error_messages={
             "required": "Please enter your email address so I can reply to you.",
             "blank": "Please enter your email address so I can reply to you.",
-            "invalid": "Please enter a valid email address so I can reply to you.",
+            "invalid": "Please enter a valid email address, like name@example.com.",
         },
     )
     message = serializers.CharField(
@@ -46,10 +44,7 @@ class ContactMessageSubmitSerializer(serializers.Serializer):
         error_messages={
             "required": "Please write your message before sending.",
             "blank": "Please write your message before sending.",
-            "min_length": (
-                f"Please add a bit more detail — your message should be at least "
-                f"{MESSAGE_MIN_LENGTH} characters."
-            ),
+            "min_length": (f"Add a bit more detail (at least {MESSAGE_MIN_LENGTH} characters)."),
             "max_length": (
                 f"Your message is too long. Please shorten it to {MESSAGE_MAX_LENGTH} "
                 "characters or less."
@@ -84,8 +79,7 @@ class ContactMessageSubmitSerializer(serializers.Serializer):
         cleaned = value.strip()
         if len(cleaned) < MESSAGE_MIN_LENGTH:
             raise serializers.ValidationError(
-                f"Please add a bit more detail — your message should be at least "
-                f"{MESSAGE_MIN_LENGTH} characters."
+                f"Add a bit more detail (at least {MESSAGE_MIN_LENGTH} characters)."
             )
         return cleaned
 

@@ -1,10 +1,9 @@
 'use client';
 
+import { ADMIN_DIALOG_COPY } from '@ashikur-portfolio/shared/api';
 import { useEffect } from 'react';
 
-const UNSAVED_MESSAGE = 'You have unsaved changes. Leave anyway?';
-
-export function useUnsavedChangesGuard(isDirty: boolean, message = UNSAVED_MESSAGE) {
+export function useUnsavedChangesGuard(isDirty: boolean, confirmLeave: () => Promise<boolean>) {
   useEffect(() => {
     function onBeforeUnload(event: BeforeUnloadEvent) {
       if (isDirty) {
@@ -16,10 +15,22 @@ export function useUnsavedChangesGuard(isDirty: boolean, message = UNSAVED_MESSA
     return () => window.removeEventListener('beforeunload', onBeforeUnload);
   }, [isDirty]);
 
-  function confirmLeave(): boolean {
-    if (!isDirty) return true;
-    return window.confirm(message);
+  async function confirmLeaveIfDirty(): Promise<boolean> {
+    if (!isDirty) {
+      return true;
+    }
+    return confirmLeave();
   }
 
-  return { confirmLeave };
+  return { confirmLeaveIfDirty };
+}
+
+export function unsavedLeaveDialogOptions() {
+  return {
+    title: ADMIN_DIALOG_COPY.unsaved.title,
+    description: ADMIN_DIALOG_COPY.unsaved.description,
+    confirmLabel: ADMIN_DIALOG_COPY.unsaved.confirm,
+    cancelLabel: ADMIN_DIALOG_COPY.cancel,
+    variant: 'destructive' as const,
+  };
 }

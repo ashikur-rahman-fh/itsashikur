@@ -119,7 +119,11 @@ export function ContactMessageDetailPage({ messageId }: ContactMessageDetailPage
         isRead: nextRead,
       });
       setMessage(updated);
-      setActionSuccess(nextRead ? 'Message marked as read.' : 'Message marked as unread.');
+      setActionSuccess(
+        nextRead
+          ? CONTACT_MESSAGES_COPY.markedReadSuccess
+          : CONTACT_MESSAGES_COPY.markedUnreadSuccess,
+      );
     } catch (err) {
       setActionError(
         nextRead ? CONTACT_MESSAGES_COPY.markReadError : CONTACT_MESSAGES_COPY.markUnreadError,
@@ -203,10 +207,16 @@ export function ContactMessageDetailPage({ messageId }: ContactMessageDetailPage
               </CardHeader>
               <CardContent className="space-y-6">
                 {actionError ? (
-                  <ErrorAlert title="Could not update status" description={actionError} />
+                  <ErrorAlert
+                    title={CONTACT_MESSAGES_COPY.statusUpdateErrorTitle}
+                    description={actionError}
+                  />
                 ) : null}
                 {actionSuccess ? (
-                  <SuccessAlert title="Status updated" description={actionSuccess} />
+                  <SuccessAlert
+                    title={CONTACT_MESSAGES_COPY.statusUpdatedTitle}
+                    description={actionSuccess}
+                  />
                 ) : null}
 
                 <dl className="grid gap-4 text-ui sm:grid-cols-[auto_1fr]">

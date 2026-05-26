@@ -113,12 +113,12 @@ export const shortMetaKeywords = [
 export const homeTitle = 'Ashikur Rahman | Software Developer in Ottawa, Canada';
 
 export const homeDescription =
-  'I’m a backend and full-stack software developer in Ottawa, Canada. I build reliable web apps, APIs, and tools with TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, and C++.';
+  'Software developer in Ottawa, Canada. I build backend systems, embedded software, and full-stack web apps with TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, and C++.';
 
 export const resumeTitle = 'Resume | Ashikur Rahman — Software Developer in Ottawa, Canada';
 
 export const resumeDescription =
-  'Resume for Ashikur Rahman, backend and full-stack software developer in Ottawa, Canada. Production APIs, TypeScript, Next.js, Node.js, PostgreSQL, and 4+ years in industry.';
+  'Resume for Ashikur Rahman—software developer in Ottawa with 4+ years across embedded, backend, and full-stack work (C++, Python, TypeScript, Next.js, Node.js, PostgreSQL).';
 
 export const layoutDescription = homeDescription;
 
@@ -208,9 +208,9 @@ export const resumeMetadata = buildPageMetadata({
   keywords: shortMetaKeywords,
 });
 
-export const blogHubTitle = 'Blog — Software engineering articles';
+export const blogHubTitle = 'Engineering notes · Ashikur Rahman';
 export const blogHubDescription =
-  'Technical writing on software engineering, full-stack development, backend systems, and learning—by Ashikur Rahman in Ottawa, Canada.';
+  "Notes on building software, debugging production systems, and what I'm learning—by Ashikur Rahman in Ottawa.";
 
 export const blogHubMetadata = buildPageMetadata({
   path: '/blog',

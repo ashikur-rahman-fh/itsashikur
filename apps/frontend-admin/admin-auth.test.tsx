@@ -25,6 +25,11 @@ function renderWithAuth(ui: ReactElement) {
   return render(<AdminAuthProvider>{ui}</AdminAuthProvider>);
 }
 
+/** FormField appends sr-only "(required)" to accessible names. */
+function fieldLabel(text: string) {
+  return screen.getByLabelText(text, { exact: false });
+}
+
 describe('LoginPage', () => {
   beforeEach(() => {
     replaceMock.mockClear();
@@ -36,7 +41,7 @@ describe('LoginPage', () => {
     expect(
       screen.getByRole('heading', { level: 1, name: ADMIN_AUTH_COPY.loginTitle }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText(ADMIN_AUTH_COPY.usernameOrEmailLabel)).toBeInTheDocument();
+    expect(fieldLabel(ADMIN_AUTH_COPY.usernameOrEmailLabel)).toBeInTheDocument();
     expect(screen.getByLabelText(ADMIN_AUTH_COPY.passwordLabel)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: ADMIN_AUTH_COPY.signIn })).toBeInTheDocument();
   });
@@ -63,7 +68,7 @@ describe('LoginPage', () => {
     renderWithAuth(<LoginPage />);
     await screen.findByTestId('admin-login-page');
 
-    await user.type(screen.getByLabelText(ADMIN_AUTH_COPY.usernameOrEmailLabel), 'admin');
+    await user.type(fieldLabel(ADMIN_AUTH_COPY.usernameOrEmailLabel), 'admin');
     await user.type(screen.getByLabelText(ADMIN_AUTH_COPY.passwordLabel), 'correct');
     await user.click(screen.getByRole('button', { name: ADMIN_AUTH_COPY.signIn }));
 
@@ -93,7 +98,7 @@ describe('LoginPage', () => {
     renderWithAuth(<LoginPage />);
     await screen.findByTestId('admin-login-page');
 
-    await user.type(screen.getByLabelText(ADMIN_AUTH_COPY.usernameOrEmailLabel), 'admin');
+    await user.type(fieldLabel(ADMIN_AUTH_COPY.usernameOrEmailLabel), 'admin');
     await user.type(screen.getByLabelText(ADMIN_AUTH_COPY.passwordLabel), 'wrong');
     await user.click(screen.getByRole('button', { name: ADMIN_AUTH_COPY.signIn }));
 
@@ -106,7 +111,7 @@ describe('LoginPage', () => {
     renderWithAuth(<LoginPage />);
     await screen.findByTestId('admin-login-page');
 
-    await user.type(screen.getByLabelText(ADMIN_AUTH_COPY.usernameOrEmailLabel), 'admin');
+    await user.type(fieldLabel(ADMIN_AUTH_COPY.usernameOrEmailLabel), 'admin');
     await user.type(screen.getByLabelText(ADMIN_AUTH_COPY.passwordLabel), 'correct');
     await user.click(screen.getByRole('button', { name: ADMIN_AUTH_COPY.signIn }));
 
@@ -224,11 +229,11 @@ describe('Admin profile and route guards', () => {
     await screen.findByTestId('admin-profile-name');
 
     await user.click(screen.getByRole('button', { name: ADMIN_AUTH_COPY.editProfile }));
-    expect(screen.getByLabelText('First name')).toHaveValue(adminUser.firstName);
-    expect(screen.getByLabelText('Email')).toHaveValue(adminUser.email);
+    expect(fieldLabel(ADMIN_AUTH_COPY.firstNameLabel)).toHaveValue(adminUser.firstName);
+    expect(fieldLabel(ADMIN_AUTH_COPY.emailLabel)).toHaveValue(adminUser.email);
 
-    await user.clear(screen.getByLabelText('Email'));
-    await user.type(screen.getByLabelText('Email'), 'updated@example.com');
+    await user.clear(fieldLabel(ADMIN_AUTH_COPY.emailLabel));
+    await user.type(fieldLabel(ADMIN_AUTH_COPY.emailLabel), 'updated@example.com');
     await user.click(screen.getByRole('button', { name: ADMIN_AUTH_COPY.saveProfile }));
 
     expect(await screen.findByTestId('admin-profile-success')).toHaveTextContent(

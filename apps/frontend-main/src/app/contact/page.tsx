@@ -9,6 +9,7 @@ import { SiteHeader } from '../../components/SiteHeader';
 import {
   contactSectionDescription,
   contactSectionMetaDescription,
+  contactSidebar,
   profile,
 } from '../../data/portfolio';
 import { SiteFooter } from '../../sections/SiteFooter';
@@ -44,11 +45,9 @@ export default function ContactPage() {
           <div className="portfolio-surface flex flex-col justify-between gap-6 p-6 sm:p-8">
             <div className="space-y-4">
               <h2 className="text-card-title font-semibold text-foreground">
-                Other ways to connect
+                {contactSidebar.title}
               </h2>
-              <p className="text-body-sm text-muted-foreground">
-                Prefer email or a professional profile? You can also reach me directly.
-              </p>
+              <p className="text-body-sm text-muted-foreground">{contactSidebar.description}</p>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button size="lg" asChild>
                   <a href={mailtoHref}>Email me directly</a>
@@ -75,7 +74,7 @@ export default function ContactPage() {
             href="/"
             className="font-medium text-accent-foreground underline-offset-4 hover:underline"
           >
-            Return to portfolio homepage
+            Back to home
           </Link>
         </p>
       </Container>

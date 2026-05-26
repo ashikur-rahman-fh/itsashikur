@@ -49,7 +49,7 @@ describe('ContactForm', () => {
     render(<ContactForm />);
     await user.type(screen.getByLabelText(/your name/i), 'Your full name');
     await user.type(screen.getByLabelText(/email address/i), 'jane@example.com');
-    await user.type(screen.getByLabelText(/^message$/i), validMessage);
+    await user.type(screen.getByRole('textbox', { name: /message/i }), validMessage);
     await user.click(screen.getByRole('button', { name: /send message/i }));
     await waitFor(() => {
       expect(screen.getByTestId('contact-form-success')).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('ContactForm', () => {
     render(<ContactForm />);
     await user.type(screen.getByLabelText(/your name/i), 'Your full name');
     await user.type(screen.getByLabelText(/email address/i), 'bad');
-    await user.type(screen.getByLabelText(/^message$/i), validMessage);
+    await user.type(screen.getByRole('textbox', { name: /message/i }), validMessage);
     await user.click(screen.getByRole('button', { name: /send message/i }));
     expect(await screen.findByText(/valid email address/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue('Your full name')).toBeInTheDocument();

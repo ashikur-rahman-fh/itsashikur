@@ -1,5 +1,5 @@
-import { CONTACT_COPY } from './contact';
-import { isApiError, USER_MESSAGES } from '../api/core/errors';
+import { CONTACT_COPY, MESSAGE_MAX_LENGTH, MESSAGE_MIN_LENGTH, NAME_MAX_LENGTH } from './contact';
+import { isApiError } from '../api/core/errors';
 
 export type ContactFieldErrors = {
   name?: string;
@@ -64,7 +64,7 @@ export function mapContactApiErrorToFields(error: unknown): ContactFormErrorStat
   }
 
   if (!formError && !Object.keys(fieldErrors).length) {
-    formError = USER_MESSAGES.unknown;
+    formError = CONTACT_COPY.errors.generic;
   }
 
   return { fieldErrors, formError };
@@ -82,6 +82,8 @@ export function validateContactFormClient(values: {
 
   if (!name) {
     fieldErrors.name = CONTACT_COPY.validation.nameRequired;
+  } else if (name.length > NAME_MAX_LENGTH) {
+    fieldErrors.name = CONTACT_COPY.validation.nameTooLong;
   }
   if (!email) {
     fieldErrors.email = CONTACT_COPY.validation.emailRequired;
@@ -90,9 +92,9 @@ export function validateContactFormClient(values: {
   }
   if (!message) {
     fieldErrors.message = CONTACT_COPY.validation.messageRequired;
-  } else if (message.length < 20) {
+  } else if (message.length < MESSAGE_MIN_LENGTH) {
     fieldErrors.message = CONTACT_COPY.validation.messageTooShort;
-  } else if (message.length > 5000) {
+  } else if (message.length > MESSAGE_MAX_LENGTH) {
     fieldErrors.message = CONTACT_COPY.validation.messageTooLong;
   }
 

@@ -43,7 +43,7 @@ export function AboutSection() {
         </div>
         <Reveal delay={80}>
           <div>
-            <h3 className="text-ui font-semibold text-foreground">Collaboration strengths</h3>
+            <h3 className="text-ui font-semibold text-foreground">How I work with others</h3>
             <div className="mt-3 flex flex-wrap gap-2">
               {profile.softSkills.map((skill) => (
                 <TechChip key={skill} label={skill} />

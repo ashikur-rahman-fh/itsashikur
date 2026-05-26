@@ -62,7 +62,7 @@ export function SiteFooter() {
           </ul>
         </nav>
         <p className="text-body-sm text-muted-foreground">
-          {profile.name} — Software developer · Ottawa, Ontario
+          {profile.name} · Software developer · Ottawa, ON
         </p>
         <p className="text-body-sm text-muted-foreground">
           <a

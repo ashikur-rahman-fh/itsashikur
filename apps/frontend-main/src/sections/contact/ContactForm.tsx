@@ -15,7 +15,7 @@ import {
   SuccessAlert,
   Textarea,
 } from '@ashikur-portfolio/shared/ui';
-import { useId, useState, type FormEvent } from 'react';
+import { useEffect, useId, useRef, useState, type FormEvent, type RefObject } from 'react';
 
 type FormValues = {
   name: string;
@@ -23,16 +23,20 @@ type FormValues = {
   message: string;
 };
 
+type FieldKey = keyof FormValues;
+
 const INITIAL_VALUES: FormValues = {
   name: '',
   email: '',
   message: '',
 };
 
+const FIELD_ORDER: FieldKey[] = ['name', 'email', 'message'];
+
 export function ContactForm() {
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [honeypot, setHoneypot] = useState('');
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldKey, string>>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -43,6 +47,42 @@ export function ContactForm() {
   const messageId = useId();
   const honeypotId = useId();
   const formErrorId = useId();
+  const successRef = useRef<HTMLDivElement>(null);
+
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const fieldRefs: Record<FieldKey, RefObject<HTMLInputElement | HTMLTextAreaElement | null>> = {
+    name: nameInputRef,
+    email: emailInputRef,
+    message: messageInputRef,
+  };
+
+  function focusFirstError(errors: Partial<Record<FieldKey, string>>) {
+    for (const key of FIELD_ORDER) {
+      if (errors[key]) {
+        fieldRefs[key].current?.focus();
+        return;
+      }
+    }
+  }
+
+  function clearFieldError(field: FieldKey) {
+    setFieldErrors((prev) => {
+      if (!prev[field]) {
+        return prev;
+      }
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  }
+
+  function handleFieldChange(field: FieldKey, value: string) {
+    setValues((prev) => ({ ...prev, [field]: value }));
+    clearFieldError(field);
+  }
 
   function resetForAnother() {
     setValues(INITIAL_VALUES);
@@ -61,8 +101,10 @@ export function ContactForm() {
 
     const clientValidation = validateContactFormClient(values);
     if (Object.keys(clientValidation.fieldErrors).length > 0) {
-      setFieldErrors(clientValidation.fieldErrors as Record<string, string>);
+      const errors = clientValidation.fieldErrors as Partial<Record<FieldKey, string>>;
+      setFieldErrors(errors);
       setFormError(null);
+      focusFirstError(errors);
       return;
     }
 
@@ -81,29 +123,43 @@ export function ContactForm() {
       setIsSuccess(true);
     } catch (error) {
       const mapped = mapContactApiErrorToFields(error);
-      setFieldErrors(mapped.fieldErrors as Record<string, string>);
+      const errors = mapped.fieldErrors as Partial<Record<FieldKey, string>>;
+      setFieldErrors(errors);
       setFormError(mapped.formError);
+      if (Object.keys(errors).length > 0) {
+        focusFirstError(errors);
+      }
     } finally {
       setIsSubmitting(false);
     }
   }
 
+  useEffect(() => {
+    if (isSuccess) {
+      successRef.current?.focus();
+    }
+  }, [isSuccess]);
+
   if (isSuccess) {
     return (
       <div
-        className="space-y-6 motion-safe:animate-in motion-safe:fade-in motion-safe:duration-300"
+        ref={successRef}
+        tabIndex={-1}
+        role="status"
+        aria-live="polite"
+        className="space-y-6 motion-safe:animate-in motion-safe:fade-in motion-safe:duration-300 outline-none"
         data-testid="contact-form-success"
       >
         <SuccessAlert title={CONTACT_COPY.success.title} description={successMessage} />
-        <p className="text-body-sm text-muted-foreground">
-          I will reply to the email address you provided.
-        </p>
+        <p className="text-body-sm text-muted-foreground">{CONTACT_COPY.success.followUp}</p>
         <Button type="button" variant="outline" onClick={resetForAnother}>
           {CONTACT_COPY.success.sendAnother}
         </Button>
       </div>
     );
   }
+
+  const formDescribedBy = formError ? formErrorId : undefined;
 
   return (
     <form
@@ -112,11 +168,16 @@ export function ContactForm() {
       noValidate
       data-testid="contact-form"
       aria-busy={isSubmitting}
+      aria-describedby={formDescribedBy}
     >
       <p className="text-body-sm text-muted-foreground">{CONTACT_COPY.formIntro}</p>
 
       {formError ? (
-        <ErrorAlert id={formErrorId} title="Could not send your message" description={formError} />
+        <ErrorAlert
+          id={formErrorId}
+          title={CONTACT_COPY.errors.formTitle}
+          description={formError}
+        />
       ) : null}
 
       <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden>
@@ -132,52 +193,70 @@ export function ContactForm() {
         />
       </div>
 
-      <FormField id={nameId} label={CONTACT_COPY.fields.name.label} error={fieldErrors.name}>
+      <FormField
+        id={nameId}
+        label={CONTACT_COPY.fields.name.label}
+        error={fieldErrors.name}
+        required
+      >
         <Input
+          ref={nameInputRef}
           name="name"
           type="text"
           autoComplete="name"
           placeholder={CONTACT_COPY.fields.name.placeholder}
           value={values.name}
-          onChange={(event) => setValues((prev) => ({ ...prev, name: event.target.value }))}
+          onChange={(event) => handleFieldChange('name', event.target.value)}
           disabled={isSubmitting}
           maxLength={120}
-          required
         />
       </FormField>
 
-      <FormField id={emailId} label={CONTACT_COPY.fields.email.label} error={fieldErrors.email}>
+      <FormField
+        id={emailId}
+        label={CONTACT_COPY.fields.email.label}
+        error={fieldErrors.email}
+        required
+      >
         <Input
+          ref={emailInputRef}
           name="email"
           type="email"
           autoComplete="email"
           inputMode="email"
           placeholder={CONTACT_COPY.fields.email.placeholder}
           value={values.email}
-          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+          onChange={(event) => handleFieldChange('email', event.target.value)}
           disabled={isSubmitting}
-          required
         />
       </FormField>
 
       <FormField
         id={messageId}
         label={CONTACT_COPY.fields.message.label}
+        hint={CONTACT_COPY.fields.message.hint}
         error={fieldErrors.message}
+        required
       >
         <Textarea
+          ref={messageInputRef}
           name="message"
           placeholder={CONTACT_COPY.fields.message.placeholder}
           value={values.message}
-          onChange={(event) => setValues((prev) => ({ ...prev, message: event.target.value }))}
+          onChange={(event) => handleFieldChange('message', event.target.value)}
           disabled={isSubmitting}
           maxLength={MESSAGE_MAX_LENGTH}
           rows={6}
-          required
         />
       </FormField>
 
-      <Button type="submit" size="lg" className="min-h-11 w-full sm:w-auto" disabled={isSubmitting}>
+      <Button
+        type="submit"
+        size="lg"
+        className="min-h-11 w-full sm:w-auto"
+        disabled={isSubmitting}
+        aria-busy={isSubmitting}
+      >
         {isSubmitting ? CONTACT_COPY.submitting : CONTACT_COPY.submit}
       </Button>
     </form>

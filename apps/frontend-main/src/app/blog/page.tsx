@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
+import { BLOG_UX } from '@ashikur-portfolio/shared/api';
 import {
   isBlogFetchError,
   safeFetchPublicBlogPosts,
@@ -20,6 +21,7 @@ import {
   shortMetaKeywords,
   siteUrl,
 } from '../../config/site-metadata';
+import { BlogRetryEmptyState } from '../../components/blog/BlogRetryEmptyState';
 import { SiteHeader } from '../../components/SiteHeader';
 import { SiteFooter } from '../../sections/SiteFooter';
 
@@ -95,10 +97,7 @@ export default async function BlogHubPage({ searchParams }: BlogHubPageProps) {
         footer={<SiteFooter />}
       >
         <Container id="main-content" className="py-10 sm:py-14">
-          <EmptyState
-            title="Blog temporarily unavailable"
-            description="Please try again shortly."
-          />
+          <BlogRetryEmptyState />
         </Container>
       </PageShell>
     );
@@ -114,11 +113,9 @@ export default async function BlogHubPage({ searchParams }: BlogHubPageProps) {
   if (tag) baseParams.set('tag', tag);
   if (q) baseParams.set('q', q);
 
-  const emptyTitle = q || category || tag ? 'No matching articles' : 'No articles yet';
+  const emptyTitle = q || category || tag ? BLOG_UX.emptyFiltered.title : BLOG_UX.emptyNone.title;
   const emptyDescription =
-    q || category || tag
-      ? 'Try different keywords or clear your filters.'
-      : 'Check back soon for posts on software engineering, projects, and technical learning.';
+    q || category || tag ? BLOG_UX.emptyFiltered.description : BLOG_UX.emptyNone.description;
 
   return (
     <PageShell
@@ -129,18 +126,17 @@ export default async function BlogHubPage({ searchParams }: BlogHubPageProps) {
     >
       <Container id="main-content" className="py-10 sm:py-14">
         <header className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
-          <p className="type-eyebrow text-accent-foreground">Blog</p>
+          <p className="type-eyebrow text-accent-foreground">Writing</p>
           <h1 className="font-display text-page-title font-bold text-foreground">Blog</h1>
           <p className="text-body leading-relaxed text-muted-foreground">
-            Notes on building software, debugging production systems, and things I&apos;m learning
-            along the way.
+            Notes on building software, debugging production systems, and what I&apos;m learning.
           </p>
           <p className="text-body-sm">
             <Link
               href="/"
               className="font-medium text-accent-foreground underline-offset-4 hover:underline"
             >
-              Back to portfolio homepage
+              Back to home
             </Link>
             {' · '}
             <Link

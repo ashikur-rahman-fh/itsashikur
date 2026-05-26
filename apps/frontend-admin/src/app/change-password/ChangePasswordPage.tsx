@@ -99,7 +99,7 @@ export function ChangePasswordPage() {
               {error ? (
                 <ErrorAlert
                   id={errorId}
-                  title="Could not update password"
+                  title={ADMIN_AUTH_COPY.passwordUpdateFailedTitle}
                   description={error}
                   role="alert"
                   aria-live="polite"

@@ -39,7 +39,7 @@ export function SkillsSection() {
               ))}
             </div>
             <p className="mt-4 text-body-sm text-muted-foreground">
-              Contest background and ratings are in{' '}
+              See{' '}
               <Link
                 href="#achievements"
                 className="font-medium text-foreground underline-offset-4 hover:underline"
@@ -51,7 +51,7 @@ export function SkillsSection() {
                 href="#cp-engineering"
                 className="font-medium text-foreground underline-offset-4 hover:underline"
               >
-                how contest practice supports engineering
+                how contests connect to engineering work
               </Link>
               .
             </p>

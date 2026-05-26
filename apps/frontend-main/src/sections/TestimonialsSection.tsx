@@ -8,7 +8,7 @@ import {
   Section,
 } from '@ashikur-portfolio/shared/ui';
 
-import { workingPrinciples } from '../data/portfolio';
+import { workingPrinciples, workingStyleSectionDescription } from '../data/portfolio';
 
 export function TestimonialsSection() {
   return (
@@ -17,8 +17,7 @@ export function TestimonialsSection() {
       heading={{
         eyebrow: 'Working style',
         title: 'How I work with teams',
-        description:
-          'Habits that support reliable delivery, clear communication, and maintainable code on shared codebases.',
+        description: workingStyleSectionDescription,
       }}
     >
       <div className="layout-card-grid sm:grid-cols-2">

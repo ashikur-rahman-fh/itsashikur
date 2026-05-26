@@ -38,7 +38,7 @@ describe('ResumePage', () => {
       siteLinks.resumePdfUrl,
     );
 
-    expect(screen.getByRole('link', { name: /portfolio homepage/i })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: /^home$/i })).toHaveAttribute('href', '/');
     expect(screen.getByRole('link', { name: 'View projects' })).toHaveAttribute(
       'href',
       '/projects',

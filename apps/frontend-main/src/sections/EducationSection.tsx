@@ -1,6 +1,6 @@
 import { Reveal, Section } from '@ashikur-portfolio/shared/ui';
 
-import { education } from '../data/portfolio';
+import { education, educationSectionDescription } from '../data/portfolio';
 
 export function EducationSection() {
   return (
@@ -9,8 +9,7 @@ export function EducationSection() {
       heading={{
         eyebrow: 'Education',
         title: 'BSc Computer Science & Engineering',
-        description:
-          'Formal training in computer science, strengthened through competitive programming and mentoring.',
+        description: educationSectionDescription,
       }}
     >
       <div className="space-y-6">

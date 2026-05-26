@@ -1,7 +1,7 @@
 import { Button, Reveal, Section } from '@ashikur-portfolio/shared/ui';
 
 import { mailtoHref, siteLinks } from '../config/site-links';
-import { profile, sectionCopy } from '../data/portfolio';
+import { contactSidebar, profile, sectionCopy } from '../data/portfolio';
 import { ContactForm } from './contact';
 
 export function ContactSection() {
@@ -26,11 +26,9 @@ export function ContactSection() {
           <div className="portfolio-surface flex h-full flex-col justify-between gap-6 p-6 sm:p-8">
             <div className="space-y-4">
               <h3 className="text-card-title font-semibold text-foreground">
-                Other ways to connect
+                {contactSidebar.title}
               </h3>
-              <p className="text-body-sm text-muted-foreground">
-                Prefer email or a professional profile? You can also reach me directly.
-              </p>
+              <p className="text-body-sm text-muted-foreground">{contactSidebar.description}</p>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button size="lg" asChild className="min-h-11">
                   <a href={mailtoHref}>Email me directly</a>

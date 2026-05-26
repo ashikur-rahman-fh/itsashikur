@@ -1,3 +1,4 @@
+import { BLOG_UX } from '@ashikur-portfolio/shared/api';
 import Link from 'next/link';
 
 import { Button, Container, PageShell } from '@ashikur-portfolio/shared/ui';
@@ -17,13 +18,11 @@ export default function BlogNotFound() {
         <div className="mx-auto max-w-lg space-y-6 text-center">
           <p className="type-eyebrow text-accent-foreground">Blog</p>
           <h1 className="font-display text-page-title font-bold text-foreground">
-            Article not found
+            {BLOG_UX.articleNotFound.title}
           </h1>
-          <p className="text-body text-muted-foreground">
-            This post may have been removed, unpublished, or the link is incorrect.
-          </p>
+          <p className="text-body text-muted-foreground">{BLOG_UX.articleNotFound.description}</p>
           <Button asChild>
-            <Link href="/blog">Back to all articles</Link>
+            <Link href="/blog">{BLOG_UX.articleNotFound.backToBlog}</Link>
           </Button>
         </div>
       </Container>

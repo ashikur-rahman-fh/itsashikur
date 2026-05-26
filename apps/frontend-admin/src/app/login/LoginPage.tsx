@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorAlert, Button, Input, PasswordInput } from '@ashikur-portfolio/shared/ui';
+import { ErrorAlert, Button, FormField, Input, PasswordInput } from '@ashikur-portfolio/shared/ui';
 import { useRouter } from 'next/navigation';
 import { useId, useState, type FormEvent } from 'react';
 import { AdminAuthShell, AdminFormCard } from '@/components';
@@ -53,28 +53,21 @@ export function LoginPage() {
             {error ? (
               <ErrorAlert
                 id={errorId}
-                title="Sign in failed"
+                title={ADMIN_AUTH_COPY.signInFailedTitle}
                 description={error}
-                role="alert"
-                aria-live="polite"
               />
             ) : null}
 
-            <div className="space-y-2">
-              <label htmlFor={usernameId} className="text-ui font-medium text-foreground">
-                {ADMIN_AUTH_COPY.usernameOrEmailLabel}
-              </label>
+            <FormField id={usernameId} label={ADMIN_AUTH_COPY.usernameOrEmailLabel} required>
               <Input
-                id={usernameId}
                 name="usernameOrEmail"
                 type="text"
                 autoComplete="username"
                 value={usernameOrEmail}
                 onChange={(event) => setUsernameOrEmail(event.target.value)}
                 disabled={isLoggingIn}
-                required
               />
-            </div>
+            </FormField>
 
             <PasswordInput
               id={passwordId}

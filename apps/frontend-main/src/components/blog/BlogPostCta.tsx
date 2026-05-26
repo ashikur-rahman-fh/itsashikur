@@ -11,20 +11,20 @@ export function BlogPostCta() {
         id="post-cta-heading"
         className="font-display text-section-title font-bold text-foreground"
       >
-        Let&apos;s connect
+        More to explore
       </h2>
       <p className="mx-auto mt-3 max-w-xl text-body leading-relaxed text-muted-foreground">
-        Want to see more of my work? Browse projects, read my resume, or send a message.
+        Projects, resume, or send a message.
       </p>
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <Button asChild>
-          <Link href="/projects">View my projects</Link>
+          <Link href="/projects">View projects</Link>
         </Button>
         <Button variant="outline" asChild>
-          <Link href="/resume">See my resume</Link>
+          <Link href="/resume">Resume</Link>
         </Button>
         <Button variant="ghost" asChild>
-          <Link href="/contact">Contact me</Link>
+          <Link href="/contact">Contact</Link>
         </Button>
       </div>
     </section>

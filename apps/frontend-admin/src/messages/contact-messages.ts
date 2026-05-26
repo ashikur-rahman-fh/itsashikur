@@ -58,6 +58,10 @@ export const CONTACT_MESSAGES_COPY = {
   },
   markReadError: 'Could not mark this message as read. Please try again.',
   markUnreadError: 'Could not mark this message as unread. Please try again.',
+  statusUpdateErrorTitle: 'Could not update status',
+  statusUpdatedTitle: 'Status updated',
+  markedReadSuccess: 'Message marked as read.',
+  markedUnreadSuccess: 'Message marked as unread.',
   accessDenied: {
     title: 'Access denied',
     description: 'You need administrator access to view contact messages.',
