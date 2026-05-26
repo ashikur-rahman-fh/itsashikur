@@ -1,12 +1,24 @@
 'use client';
 
 import { Navbar } from '@ashikur-portfolio/shared/ui';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { ADMIN_AUTH_COPY } from '@/auth/messages';
 import { ADMIN_APP_ROUTES, type AdminAuthenticatedRoute } from '@/auth/routes';
 import { BLOG_POSTS_COPY } from '@/messages/blog-posts';
 import { CONTACT_MESSAGES_COPY } from '@/messages/contact-messages';
+
+const ADMIN_APP_NAME = 'ASHIKUR RAHMAN - Admin';
+
+const adminHomeLogo = (
+  <Link
+    href="/"
+    className="truncate font-display text-ui font-semibold text-foreground transition-colors hover:text-foreground/90"
+  >
+    {ADMIN_APP_NAME}
+  </Link>
+);
 
 export type AdminNavbarProps = {
   actions?: ReactNode;
@@ -18,18 +30,14 @@ export function AdminNavbar({ actions, activeHref }: AdminNavbarProps) {
   return (
     <Navbar
       variant="glass"
-      appName="Ashikur Portfolio — Admin"
-      mobileAppName="Portfolio Admin"
+      appName={ADMIN_APP_NAME}
+      mobileAppName="Admin"
+      logo={adminHomeLogo}
       items={[
         {
           label: ADMIN_AUTH_COPY.navHome,
           href: ADMIN_APP_ROUTES.profile,
           active: activeHref === ADMIN_APP_ROUTES.profile,
-        },
-        {
-          label: ADMIN_AUTH_COPY.changePassword,
-          href: ADMIN_APP_ROUTES.changePassword,
-          active: activeHref === ADMIN_APP_ROUTES.changePassword,
         },
         {
           label: CONTACT_MESSAGES_COPY.navInbox,

@@ -19,7 +19,7 @@ This document summarizes the SEO program implemented for the portfolio app (`app
 
 | Route | Index | Title / notes |
 |-------|-------|----------------|
-| `/` | yes | `Ashikur Rahman \| Software Engineer in Ottawa, Canada`; `shortMetaKeywords`; full OG + Twitter |
+| `/` | yes | `Ashikur Rahman \| Software Developer in Ottawa, Canada`; `shortMetaKeywords`; full OG + Twitter |
 | `/resume` | yes | Natural recruiter-focused description; `shortMetaKeywords` |
 | `/projects` | yes | Projects hub with cards linking to detail pages |
 | `/projects/[slug]` | yes | Per-project `seoTitle` / `seoDescription` + CreativeWork JSON-LD |
@@ -44,9 +44,10 @@ Homepage `@graph` in [`json-ld.ts`](../apps/frontend-main/src/lib/json-ld.ts):
 
 ### Content & UX
 
-- Recruiter-focused hero, about, experience, and contact copy
+- **Human-first visible copy** in hero, about, experience, projects, and contact—natural developer tone, not keyword-stuffed UI
+- Target phrases for Tier B–D also live in [`seo-corpus.ts`](../apps/frontend-main/src/config/seo-corpus.ts) (not rendered as page blocks), JSON-LD, and page metadata
 - **Computer Science Fundamentals** featured skills block
-- **Capabilities** section (7 focus areas including problem-solving & CS fundamentals)
+- **Capabilities** section (7 focus areas)
 - Projects with **Constraints**, **Engineering choices**, **Validation** fields
 - Footer: Ottawa location, internal links, LinkedIn/GitHub
 - Resume page links back to portfolio, projects, contact
@@ -57,7 +58,7 @@ Homepage `@graph` in [`json-ld.ts`](../apps/frontend-main/src/lib/json-ld.ts):
 
 ### Automated coverage
 
-- [`seo-keyword-coverage.test.ts`](../apps/frontend-main/src/config/seo-keyword-coverage.test.ts) — every target phrase appears in metadata, visible copy, schema, or the canonical keyword list
+- [`seo-keyword-coverage.test.ts`](../apps/frontend-main/src/config/seo-keyword-coverage.test.ts) — every target phrase appears in metadata, `seo-corpus.ts`, visible copy, schema, or the canonical keyword list
 - [`site-metadata.test.ts`](../apps/frontend-main/src/config/site-metadata.test.ts) — canonical URLs, per-page keyword sets
 
 ---
@@ -66,12 +67,12 @@ Homepage `@graph` in [`json-ld.ts`](../apps/frontend-main/src/lib/json-ld.ts):
 
 | Tier | Purpose | Where placed |
 |------|---------|----------------|
-| **A — Primary** | Geo, role, portfolio | Title, meta description, hero, footer, Person JSON-LD |
-| **B — Recruiter** | DSA, debugging, clean code, problem-solving | About, capabilities, skills, resume metadata |
-| **C — Technical** | Stack + Canada | Skills, experience stacks, `knowsAbout`, meta keywords |
-| **D — Commercial** | Hire, consulting, custom software | **`commercialKeywords` in full `seoKeywords` only** + Service schema extras + landing page copy (not HTML meta keywords) |
+| **A — Primary** | Geo, role, portfolio | Title, meta description, footer, Person JSON-LD; light geo in hero |
+| **B — Recruiter** | DSA, debugging, clean code, problem-solving | `seo-corpus.ts`, resume metadata, schema |
+| **C — Technical** | Stack + Canada | Skills, experience stacks, `knowsAbout`, meta keywords, `seo-corpus.ts` |
+| **D — Commercial** | Hire, consulting, custom software | **`seo-corpus.ts`** + Service schema extras (not HTML meta keywords or hero/contact paragraphs) |
 
-Indexed pages emit `shortMetaKeywords` in HTML meta. Full `seoKeywords` union remains the source of truth for coverage tests across homepage copy, landing pages, projects hub, and schema.
+Indexed pages emit `shortMetaKeywords` in HTML meta. Full `seoKeywords` union remains the source of truth for coverage tests across metadata, `seo-corpus.ts`, landing page meta, projects hub SEO strings, and schema.
 
 ### Full keyword inventory
 
@@ -147,9 +148,9 @@ Phrases are distributed across title, meta description, hero, about, skills, cap
 
 ## 3. Metadata summary
 
-- **Home title:** `Ashikur Rahman | Software Engineer in Ottawa, Canada`
-- **Home description:** Backend and full-stack software engineer in Ottawa; TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, C++
-- **Resume title:** `Resume | Ashikur Rahman — Software Engineer in Ottawa, Canada`
+- **Home title:** `Ashikur Rahman | Software Developer in Ottawa, Canada`
+- **Home description:** Backend and full-stack software developer in Ottawa; TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, C++
+- **Resume title:** `Resume | Ashikur Rahman — Software Developer in Ottawa, Canada`
 - **Resume description:** Downloadable resume; backend and full-stack experience; 4+ years in industry
 - **Meta keywords (HTML):** `shortMetaKeywords` (~12 phrases) on indexed pages
 - **OG/Twitter:** `summary_large_image`, `/og-image.png`, `en_CA` locale; alt text includes Ottawa

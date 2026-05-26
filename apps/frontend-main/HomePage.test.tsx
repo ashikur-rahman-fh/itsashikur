@@ -6,7 +6,7 @@ vi.mock('next/navigation', () => ({
   usePathname: vi.fn(() => '/'),
 }));
 import { mailtoHref, siteLinks } from './src/config/site-links';
-import { profile } from './src/data/portfolio';
+import { profile, sectionCopy } from './src/data/portfolio';
 
 describe('HomePage', () => {
   it('renders hero identity and headline', () => {
@@ -14,8 +14,8 @@ describe('HomePage', () => {
     const hero = screen.getByTestId('hero-section');
     expect(screen.getByRole('heading', { level: 1, name: profile.name })).toBeInTheDocument();
     expect(within(hero).getByText(profile.currentRole)).toBeInTheDocument();
-    expect(within(hero).getByText(profile.recruiterSummary)).toBeInTheDocument();
-    expect(within(hero).getByText(profile.headline)).toBeInTheDocument();
+    expect(within(hero).getByText(profile.intro)).toBeInTheDocument();
+    expect(within(hero).getByText(profile.supportingParagraph)).toBeInTheDocument();
   });
 
   it('renders simplified navigation with crawlable routes', () => {
@@ -72,9 +72,7 @@ describe('HomePage', () => {
 
   it('renders featured projects with link to full projects page', () => {
     render(<HomePage />);
-    expect(
-      screen.getByRole('heading', { name: /Selected software development projects/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: sectionCopy.projects.title })).toBeInTheDocument();
     expect(document.getElementById('featured-projects')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'View all projects' })).toHaveAttribute(
       'href',
@@ -92,10 +90,10 @@ describe('HomePage', () => {
         name: /How contest practice supports production engineering/i,
       }),
     ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: sectionCopy.skills.title })).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /Technical skills & CS fundamentals/i }),
+      screen.getByRole('heading', { name: sectionCopy.capabilities.title }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /What I can help with/i })).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: /BSc Computer Science & Engineering/i }),
     ).toBeInTheDocument();

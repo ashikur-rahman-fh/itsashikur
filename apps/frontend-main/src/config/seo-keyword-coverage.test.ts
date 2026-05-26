@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { seoCorpusText } from './seo-corpus';
 import { landingPagesSeoCopy } from './landing-pages';
 import { projectsHubSeoCopy, seoVisibleCopy } from '../data/portfolio';
 import { buildSeoSchemaCorpus } from '../lib/json-ld';
@@ -40,6 +41,7 @@ function buildSeoCorpus(): string {
     blogHubTitle,
     blogHubDescription,
     seoVisibleCopy,
+    seoCorpusText,
     landingPagesSeoCopy,
     projectsHubSeoCopy,
     buildSeoSchemaCorpus(),

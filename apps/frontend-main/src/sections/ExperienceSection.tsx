@@ -1,6 +1,6 @@
 import { ExperienceCard, Reveal, Section } from '@ashikur-portfolio/shared/ui';
 
-import { experience } from '../data/portfolio';
+import { experience, sectionCopy } from '../data/portfolio';
 
 export function ExperienceSection() {
   return (
@@ -8,9 +8,8 @@ export function ExperienceSection() {
       id="experience"
       heading={{
         eyebrow: 'Experience',
-        title: 'Work experience',
-        description:
-          'From embedded and production software at Nokia to full-stack product work and technical mentoring.',
+        title: sectionCopy.experience.title,
+        description: sectionCopy.experience.description,
       }}
     >
       <div className="relative space-y-8">

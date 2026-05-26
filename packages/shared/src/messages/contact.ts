@@ -13,7 +13,7 @@ export const CONTACT_COPY = {
     message: {
       label: 'Message',
       placeholder:
-        'Tell me a little about what you would like to discuss — a role, collaboration, or technical question.',
+        'What you’d like to discuss—a project idea, question, or how we might work together.',
     },
   },
   submit: 'Send message',

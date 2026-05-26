@@ -130,12 +130,10 @@ export default async function BlogHubPage({ searchParams }: BlogHubPageProps) {
       <Container id="main-content" className="py-10 sm:py-14">
         <header className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
           <p className="type-eyebrow text-accent-foreground">Blog</p>
-          <h1 className="font-display text-page-title font-bold text-foreground">
-            Software engineering insights
-          </h1>
+          <h1 className="font-display text-page-title font-bold text-foreground">Blog</h1>
           <p className="text-body leading-relaxed text-muted-foreground">
-            Articles on full-stack development, backend systems, data structures, projects, and
-            learning — written for engineers and recruiters hiring in Canada.
+            Notes on building software, debugging production systems, and things I&apos;m learning
+            along the way.
           </p>
           <p className="text-body-sm">
             <Link

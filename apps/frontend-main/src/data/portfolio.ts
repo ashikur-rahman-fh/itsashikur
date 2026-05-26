@@ -1,23 +1,59 @@
 import type { StatItemData } from '@ashikur-portfolio/shared/ui';
 
+export const sectionCopy = {
+  about: {
+    title: 'About me',
+    description:
+      'Production experience, CS fundamentals, and full-stack delivery—with an emphasis on maintainable code and clear debugging.',
+  },
+  experience: {
+    title: 'Work experience',
+    description:
+      'From embedded and production software at Nokia to full-stack product work and technical mentoring.',
+  },
+  projects: {
+    title: 'Selected projects',
+    description:
+      'A few projects across ML, databases, full-stack web, and embedded work—each with the problem, approach, and outcome.',
+  },
+  skills: {
+    title: 'Skills',
+    description:
+      'Languages, frameworks, and practices I use in day-to-day work, with solid depth in CS fundamentals and production debugging.',
+  },
+  capabilities: {
+    title: 'What I work on',
+    description:
+      'Areas I spend most of my engineering time on—grounded in shipping real software, not buzzwords.',
+  },
+  achievements: {
+    title: 'Contest & fundamentals track record',
+    description:
+      'Competitive programming results that complement production engineering—complexity, edge cases, and clear implementations.',
+  },
+  contact: {
+    title: 'Get in touch',
+    description:
+      'Based in Ottawa. I’m happy to hear about roles, collaboration, or technical questions—send a note or use the links below.',
+  },
+} as const;
+
 export const profile = {
   name: 'Ashikur Rahman',
-  role: 'Software Engineer',
+  role: 'Software Developer',
   currentRole: 'Software Developer at Nokia',
-  locationLine:
-    'Based in Ottawa, Ontario, Canada · Open to software development, backend development, and full-stack development opportunities across Canada',
-  recruiterSummary:
-    'I am a software developer based in Ottawa, Canada with experience building backend systems, full-stack applications, APIs, dashboards, and developer tools.',
-  headline:
-    'Backend and full-stack software developer in Ottawa, Canada — production APIs, reliable web applications, and strong CS fundamentals.',
+  locationLine: 'Ottawa, Ontario · Open to backend, full-stack, and software roles across Canada',
+  intro:
+    'I’m a software developer in Ottawa, currently at Nokia. I build backend systems, full-stack apps, APIs, and tools that help teams ship reliably.',
+  headline: 'Production APIs, dependable web apps, and strong CS fundamentals.',
   supportingParagraph:
-    'Over four years in industry, I have shipped embedded, backend, and web software with clean code habits, performance focus, and maintainability. I apply data structures, algorithms, and systematic debugging to API design, logging, and reliability in production—not only contest-style problems.',
+    'Over four years in industry, I’ve shipped embedded, backend, and web software with an eye on performance and maintainability. I use data structures, algorithms, and systematic debugging in API design, logging, and production reliability—not just on practice problems.',
   aboutParagraph:
-    'Systematic debugging and clear engineering judgment are central to how I work. At Nokia, that meant RFC-5424 structured logging and faster incident analysis; on earlier products, it meant faster REST APIs and clearer form flows. I have also mentored 80+ students in algorithms and data structures, which keeps my explanations practical and interview-ready without replacing production discipline.',
+    'Systematic debugging and clear judgment are central to how I work. At Nokia, that meant RFC-5424 structured logging and faster incident analysis; on earlier products, it meant faster REST APIs and clearer form flows. I’ve also mentored 80+ students in algorithms and data structures, which keeps my explanations practical for teammates and students alike.',
   highlights: [
-    'Production software at Nokia: structured logging, 60%+ better incident traceability, and stronger developer workflows',
+    'Nokia: structured logging, 60%+ better incident traceability, and stronger developer workflows',
     'Full-stack delivery with Django REST Framework, React, and PostgreSQL on HIPAA-aware web products',
-    'Strong CS fundamentals: data structures, algorithms, problem-solving, and Codeforces Expert (1500+ problems solved)',
+    'Codeforces Expert with 1500+ problems solved—CS fundamentals I apply in production',
   ],
   primaryStack: ['C++', 'Python', 'Linux', 'React', 'REST APIs'],
   softSkills: [
@@ -65,17 +101,17 @@ export const capabilities = [
   {
     title: 'Problem-solving & CS fundamentals',
     description:
-      'Data structures, algorithms, complexity analysis, and structured debugging—applied to production code and technical interviews.',
+      'Data structures, algorithms, complexity analysis, and structured debugging applied to real codebases.',
   },
   {
     title: 'Backend & APIs',
     description:
-      'REST APIs, backend API development, service boundaries, and data modeling for validation, observability, and production-grade software development.',
+      'REST APIs, service boundaries, and data models—with validation, logging, and contracts that hold up in production.',
   },
   {
     title: 'Full-stack web',
     description:
-      'Full-stack web application development with Django REST Framework, React, Next.js, and clear client/server contracts.',
+      'End-to-end web work with Django REST Framework, React, Next.js, and clear client/server boundaries.',
   },
   {
     title: 'Systems & embedded',
@@ -90,7 +126,7 @@ export const capabilities = [
   {
     title: 'Automation & delivery',
     description:
-      'CI/CD, Docker, DevOps-style delivery, and automation developer workflows that keep releases predictable on cloud and Linux platforms.',
+      'CI/CD, Docker, and delivery tooling that keep releases predictable on Linux and cloud platforms.',
   },
   {
     title: 'Technical mentoring',
@@ -136,7 +172,7 @@ export const experience = [
     period: 'Nov 2021 – Aug 2022',
     location: 'Dhaka, Bangladesh',
     summary:
-      'Delivered full-stack features and Django REST API project work with developers and QA in Scrum—from payment flows to HIPAA-compliant digital forms.',
+      'Delivered full-stack features and Django REST APIs with developers and QA in Scrum—from payment flows to HIPAA-compliant digital forms.',
     impacts: [
       'Built and tested payment and automated campaign features for client products.',
       'Refactored UIs and improved REST API performance for HIPAA-compliant form applications.',
@@ -222,9 +258,9 @@ export const projects: PortfolioProject[] = [
     slug: 'movie-genre-prediction',
     title: 'Movie Genre Prediction',
     category: 'Machine learning',
-    seoTitle: 'Movie Genre Prediction | Machine Learning Software Engineering',
+    seoTitle: 'Movie Genre Prediction | Machine learning with PyTorch',
     seoDescription:
-      'A machine learning software engineering project that predicts movie genres from plot summaries using Python, PyTorch, and scikit-learn with held-out evaluation.',
+      'Multi-label movie genre classifier from plot summaries using Python, PyTorch, and scikit-learn with held-out evaluation.',
     description:
       'Multi-label text classifier that predicts movie genres from plot summaries using a PyTorch pipeline.',
     problem: 'Plot text is noisy, and each title can belong to several genres at once.',
@@ -243,9 +279,9 @@ export const projects: PortfolioProject[] = [
     slug: 'shop-management-system',
     title: 'Shop Management System',
     category: 'Databases',
-    seoTitle: 'Shop Management System | Distributed Database Software Project',
+    seoTitle: 'Shop Management System | Distributed Oracle SQL',
     seoDescription:
-      'A database software engineering project with distributed Oracle SQL design for shop and inventory data across multiple nodes with integrity constraints.',
+      'Distributed database design for shop and inventory data across Oracle nodes with integrity constraints.',
     description:
       'Distributed database design for shop and inventory data across multiple Oracle nodes.',
     problem: 'Inventory had to stay consistent across separate database sites.',
@@ -264,11 +300,10 @@ export const projects: PortfolioProject[] = [
     slug: 'todo-app',
     title: 'Todo App',
     category: 'Full-stack',
-    seoTitle: 'Todo App | Full-Stack Software Engineering with Node.js and React',
+    seoTitle: 'Todo App | Node.js and React full-stack',
     seoDescription:
-      'A full-stack software engineering project with a Node.js REST API and React client for dependable task tracking and clear API contracts.',
-    description:
-      'Full-stack project portfolio piece: task and reminder app with a Node.js REST API and React client.',
+      'Task and reminder app with a Node.js REST API and React client for dependable tracking and clear API contracts.',
+    description: 'Task and reminder app with a Node.js REST API and React client.',
     problem: 'Users needed dependable task tracking with clear due dates.',
     constraints:
       'Client and server had to stay in sync with a stable API contract and persistent storage.',
@@ -286,11 +321,10 @@ export const projects: PortfolioProject[] = [
     slug: 'cleaning-car',
     title: 'Cleaning Car',
     category: 'Embedded',
-    seoTitle: 'Cleaning Car | Embedded C++ Software Engineering Project',
+    seoTitle: 'Cleaning Car | Embedded C++',
     seoDescription:
-      'An embedded C++ software project with sensor feedback and motor control for repeatable path cleaning under hardware constraints.',
-    description:
-      'C++ software project: embedded controller that follows programmed paths to clean a flat surface.',
+      'Embedded controller with sensor feedback and motor control for repeatable path cleaning under hardware constraints.',
+    description: 'Embedded controller that follows programmed paths to clean a flat surface.',
     problem: 'Motor control and sensor feedback had to stay stable under hardware limits.',
     constraints:
       'Limited onboard resources, real-time sensor noise, and repeatable movement on a flat test surface.',
@@ -315,13 +349,13 @@ export const featuredProjects = (() => {
 
 export const projectSlugs = projects.map((project) => project.slug);
 
-export const projectsPageTitle = 'Projects | Backend & Full-Stack Software Engineering';
+export const projectsPageTitle = 'Projects | Ashikur Rahman';
 
 export const projectsPageMetaDescription =
-  'Selected backend API, full-stack, machine learning, database, and embedded software engineering projects with problem statements, tech stacks, and validation outcomes.';
+  'Software engineering projects across backend APIs, full-stack web, machine learning, databases, and embedded systems—with problem statements, tech stacks, and outcomes.';
 
 export const projectsPageDescription =
-  'Selected backend API, full-stack, machine learning, database, and embedded software development projects with problem statements, tech stacks, and validation outcomes.';
+  'Projects across ML, databases, full-stack web, and embedded work—each with the problem, approach, tech stack, and what I learned.';
 
 export const projectsHubSeoCopy = `${projectsPageTitle} ${projectsPageMetaDescription} ${projects.map((p) => `${p.seoTitle} ${p.seoDescription}`).join(' ')}`;
 
@@ -336,7 +370,7 @@ export const csFundamentalsGroup: SkillGroup = {
   name: 'Computer Science Fundamentals',
   featured: true,
   blurb:
-    'Core CS depth used in production and complex problem solving—data structures, algorithms, debugging, and scalable design choices.',
+    'Core CS topics I use in production—data structures, algorithms, debugging, and design choices that scale.',
   skills: [
     'Data structures',
     'Algorithms',
@@ -348,7 +382,6 @@ export const csFundamentalsGroup: SkillGroup = {
     'OOP',
     'System design',
     'Performance optimization',
-    'Software development fundamentals',
     'Machine learning',
   ],
 };
@@ -455,21 +488,19 @@ export const workingPrinciples = [
   },
 ];
 
-export const projectsSectionDescription =
-  'Backend API and full-stack project portfolio: problem-solving software development projects with design choices and validation across machine learning, databases, React, Next.js, and embedded systems.';
+export const projectsSectionDescription = sectionCopy.projects.description;
 
 export const contactSectionMetaDescription =
-  'Based in Ottawa, Ontario, Canada. Open to software engineering, backend development, and full-stack development opportunities across Canada—reach out for hiring conversations.';
+  'Contact Ashikur Rahman, software developer in Ottawa, Canada. Open to roles, collaboration, and technical conversations.';
 
-export const contactSectionDescription =
-  'Based in Ottawa, Ontario, Canada. Open to software development, backend development, and full-stack development opportunities across Canada—reach out for hiring conversations.';
+export const contactSectionDescription = sectionCopy.contact.description;
 
 /** Searchable on-page copy for SEO coverage tests (not rendered directly as a block). */
 export const seoVisibleCopy = [
   profile.role,
   projectsPageMetaDescription,
   contactSectionMetaDescription,
-  profile.recruiterSummary,
+  profile.intro,
   profile.headline,
   profile.supportingParagraph,
   profile.aboutParagraph,
@@ -515,7 +546,7 @@ export const footerNavItems = [
 ] as const;
 
 export const footerSeoNavItems = [
-  { label: 'Software developer Ottawa', href: '/software-developer-ottawa' },
-  { label: 'Backend developer Canada', href: '/backend-developer-canada' },
-  { label: 'Full-stack developer Canada', href: '/full-stack-developer-canada' },
+  { label: 'Ottawa', href: '/software-developer-ottawa' },
+  { label: 'Backend work', href: '/backend-developer-canada' },
+  { label: 'Full-stack work', href: '/full-stack-developer-canada' },
 ] as const;

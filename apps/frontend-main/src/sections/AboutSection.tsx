@@ -1,6 +1,6 @@
 import { Reveal, Section, TechChip } from '@ashikur-portfolio/shared/ui';
 
-import { profile } from '../data/portfolio';
+import { profile, sectionCopy } from '../data/portfolio';
 
 export function AboutSection() {
   return (
@@ -9,9 +9,8 @@ export function AboutSection() {
       variant="muted"
       heading={{
         eyebrow: 'About',
-        title: 'What I bring to engineering teams',
-        description:
-          'Production experience, computer science fundamentals, and full-stack delivery for teams that care about problem-solving and maintainable software.',
+        title: sectionCopy.about.title,
+        description: sectionCopy.about.description,
       }}
     >
       <div className="space-y-10">

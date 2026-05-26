@@ -46,7 +46,7 @@ describe('site-metadata', () => {
   it('keeps resume and home descriptions distinct', () => {
     expect(homeMetadata.description).not.toBe(resumeMetadata.description);
     expect(resumeMetadata.title).toBe(
-      'Resume | Ashikur Rahman — Software Engineer in Ottawa, Canada',
+      'Resume | Ashikur Rahman — Software Developer in Ottawa, Canada',
     );
   });
 

@@ -7,7 +7,7 @@ import {
   Section,
 } from '@ashikur-portfolio/shared/ui';
 
-import { capabilities } from '../data/portfolio';
+import { capabilities, sectionCopy } from '../data/portfolio';
 
 export function CapabilitiesSection() {
   return (
@@ -15,9 +15,8 @@ export function CapabilitiesSection() {
       id="capabilities"
       heading={{
         eyebrow: 'Capabilities',
-        title: 'What I can help with',
-        description:
-          'Engineering focus areas for backend, full-stack, and systems work—grounded in computer science fundamentals and production delivery.',
+        title: sectionCopy.capabilities.title,
+        description: sectionCopy.capabilities.description,
       }}
     >
       <div className="layout-card-grid sm:grid-cols-2 lg:grid-cols-3">

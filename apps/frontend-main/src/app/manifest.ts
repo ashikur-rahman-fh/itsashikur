@@ -5,7 +5,7 @@ import { homeDescription, siteName, siteUrl } from '../config/site-metadata';
 /** Web app manifest — PWA/Android icons and theme (complements file-based favicons). */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${siteName} — Software Developer in Canada`,
+    name: siteName,
     short_name: siteName,
     description: homeDescription,
     start_url: '/',

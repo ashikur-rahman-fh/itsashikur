@@ -14,8 +14,7 @@ export function BlogPostCta() {
         Let&apos;s connect
       </h2>
       <p className="mx-auto mt-3 max-w-xl text-body leading-relaxed text-muted-foreground">
-        Interested in software engineering, backend systems, or full-stack work in Canada? Explore
-        my projects, resume, or get in touch.
+        Want to see more of my work? Browse projects, read my resume, or send a message.
       </p>
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <Button asChild>

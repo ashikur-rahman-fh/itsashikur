@@ -17,25 +17,25 @@ export type LandingPageConfig = {
 export const landingPages: LandingPageConfig[] = [
   {
     path: '/software-developer-ottawa',
-    title: 'Software Engineer in Ottawa, Canada | Ashikur Rahman',
+    title: 'Software Developer in Ottawa, Canada | Ashikur Rahman',
     description:
-      'Software engineer in Ottawa, Ontario, Canada with backend and full-stack experience building production APIs, web applications, and developer tools.',
-    h1: 'Software Developer in Ottawa, Canada',
+      'Software developer in Ottawa, Ontario, Canada with backend and full-stack experience building production APIs, web applications, and developer tools.',
+    h1: 'Software developer in Ottawa',
     intro:
-      'I am a software developer based in Ottawa, Ontario, Canada with over four years of industry experience across embedded, backend, and full-stack software.',
+      'I’m based in Ottawa with over four years of industry experience across embedded, backend, and full-stack software—currently at Nokia.',
     sections: [
       {
-        title: 'Production engineering in Ottawa',
+        title: 'Production engineering',
         paragraphs: [
-          'At Nokia in Ottawa, I improved structured logging and incident traceability on production systems—work that reduced manual troubleshooting and made large codebases easier to navigate.',
-          'I focus on reliable delivery: clear APIs, observable services, and debugging practices that help teams ship with confidence.',
+          'At Nokia, I improved structured logging and incident traceability on production systems—work that reduced manual troubleshooting and made large codebases easier to navigate.',
+          'I care about reliable delivery: clear APIs, observable services, and debugging practices that help teams ship with confidence.',
         ],
       },
       {
-        title: 'Full-stack and CS fundamentals',
+        title: 'Full-stack and fundamentals',
         paragraphs: [
           'Earlier full-stack work with Django REST Framework, React, and PostgreSQL taught me how to design maintainable client/server boundaries.',
-          'Strong data structures, algorithms, and systematic debugging support both production engineering and technical interviews.',
+          'Strong data structures, algorithms, and systematic debugging show up in both production engineering and how I approach hard problems.',
         ],
       },
     ],
@@ -45,21 +45,21 @@ export const landingPages: LandingPageConfig[] = [
     title: 'Backend Developer in Canada | Ashikur Rahman',
     description:
       'Backend developer in Canada specializing in APIs, structured logging, PostgreSQL, Python, TypeScript, Node.js, and production debugging for reliable services.',
-    h1: 'Backend Developer in Canada',
+    h1: 'Backend developer in Canada',
     intro:
-      'As a backend developer in Canada, I build and improve APIs, services, and data layers with an emphasis on observability, API design, and production debugging.',
+      'I build and improve APIs, services, and data layers with a focus on observability, API design, and production debugging.',
     sections: [
       {
-        title: 'Backend API development',
+        title: 'APIs and services',
         paragraphs: [
-          'Experience includes RFC-5424 structured logging, REST APIs, and backend API development for validation, traceability, and maintainable service boundaries.',
-          'At Enosis Solutions, backend API work with Django REST Framework and PostgreSQL supported HIPAA-aware web products with clearer data modeling.',
+          'Recent work includes RFC-5424 structured logging, REST APIs, and service boundaries designed for validation, traceability, and maintainability.',
+          'At Enosis Solutions, Django REST Framework and PostgreSQL backed HIPAA-aware web products with clearer data modeling.',
         ],
       },
       {
-        title: 'Cloud, deployment, and reliability',
+        title: 'Reliability and delivery',
         paragraphs: [
-          'Docker, CI/CD, Linux, and DevOps-style automation keep releases predictable on cloud and Linux platforms.',
+          'Docker, CI/CD, Linux, and automation keep releases predictable on the platforms I work with.',
           'Production debugging and structured logging are core skills—narrowing issues, documenting findings, and improving incident response.',
         ],
       },
@@ -70,21 +70,21 @@ export const landingPages: LandingPageConfig[] = [
     title: 'Full-Stack Developer in Canada | Ashikur Rahman',
     description:
       'Full-stack developer in Canada building web applications with TypeScript, Next.js, React, Node.js, PostgreSQL, and clear client/server contracts.',
-    h1: 'Full-Stack Developer in Canada',
+    h1: 'Full-stack developer in Canada',
     intro:
-      'As a full-stack developer in Canada, I deliver full-stack web application development—from API design through React and Next.js interfaces—with maintainable architecture.',
+      'I ship web products end to end—from API design through React and Next.js interfaces—with architecture that stays maintainable as features grow.',
     sections: [
       {
-        title: 'Full-stack web application development',
+        title: 'Web applications',
         paragraphs: [
-          'Full-stack project portfolio work spans Node.js REST APIs, React clients, Django REST Framework backends, and PostgreSQL data layers.',
+          'Project work spans Node.js REST APIs, React clients, Django REST Framework backends, and PostgreSQL data layers.',
           'I prioritize predictable API contracts, readable code, and validation so UI and persistence stay aligned as products evolve.',
         ],
       },
       {
-        title: 'Featured full-stack projects',
+        title: 'Featured projects',
         paragraphs: [
-          'The Todo App full-stack project demonstrates REST endpoints with a React UI and reliable task persistence.',
+          'The Todo App pairs REST endpoints with a React UI and reliable task persistence.',
           'See the projects hub for machine learning, database, and embedded work that complements full-stack delivery.',
         ],
       },
@@ -107,5 +107,10 @@ export function buildLandingPageMetadata(page: LandingPageConfig) {
 
 /** Searchable copy for SEO coverage tests. */
 export const landingPagesSeoCopy = landingPages
-  .flatMap((page) => [page.title, page.description])
+  .flatMap((page) => [
+    page.title,
+    page.description,
+    page.intro,
+    ...page.sections.flatMap((s) => s.paragraphs),
+  ])
   .join('\n');

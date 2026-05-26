@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Button, ProjectCard, Reveal, Section } from '@ashikur-portfolio/shared/ui';
 
-import { featuredProjects, projectsSectionDescription } from '../data/portfolio';
+import { featuredProjects, sectionCopy } from '../data/portfolio';
 
 export function ProjectsSection() {
   return (
@@ -11,8 +11,8 @@ export function ProjectsSection() {
       variant="muted"
       heading={{
         eyebrow: 'Featured projects',
-        title: 'Selected software development projects',
-        description: projectsSectionDescription,
+        title: sectionCopy.projects.title,
+        description: sectionCopy.projects.description,
       }}
     >
       <div className="layout-card-grid md:grid-cols-2">

@@ -93,8 +93,8 @@ async function generateOgImage() {
 <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="#0a1628"/>
   <text x="80" y="200" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700">Ashikur Rahman</text>
-  <text x="80" y="270" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="28">Software Developer in Canada</text>
-  <text x="80" y="330" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="24">Backend · Full-Stack · Data Structures &amp; Algorithms</text>
+  <text x="80" y="270" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="28">Software developer · Ottawa</text>
+  <text x="80" y="330" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="24">Backend · Full-stack · CS fundamentals</text>
   <text x="80" y="380" fill="#64748b" font-family="Arial, Helvetica, sans-serif" font-size="22">Ottawa, Ontario, Canada</text>
 </svg>`;
 

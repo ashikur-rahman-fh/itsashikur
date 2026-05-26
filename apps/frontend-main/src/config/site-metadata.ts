@@ -8,7 +8,7 @@ export const personName = 'Ashikur Rahman';
 
 export const defaultOgImagePath = '/og-image.png';
 
-export const ogImageAlt = `${personName} — Software Engineer in Ottawa, Canada`;
+export const ogImageAlt = `${personName} — Software Developer in Ottawa, Canada`;
 
 /** Tier A — Geo, role, and portfolio intent. */
 export const primaryKeywords = [
@@ -110,15 +110,15 @@ export const shortMetaKeywords = [
   'C++',
 ] as const;
 
-export const homeTitle = 'Ashikur Rahman | Software Engineer in Ottawa, Canada';
+export const homeTitle = 'Ashikur Rahman | Software Developer in Ottawa, Canada';
 
 export const homeDescription =
-  'Backend and full-stack software engineer based in Ottawa, Canada. I build reliable web applications, APIs, and software projects using TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, and C++.';
+  'I’m a backend and full-stack software developer in Ottawa, Canada. I build reliable web apps, APIs, and tools with TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, and C++.';
 
-export const resumeTitle = 'Resume | Ashikur Rahman — Software Engineer in Ottawa, Canada';
+export const resumeTitle = 'Resume | Ashikur Rahman — Software Developer in Ottawa, Canada';
 
 export const resumeDescription =
-  'Download the resume for Ashikur Rahman, a backend and full-stack software engineer in Ottawa, Canada. Experience with production APIs, TypeScript, Next.js, Node.js, PostgreSQL, and 4+ years in industry.';
+  'Resume for Ashikur Rahman, backend and full-stack software developer in Ottawa, Canada. Production APIs, TypeScript, Next.js, Node.js, PostgreSQL, and 4+ years in industry.';
 
 export const layoutDescription = homeDescription;
 
@@ -210,7 +210,7 @@ export const resumeMetadata = buildPageMetadata({
 
 export const blogHubTitle = 'Blog — Software engineering articles';
 export const blogHubDescription =
-  'Technical articles on software engineering, full-stack development, backend systems, data structures, projects, and career learning by Ashikur Rahman in Ottawa, Canada.';
+  'Technical writing on software engineering, full-stack development, backend systems, and learning—by Ashikur Rahman in Ottawa, Canada.';
 
 export const blogHubMetadata = buildPageMetadata({
   path: '/blog',

@@ -16,7 +16,7 @@ import { ContactForm } from '../../sections/contact';
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/contact',
-  title: 'Contact | Ashikur Rahman — Software Engineer in Ottawa, Canada',
+  title: 'Contact | Ashikur Rahman — Software Developer in Ottawa, Canada',
   description: contactSectionMetaDescription,
   keywords: shortMetaKeywords,
 });
@@ -47,8 +47,7 @@ export default function ContactPage() {
                 Other ways to connect
               </h2>
               <p className="text-body-sm text-muted-foreground">
-                Prefer email or a professional profile? Reach out directly for software development
-                roles in Canada.
+                Prefer email or a professional profile? You can also reach me directly.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button size="lg" asChild>

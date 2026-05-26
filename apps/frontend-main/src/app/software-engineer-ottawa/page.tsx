@@ -5,7 +5,7 @@ import { buildPageMetadata, redirectPageRobots } from '../../config/site-metadat
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/software-engineer-ottawa',
-  title: 'Software Engineer in Ottawa, Canada',
+  title: 'Software Developer in Ottawa, Canada',
   description:
     'Redirect to the software developer landing page for Ashikur Rahman in Ottawa, Canada.',
   robots: redirectPageRobots,

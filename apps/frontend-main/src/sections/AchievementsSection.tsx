@@ -1,6 +1,6 @@
 import { AchievementCard, Reveal, Section } from '@ashikur-portfolio/shared/ui';
 
-import { achievements } from '../data/portfolio';
+import { achievements, sectionCopy } from '../data/portfolio';
 
 export function AchievementsSection() {
   return (
@@ -9,9 +9,8 @@ export function AchievementsSection() {
       variant="muted"
       heading={{
         eyebrow: 'Achievements',
-        title: 'Contest & fundamentals track record',
-        description:
-          'Competitive programming results that support data structures, algorithms, and interview-ready problem-solving alongside production engineering.',
+        title: sectionCopy.achievements.title,
+        description: sectionCopy.achievements.description,
       }}
     >
       <div className="layout-card-grid-dense sm:grid-cols-2 lg:grid-cols-4">

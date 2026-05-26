@@ -10,7 +10,7 @@ import {
   TechChip,
 } from '@ashikur-portfolio/shared/ui';
 
-import { csFundamentalsGroup, profile, skillGroups } from '../data/portfolio';
+import { csFundamentalsGroup, profile, sectionCopy, skillGroups } from '../data/portfolio';
 
 const gridGroups = skillGroups.filter((group) => !group.featured);
 
@@ -20,9 +20,8 @@ export function SkillsSection() {
       id="skills"
       heading={{
         eyebrow: 'Skills',
-        title: 'Technical skills & CS fundamentals',
-        description:
-          'Languages, frameworks, and engineering practices from professional work—with clear depth in data structures, algorithms, problem-solving, and production debugging.',
+        title: sectionCopy.skills.title,
+        description: sectionCopy.skills.description,
       }}
     >
       <div className="space-y-8">

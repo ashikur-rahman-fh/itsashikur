@@ -31,9 +31,7 @@ export default function ProjectsHubPage() {
       <Container id="main-content" className="py-10 sm:py-14">
         <header className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
           <p className="type-eyebrow text-accent-foreground">Projects</p>
-          <h1 className="font-display text-page-title font-bold text-foreground">
-            Backend &amp; full-stack software development projects
-          </h1>
+          <h1 className="font-display text-page-title font-bold text-foreground">Projects</h1>
           <p className="text-body leading-relaxed text-muted-foreground">
             {projectsPageDescription}
           </p>
