@@ -4,13 +4,13 @@ import { PageShell } from '@ashikur-portfolio/shared/ui';
 
 import { JsonLd } from '../../components/JsonLd';
 import { SiteHeader } from '../../components/SiteHeader';
-import { aboutMetadata } from '../../config/site-metadata';
+import { experienceMetadata } from '../../config/site-metadata';
 import { buildSiteBreadcrumbJsonLd } from '../../lib/json-ld';
-import { AboutSection, CapabilitiesSection, EducationSection, SiteFooter } from '../../sections';
+import { AchievementsSection, ExperienceSection, SiteFooter } from '../../sections';
 
-export const metadata: Metadata = aboutMetadata;
+export const metadata: Metadata = experienceMetadata;
 
-export default function AboutPage() {
+export default function ExperiencePage() {
   return (
     <PageShell
       className="surface-grid-default"
@@ -21,13 +21,12 @@ export default function AboutPage() {
       <JsonLd
         data={buildSiteBreadcrumbJsonLd([
           { name: 'Home', path: '/' },
-          { name: 'About', path: '/about' },
+          { name: 'Experience', path: '/experience' },
         ])}
       />
       <div id="main-content">
-        <AboutSection />
-        <CapabilitiesSection variant="muted" />
-        <EducationSection />
+        <ExperienceSection />
+        <AchievementsSection />
       </div>
     </PageShell>
   );

@@ -35,7 +35,7 @@ describe('useActiveSection', () => {
     MockIntersectionObserver.instances = [];
     vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
 
-    for (const id of ['about', 'experience', 'skills', 'contact']) {
+    for (const id of ['skills']) {
       const element = document.createElement('section');
       element.id = id;
       document.body.appendChild(element);
@@ -60,11 +60,10 @@ describe('useActiveSection', () => {
     });
 
     const observer = MockIntersectionObserver.instances[0];
-    observer.trigger('about', 0.2);
-    observer.trigger('experience', 0.6);
+    observer.trigger('skills', 0.6);
 
     await waitFor(() => {
-      expect(result.current).toBe('experience');
+      expect(result.current).toBe('skills');
     });
   });
 });

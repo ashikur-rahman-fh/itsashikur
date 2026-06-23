@@ -3,9 +3,7 @@ import { ThemeProvider } from '@ashikur-portfolio/shared/ui';
 import '@ashikur-portfolio/shared/ui/styles/globals.css';
 import './globals.css';
 
-import { JsonLd } from '../components/JsonLd';
 import { layoutDescription, siteName, siteUrl } from '../config/site-metadata';
-import { buildHomePageJsonLdGraph } from '../lib/json-ld';
 import { fontClassNames } from './fonts';
 
 /** Brand background from logo — used for browser chrome and manifest. */
@@ -38,7 +36,6 @@ export default function RootLayout({
       className={fontClassNames}
     >
       <body>
-        <JsonLd data={buildHomePageJsonLdGraph()} />
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

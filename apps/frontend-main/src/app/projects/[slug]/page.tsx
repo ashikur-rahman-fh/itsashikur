@@ -8,7 +8,7 @@ import { JsonLd } from '../../../components/JsonLd';
 import { buildPageMetadata, shortMetaKeywords } from '../../../config/site-metadata';
 import { SiteHeader } from '../../../components/SiteHeader';
 import { getProjectBySlug, projectSlugs, type PortfolioProject } from '../../../data/portfolio';
-import { buildProjectPageJsonLd } from '../../../lib/json-ld';
+import { buildProjectPageJsonLd, buildSiteBreadcrumbJsonLd } from '../../../lib/json-ld';
 import { SiteFooter } from '../../../sections/SiteFooter';
 
 type ProjectPageProps = {
@@ -137,6 +137,13 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       footer={<SiteFooter />}
     >
       <JsonLd data={buildProjectPageJsonLd(project)} />
+      <JsonLd
+        data={buildSiteBreadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Projects', path: '/projects' },
+          { name: project.title, path: `/projects/${project.slug}` },
+        ])}
+      />
       <Container id="main-content" className="py-10 sm:py-14">
         <ProjectDetail project={project} />
       </Container>

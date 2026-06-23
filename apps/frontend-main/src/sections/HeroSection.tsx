@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { Button, Container, StatGrid } from '@ashikur-portfolio/shared/ui';
 
 import { mailtoHref, siteLinks } from '../config/site-links';
@@ -25,10 +27,13 @@ export function HeroSection() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-wrap gap-3">
                 <Button size="lg" asChild className="min-h-11 px-5">
-                  <a href="#experience">View experience</a>
+                  <Link href="/experience">View experience</Link>
                 </Button>
                 <Button size="lg" asChild className="min-h-11 px-5">
-                  <a href={siteLinks.resumeUrl}>View resume</a>
+                  <Link href={siteLinks.resumeUrl}>View resume</Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild className="min-h-11 px-5">
+                  <Link href="/contact">Contact</Link>
                 </Button>
               </div>
               <div className="flex flex-wrap gap-2">

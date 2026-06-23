@@ -9,12 +9,17 @@ vi.mock('next/navigation', () => ({
 }));
 
 describe('SiteHeader', () => {
-  it('renders simplified home navigation with logo link', () => {
+  it('renders crawlable navigation with logo link', () => {
     render(<SiteHeader />);
 
     const nav = screen.getByRole('navigation', { name: /Ashikur Rahman navigation/i });
     expect(within(nav).getByRole('link', { name: 'Ashikur Rahman' })).toHaveAttribute('href', '/');
-    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/#about');
+    expect(within(nav).getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
+    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
+    expect(within(nav).getByRole('link', { name: 'Experience' })).toHaveAttribute(
+      'href',
+      '/experience',
+    );
     expect(within(nav).getByRole('link', { name: 'Projects' })).toHaveAttribute(
       'href',
       '/projects',
@@ -23,6 +28,7 @@ describe('SiteHeader', () => {
       'href',
       siteLinks.resumeUrl,
     );
+    expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact');
     expect(within(nav).queryByRole('button', { name: 'Resume' })).not.toBeInTheDocument();
   });
 
@@ -33,7 +39,7 @@ describe('SiteHeader', () => {
     render(<SiteHeader />);
 
     const nav = screen.getByRole('navigation', { name: /Ashikur Rahman navigation/i });
-    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/#about');
+    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
     expect(within(nav).getByRole('link', { name: 'Projects' })).toHaveAttribute(
       'href',
       '/projects',

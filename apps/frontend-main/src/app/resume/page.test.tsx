@@ -38,12 +38,11 @@ describe('ResumePage', () => {
       siteLinks.resumePdfUrl,
     );
 
-    expect(screen.getByRole('link', { name: /^home$/i })).toHaveAttribute('href', '/');
     expect(screen.getByRole('link', { name: 'View projects' })).toHaveAttribute(
       'href',
       '/projects',
     );
-    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/#about');
-    expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/#contact');
+    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
+    expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact');
   });
 });

@@ -3,9 +3,11 @@ import { describe, expect, it } from 'vitest';
 
 import { buildLandingPageMetadata, landingPages } from './landing-pages';
 import {
+  aboutMetadata,
   blogHubMetadata,
   blogNotFoundMetadata,
   buildPageMetadata,
+  experienceMetadata,
   formatBlogPostTitleSegment,
   homeMetadata,
   notFoundMetadata,
@@ -38,7 +40,19 @@ const staticPages: StaticPageCase[] = [
   {
     label: '/',
     meta: homeMetadata,
-    segment: 'Ashikur Rahman | Software Developer in Canada',
+    segment: 'Ashikur Rahman | Software Developer in Ottawa, Canada',
+    absolute: true,
+  },
+  {
+    label: '/about',
+    meta: aboutMetadata,
+    segment: 'About Ashikur Rahman | Software Developer',
+    absolute: true,
+  },
+  {
+    label: '/experience',
+    meta: experienceMetadata,
+    segment: 'Software Development Experience | Ashikur Rahman',
     absolute: true,
   },
   { label: '/resume', meta: resumeMetadata, segment: 'Resume' },
@@ -48,8 +62,10 @@ const staticPages: StaticPageCase[] = [
       path: '/projects',
       title: projectsPageTitle,
       description: 'Projects hub',
+      absoluteTitle: true,
     }),
     segment: projectsPageTitle,
+    absolute: true,
   },
   {
     label: '/contact',

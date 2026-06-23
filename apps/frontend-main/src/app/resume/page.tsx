@@ -6,6 +6,7 @@ import { Container, PageShell } from '@ashikur-portfolio/shared/ui';
 import { JsonLd } from '../../components/JsonLd';
 import { resumeMetadata } from '../../config/site-metadata';
 import { SiteHeader } from '../../components/SiteHeader';
+import { SiteFooter } from '../../sections/SiteFooter';
 import { profile } from '../../data/portfolio';
 import { buildResumeBreadcrumbJsonLd } from '../../lib/json-ld';
 import { ResumePdfActions } from './ResumePdfActions';
@@ -19,6 +20,7 @@ export default function ResumePage() {
       className="surface-grid-default"
       contentClassName="max-w-none px-0 py-0"
       header={<SiteHeader />}
+      footer={<SiteFooter />}
     >
       <JsonLd data={buildResumeBreadcrumbJsonLd()} />
       <Container id="main-content" className="py-10 sm:py-14">

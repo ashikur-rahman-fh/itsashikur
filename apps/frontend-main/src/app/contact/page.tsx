@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { Button, Container, PageShell } from '@ashikur-portfolio/shared/ui';
 
+import { JsonLd } from '../../components/JsonLd';
 import { buildPageMetadata, shortMetaKeywords } from '../../config/site-metadata';
 import { mailtoHref, siteLinks } from '../../config/site-links';
 import { SiteHeader } from '../../components/SiteHeader';
@@ -12,6 +13,7 @@ import {
   contactSidebar,
   profile,
 } from '../../data/portfolio';
+import { buildSiteBreadcrumbJsonLd } from '../../lib/json-ld';
 import { SiteFooter } from '../../sections/SiteFooter';
 import { ContactForm } from '../../sections/contact';
 
@@ -31,6 +33,12 @@ export default function ContactPage() {
       header={<SiteHeader />}
       footer={<SiteFooter />}
     >
+      <JsonLd
+        data={buildSiteBreadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Contact', path: '/contact' },
+        ])}
+      />
       <Container id="main-content" className="py-10 sm:py-14">
         <header className="mx-auto mb-8 max-w-2xl space-y-3 text-center">
           <p className="type-eyebrow text-accent-foreground">Contact</p>

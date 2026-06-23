@@ -21,9 +21,11 @@ This document summarizes the SEO program implemented for the portfolio app (`app
 
 | Route | Index | Document title (≤ 70 chars) |
 |-------|-------|------------------------------|
-| `/` | yes | `Ashikur Rahman \| Software Developer in Canada` (absolute) |
+| `/` | yes | `Ashikur Rahman \| Software Developer in Ottawa, Canada` (absolute) |
+| `/about` | yes | `About Ashikur Rahman \| Software Developer` (absolute) |
+| `/experience` | yes | `Software Development Experience \| Ashikur Rahman` (absolute) |
 | `/resume` | yes | `Resume \| Ashikur Rahman` |
-| `/projects` | yes | `Software Projects \| Ashikur Rahman` |
+| `/projects` | yes | `Software Projects \| Backend, Embedded & Full-Stack` (absolute) |
 | `/projects/[slug]` | yes | `{Project name} Project \| Ashikur Rahman` + per-project description |
 | `/contact` | yes | `Contact Ashikur Rahman` (absolute) |
 | `/blog` | yes | `Blog \| Ashikur Rahman` |
@@ -193,6 +195,13 @@ curl https://itsashikur.com/robots.txt
 ---
 
 ## 5. Recommended next steps (post-deploy)
+
+### Sitelinks and search consolidation
+
+- Primary nav now uses crawlable routes: `/`, `/about`, `/experience`, `/projects`, `/blog`, `/resume`, `/contact`
+- Homepage JSON-LD (Person, WebSite, ProfilePage) is scoped to `/` only; subpages use `BreadcrumbList`
+- Geo landing pages remain indexed with expanded unique copy (footer “Focus areas”); sitemap priority lowered to `0.5`
+- After deploy, request indexing in Google Search Console and Bing Webmaster Tools (DuckDuckGo uses Bing)
 
 ### Google Search Console (sitemap)
 

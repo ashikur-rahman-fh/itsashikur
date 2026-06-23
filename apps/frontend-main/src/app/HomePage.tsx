@@ -4,14 +4,10 @@ import { PageShell } from '@ashikur-portfolio/shared/ui';
 
 import { SiteHeader } from '../components/SiteHeader';
 import {
-  AboutSection,
-  AchievementsSection,
   CapabilitiesSection,
-  ContactSection,
   CpToProductionSection,
-  EducationSection,
-  ExperienceSection,
   HeroSection,
+  PortfolioExploreSection,
   ProjectsSection,
   RecommendationsSection,
   SiteFooter,
@@ -28,17 +24,13 @@ export function HomePage() {
     >
       <div id="main-content">
         <HeroSection />
-        <AboutSection />
-        <ExperienceSection />
+        <PortfolioExploreSection />
         <ProjectsSection />
         <RecommendationsSection />
         <SkillsSection />
-        <AchievementsSection />
         <CapabilitiesSection />
-        <EducationSection />
         <CpToProductionSection />
         <TestimonialsSection />
-        <ContactSection />
       </div>
     </PageShell>
   );

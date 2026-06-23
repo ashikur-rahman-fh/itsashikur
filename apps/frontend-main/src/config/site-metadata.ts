@@ -116,7 +116,17 @@ export const shortMetaKeywords = [
   'C++',
 ] as const;
 
-export const homeTitle = 'Ashikur Rahman | Software Developer in Canada';
+export const homeTitle = 'Ashikur Rahman | Software Developer in Ottawa, Canada';
+
+export const aboutTitle = 'About Ashikur Rahman | Software Developer';
+
+export const aboutDescription =
+  'Background and approach for Ashikur Rahman—Ottawa software developer focused on backend systems, embedded software, and full-stack delivery with clear engineering habits.';
+
+export const experiencePageTitle = 'Software Development Experience | Ashikur Rahman';
+
+export const experiencePageDescription =
+  'Work history for Ashikur Rahman—Nokia embedded and backend engineering, Enosis full-stack delivery, and production debugging across C++, Python, TypeScript, and PostgreSQL.';
 
 export const homeDescription =
   'Software developer in Ottawa, Canada—backend, embedded, and full-stack apps with TypeScript, Next.js, Node.js, PostgreSQL, Python, Rust, and C++.';
@@ -291,6 +301,22 @@ export const resumeMetadata = buildPageMetadata({
   path: '/resume',
   title: resumeTitle,
   description: resumeDescription,
+  keywords: shortMetaKeywords,
+});
+
+export const aboutMetadata = buildPageMetadata({
+  path: '/about',
+  title: aboutTitle,
+  description: aboutDescription,
+  absoluteTitle: true,
+  keywords: shortMetaKeywords,
+});
+
+export const experienceMetadata = buildPageMetadata({
+  path: '/experience',
+  title: experiencePageTitle,
+  description: experiencePageDescription,
+  absoluteTitle: true,
   keywords: shortMetaKeywords,
 });
 

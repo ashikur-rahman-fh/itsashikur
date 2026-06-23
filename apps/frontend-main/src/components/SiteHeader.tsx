@@ -8,7 +8,6 @@ import { Navbar, type NavbarItem } from '@ashikur-portfolio/shared/ui';
 
 import { siteLinks, withBasePath } from '../config/site-links';
 import { navItems } from '../data/portfolio';
-import { useActiveSection } from '../hooks/useActiveSection';
 
 const APP_NAME = 'Ashikur Rahman';
 
@@ -28,52 +27,40 @@ function resolveNavHref(href: string): string {
   return withBasePath(href);
 }
 
-function isNavItemActive(
-  href: string,
-  pathname: string | null,
-  activeSection: ReturnType<typeof useActiveSection>,
-): boolean {
-  const resolved = resolveNavHref(href);
-  const currentPath = pathname ?? '';
-
-  if (resolved === withBasePath('/projects')) {
-    const projectsPath = withBasePath('/projects');
-    return currentPath === projectsPath || currentPath.startsWith(`${projectsPath}/`);
+function normalizePath(pathname: string | null): string {
+  const current = pathname ?? '/';
+  if (current.length > 1 && current.endsWith('/')) {
+    return current.slice(0, -1);
   }
+  return current || '/';
+}
 
-  if (resolved === withBasePath('/blog')) {
-    const blogPath = withBasePath('/blog');
-    return currentPath === blogPath || currentPath.startsWith(`${blogPath}/`);
+function isNavItemActive(href: string, pathname: string | null): boolean {
+  const resolved = resolveNavHref(href);
+  const currentPath = normalizePath(pathname);
+
+  if (resolved === withBasePath('/')) {
+    return currentPath === '/';
   }
 
   if (resolved === siteLinks.resumeUrl) {
     return currentPath === siteLinks.resumeUrl;
   }
 
-  if (currentPath !== '/') {
-    return false;
-  }
-
-  const hashMatch = resolved.match(/^\/#(.+)$/);
-  if (hashMatch && activeSection) {
-    return hashMatch[1] === activeSection;
-  }
-
-  return false;
+  return currentPath === resolved || currentPath.startsWith(`${resolved}/`);
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const activeSection = useActiveSection(pathname === '/');
 
   const items: NavbarItem[] = useMemo(
     () =>
       navItems.map((item) => ({
         label: item.label,
         href: resolveNavHref(item.href),
-        active: isNavItemActive(item.href, pathname, activeSection),
+        active: isNavItemActive(item.href, pathname),
       })),
-    [pathname, activeSection],
+    [pathname],
   );
 
   return (

@@ -10,4 +10,5 @@ export { CapabilitiesSection } from './CapabilitiesSection';
 export { AchievementsSection } from './AchievementsSection';
 export { TestimonialsSection } from './TestimonialsSection';
 export { ContactSection } from './ContactSection';
+export { PortfolioExploreSection } from './PortfolioExploreSection';
 export { SiteFooter } from './SiteFooter';

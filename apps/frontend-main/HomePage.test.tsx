@@ -18,28 +18,24 @@ describe('HomePage', () => {
     expect(within(hero).getByText(profile.supportingParagraph)).toBeInTheDocument();
   });
 
-  it('renders simplified navigation with crawlable routes', () => {
+  it('renders crawlable primary navigation', () => {
     render(<HomePage />);
     const nav = screen.getByRole('navigation', { name: /Ashikur Rahman navigation/i });
-    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/#about');
+    expect(within(nav).getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
+    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
     expect(within(nav).getByRole('link', { name: 'Experience' })).toHaveAttribute(
       'href',
-      '/#experience',
+      '/experience',
     );
     expect(within(nav).getByRole('link', { name: 'Projects' })).toHaveAttribute(
       'href',
       '/projects',
     );
-    expect(within(nav).getByRole('link', { name: 'Skills' })).toHaveAttribute('href', '/#skills');
     expect(within(nav).getByRole('link', { name: 'Resume' })).toHaveAttribute(
       'href',
       siteLinks.resumeUrl,
     );
-    expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/#contact');
-    expect(within(nav).queryByRole('link', { name: 'Impact' })).not.toBeInTheDocument();
-    expect(within(nav).queryByRole('link', { name: 'Education' })).not.toBeInTheDocument();
-    expect(within(nav).queryByRole('link', { name: 'Capabilities' })).not.toBeInTheDocument();
-    expect(within(nav).queryByRole('link', { name: 'Achievements' })).not.toBeInTheDocument();
+    expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact');
   });
 
   it('renders hero CTAs', () => {
@@ -47,12 +43,13 @@ describe('HomePage', () => {
     const hero = screen.getByTestId('hero-section');
     expect(within(hero).getByRole('link', { name: 'View experience' })).toHaveAttribute(
       'href',
-      '#experience',
+      '/experience',
     );
     expect(within(hero).getByRole('link', { name: 'View resume' })).toHaveAttribute(
       'href',
       siteLinks.resumeUrl,
     );
+    expect(within(hero).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact');
     expect(within(hero).getByRole('link', { name: 'Email' })).toHaveAttribute('href', mailtoHref);
     expect(within(hero).getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
       'href',
@@ -85,6 +82,25 @@ describe('HomePage', () => {
     expect(document.getElementById('impact')).toBeInTheDocument();
   });
 
+  it('renders explore portfolio links', () => {
+    render(<HomePage />);
+    const exploreHeading = screen.getByRole('heading', { name: /Explore my portfolio/i });
+    const exploreSection = exploreHeading.closest('section');
+    expect(exploreSection).not.toBeNull();
+    expect(within(exploreSection!).getByRole('link', { name: /About me/i })).toHaveAttribute(
+      'href',
+      '/about',
+    );
+    expect(within(exploreSection!).getByRole('link', { name: /Experience/i })).toHaveAttribute(
+      'href',
+      '/experience',
+    );
+    expect(within(exploreSection!).getByRole('link', { name: /Contact/i })).toHaveAttribute(
+      'href',
+      '/contact',
+    );
+  });
+
   it('renders featured projects with link to full projects page', () => {
     render(<HomePage />);
     expect(screen.getByRole('heading', { name: sectionCopy.projects.title })).toBeInTheDocument();
@@ -95,49 +111,21 @@ describe('HomePage', () => {
     );
   });
 
-  it('renders recommendations section with featured quotes and LinkedIn CTA', () => {
+  it('renders skills and capabilities without full experience section', () => {
     render(<HomePage />);
-    expect(document.getElementById('recommendations')).toBeInTheDocument();
-    expect(
-      screen.getByRole('heading', { name: sectionCopy.recommendations.title }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/excellent problem-solving, technical, and communication skills/i),
-    ).toBeInTheDocument();
-    expect(screen.queryByText(/Redoan Ur Rahman/i)).not.toBeInTheDocument();
-
-    const linkedInCta = screen.getByRole('link', {
-      name: /View Ashikur Rahman’s full LinkedIn recommendations/i,
-    });
-    expect(linkedInCta).toHaveAttribute('href', siteLinks.linkedinRecommendationsUrl);
-    expect(linkedInCta).toHaveAttribute('target', '_blank');
-    expect(linkedInCta).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(linkedInCta).toHaveTextContent('View full recommendations on LinkedIn');
-  });
-
-  it('renders experience and background sections', () => {
-    render(<HomePage />);
-    expect(screen.getByRole('heading', { name: /Work experience/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/RFC-5424/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/Enosis Solutions/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole('heading', { name: /From contests to production/i }),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /Work experience/i })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: sectionCopy.skills.title })).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: sectionCopy.capabilities.title }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /BSc Computer Science & Engineering/i }),
+      screen.getByRole('heading', { name: /From contests to production/i }),
     ).toBeInTheDocument();
   });
 
-  it('renders contact email', () => {
+  it('does not render the contact form on the homepage', () => {
     render(<HomePage />);
-    expect(screen.getByRole('link', { name: 'Email me directly' })).toHaveAttribute(
-      'href',
-      `mailto:${siteLinks.email}`,
-    );
+    expect(screen.queryByRole('link', { name: 'Email me directly' })).not.toBeInTheDocument();
   });
 
   it('includes skip to main content link', () => {

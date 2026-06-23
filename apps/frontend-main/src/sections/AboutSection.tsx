@@ -6,7 +6,6 @@ export function AboutSection() {
   return (
     <Section
       id="about"
-      variant="muted"
       heading={{
         eyebrow: 'About',
         title: sectionCopy.about.title,

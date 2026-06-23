@@ -188,25 +188,24 @@ export function buildHomePageJsonLdGraph() {
   };
 }
 
-export function buildResumeBreadcrumbJsonLd() {
+export function buildSiteBreadcrumbJsonLd(crumbs: ReadonlyArray<{ name: string; path: string }>) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: siteUrl,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Resume',
-        item: `${siteUrl}/resume`,
-      },
-    ],
+    itemListElement: crumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.path === '/' ? siteUrl : `${siteUrl}${crumb.path}`,
+    })),
   };
+}
+
+export function buildResumeBreadcrumbJsonLd() {
+  return buildSiteBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Resume', path: '/resume' },
+  ]);
 }
 
 export function buildBlogBreadcrumbJsonLd(postTitle: string, slug: string, canonicalUrl?: string) {

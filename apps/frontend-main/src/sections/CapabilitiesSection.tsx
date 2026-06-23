@@ -5,14 +5,20 @@ import {
   CardTitle,
   Reveal,
   Section,
+  type SectionVariant,
 } from '@ashikur-portfolio/shared/ui';
 
 import { capabilities, sectionCopy } from '../data/portfolio';
 
-export function CapabilitiesSection() {
+type CapabilitiesSectionProps = {
+  variant?: SectionVariant;
+};
+
+export function CapabilitiesSection({ variant = 'default' }: CapabilitiesSectionProps) {
   return (
     <Section
       id="capabilities"
+      variant={variant}
       heading={{
         eyebrow: 'Capabilities',
         title: sectionCopy.capabilities.title,

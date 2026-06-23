@@ -342,7 +342,7 @@ export const featuredProjects = (() => {
 
 export const projectSlugs = projects.map((project) => project.slug);
 
-export const projectsPageTitle = 'Software Projects';
+export const projectsPageTitle = 'Software Projects | Backend, Embedded & Full-Stack';
 
 export const projectsPageMetaDescription =
   "Ashikur Rahman's software projects: backend APIs, full-stack web, ML, databases, and embedded work—with stacks and outcomes.";
@@ -515,31 +515,23 @@ export const seoVisibleCopy = [
   ...skillGroups.flatMap((g) => [g.name, g.blurb, ...g.skills]),
 ].join('\n');
 
-/** Homepage section ids tracked for scroll-aware nav highlighting. */
-export const navSectionIds = ['about', 'experience', 'skills', 'contact'] as const;
+/** Homepage section ids tracked for scroll-aware nav highlighting (skills only on homepage). */
+export const navSectionIds = ['skills'] as const;
 
 export type NavSectionId = (typeof navSectionIds)[number];
 
 export const navItems = [
-  { label: 'About', href: '/#about' },
-  { label: 'Experience', href: '/#experience' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Experience', href: '/experience' },
   { label: 'Projects', href: '/projects' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Skills', href: '/#skills' },
   { label: 'Resume', href: '__resume__' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: '/contact' },
 ] as const;
 
 /** Footer mirrors primary nav; resume path is resolved in SiteFooter via siteLinks.resumeUrl. */
-export const footerNavItems = [
-  { label: 'About', href: '/#about' },
-  { label: 'Experience', href: '/#experience' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Skills', href: '/#skills' },
-  { label: 'Resume', href: '__resume__' },
-  { label: 'Contact', href: '/#contact' },
-] as const;
+export const footerNavItems = [...navItems] as const;
 
 export const footerSeoNavItems = [
   { label: 'Software developer in Ottawa', href: '/software-developer-ottawa' },

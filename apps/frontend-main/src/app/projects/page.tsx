@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { ProjectCard, Container, PageShell } from '@ashikur-portfolio/shared/ui';
 
+import { JsonLd } from '../../components/JsonLd';
 import { buildPageMetadata, shortMetaKeywords } from '../../config/site-metadata';
 import { SiteHeader } from '../../components/SiteHeader';
 import {
@@ -11,12 +12,14 @@ import {
   projectsPageMetaDescription,
   projectsPageTitle,
 } from '../../data/portfolio';
+import { buildSiteBreadcrumbJsonLd } from '../../lib/json-ld';
 import { SiteFooter } from '../../sections/SiteFooter';
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/projects',
   title: projectsPageTitle,
   description: projectsPageMetaDescription,
+  absoluteTitle: true,
   keywords: shortMetaKeywords,
 });
 
@@ -28,6 +31,12 @@ export default function ProjectsHubPage() {
       header={<SiteHeader />}
       footer={<SiteFooter />}
     >
+      <JsonLd
+        data={buildSiteBreadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Projects', path: '/projects' },
+        ])}
+      />
       <Container id="main-content" className="py-10 sm:py-14">
         <header className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
           <p className="type-eyebrow text-accent-foreground">Work samples</p>
