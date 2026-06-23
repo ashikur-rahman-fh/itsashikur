@@ -14,7 +14,7 @@
     "test": "pnpm -r --if-present test",
     "build": "bash infra/scripts/build/build-frontends.sh",
     "favicons:generate": "node infra/scripts/generate-favicons.mjs",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm python:check && pnpm python:migrations:check",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm python:check && pnpm python:migrations:check && pnpm audit --audit-level=high",
     "python:lint": "PATH=\"$PWD/apps/backend/.venv/bin:$PATH\" ruff check apps/backend",
     "python:lint:fix": "PATH=\"$PWD/apps/backend/.venv/bin:$PATH\" ruff check apps/backend --fix",
     "python:format": "PATH=\"$PWD/apps/backend/.venv/bin:$PATH\" ruff format apps/backend",
@@ -38,7 +38,10 @@
   },
   "pnpm": {
     "overrides": {
-      "glob": ">=10.5.0"
+      "glob": ">=10.5.0",
+      "ws": ">=8.21.0",
+      "form-data": ">=4.0.6",
+      "vite": "6.4.3"
     }
   }
 }
