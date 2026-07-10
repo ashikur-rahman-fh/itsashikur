@@ -183,6 +183,7 @@ Fix:
 - Set `CSP_REPORT_ONLY=true` on staging to collect reports without blocking
 - Django admin CSP is in `config/settings/security.py`; API routes under `/api/` are excluded
 - Next.js CSP is in `packages/shared/src/security/headers.mjs` — tightening may require nonce-based scripts
+- Blog images from third-party hosts need HTTPS **direct** image URLs; `img-src` allows `https:`. Page links (e.g. `ibb.co/...`) are not image bytes and will not display even when CSP permits the host.
 
 ## Migration issues
 

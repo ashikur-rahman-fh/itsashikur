@@ -65,7 +65,7 @@ export function buildContentSecurityPolicy(options = {}) {
     "default-src 'self'",
     scriptSrc,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob:",
+    "img-src 'self' data: blob: https:",
     "font-src 'self'",
     buildConnectSrc(options),
     frameAncestors,

@@ -71,6 +71,11 @@ describe('buildContentSecurityPolicy', () => {
     expect(policy).toContain("default-src 'self'");
   });
 
+  it('allows https images from external hosts', () => {
+    const policy = buildContentSecurityPolicy();
+    expect(policy).toContain("img-src 'self' data: blob: https:");
+  });
+
   it('uses the production placeholder when API URL is missing', () => {
     const policy = buildContentSecurityPolicy({ apiBaseUrl: '', isProduction: true });
     expect(policy).toContain(originFrom(CSP_API_PLACEHOLDER));

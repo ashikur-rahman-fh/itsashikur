@@ -85,6 +85,7 @@ Server components use `safeFetchPublicBlogPosts` / `safeFetchPublicBlogPost` fro
 - **Backend** stores raw Markdown (`content_markdown`); HTML sanitization happens at render time in the frontend (`BlogMarkdown`).
 - Admin blog API (`/api/admin/blog-posts/`) requires an active **superuser** session; staff and anonymous users cannot mutate posts.
 - Cover and canonical URLs must use `http://` or `https://` when set.
+- External cover and Markdown images must use **HTTPS direct image URLs** (e.g. `https://i.ibb.co/.../file.png`). Page links such as `https://ibb.co/...` return HTML and will not render in `<img>`. CSP allows `https:` image hosts via `packages/shared/src/security/headers.mjs`.
 - Public endpoints only return `status=published` with `published_at` set and in the past (list, detail, sitemap).
 - Slugs must match `^[a-z0-9]+(?:-[a-z0-9]+)*$`; duplicate slugs return validation errors; create/update retry once on slug `IntegrityError` with an auto-suffixed slug.
 - Sitemap and RSS use the same published visibility rules as the public list API.
