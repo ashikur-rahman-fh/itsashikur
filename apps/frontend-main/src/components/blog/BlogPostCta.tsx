@@ -5,7 +5,7 @@ export function BlogPostCta() {
   return (
     <section
       aria-labelledby="post-cta-heading"
-      className="mt-12 rounded-xl border border-border bg-muted/30 p-8 text-center"
+      className="mt-10 rounded-xl border border-border bg-muted/30 p-6 text-center sm:mt-12 sm:p-8"
     >
       <h2
         id="post-cta-heading"

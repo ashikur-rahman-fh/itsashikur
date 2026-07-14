@@ -162,80 +162,109 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <JsonLd data={jsonLdGraph} />
       <Container id="main-content" className="py-10 sm:py-14">
         <article className="mx-auto max-w-5xl">
-          <header className="mx-auto max-w-3xl space-y-6">
-            <nav aria-label="Breadcrumb" className="text-body-sm text-muted-foreground">
-              <Link href="/blog" className="underline-offset-4 hover:underline">
-                Blog
-              </Link>
-              <span aria-hidden> / </span>
-              <span className="text-foreground" aria-current="page">
-                {post.title}
-              </span>
-            </nav>
-
-            {post.category ? (
-              <Badge variant="secondary" className="w-fit">
-                {post.category}
-              </Badge>
-            ) : null}
-
-            <h1 className="font-display text-page-title font-bold text-foreground">{post.title}</h1>
-            <p className="text-body-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
-
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-body-sm text-muted-foreground">
-              <span>{post.authorName}</span>
-              <span aria-hidden>·</span>
-              <time dateTime={post.publishedAt}>Published {formatDate(post.publishedAt)}</time>
-              {post.updatedAt !== post.publishedAt ? (
-                <>
-                  <span aria-hidden>·</span>
-                  <time dateTime={post.updatedAt}>Updated {formatDate(post.updatedAt)}</time>
-                </>
-              ) : null}
-              <span aria-hidden>·</span>
-              <span>{post.readingTimeMinutes} min read</span>
-            </div>
-
-            {post.tags.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
-                    <TechChip label={tag} />
+          <div
+            className={
+              toc.length > 0 ? 'grid gap-10 lg:grid-cols-[minmax(0,1fr)_220px]' : undefined
+            }
+          >
+            <div className="min-w-0 w-full max-w-3xl">
+              <header className="space-y-5 sm:space-y-6">
+                <nav aria-label="Breadcrumb" className="text-body-sm text-muted-foreground">
+                  <Link
+                    href="/blog"
+                    className="underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                  >
+                    ← Blog
                   </Link>
-                ))}
+                </nav>
+
+                <div className="space-y-3 sm:space-y-4">
+                  <h1 className="font-display text-page-title font-bold text-foreground">
+                    {post.title}
+                  </h1>
+                  <span className="block text-body-sm text-muted-foreground">
+                    {post.readingTimeMinutes} min read
+                  </span>
+                </div>
+
+                {post.coverImageUrl ? (
+                  <figure className="overflow-hidden rounded-xl border border-border">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={post.coverImageUrl}
+                      alt={post.coverImageAlt || post.title}
+                      className="aspect-[2/1] w-full object-cover"
+                      width={1200}
+                      height={600}
+                      loading="eager"
+                      fetchPriority="high"
+                    />
+                  </figure>
+                ) : null}
+              </header>
+
+              {toc.length > 0 ? (
+                <div className="mt-8 lg:hidden">
+                  <BlogTableOfContents items={toc} />
+                </div>
+              ) : null}
+
+              <div className="mt-8 sm:mt-10">
+                <BlogMarkdown content={post.contentMarkdown} />
               </div>
-            ) : null}
 
-            {post.coverImageUrl ? (
-              <figure className="overflow-hidden rounded-xl border border-border">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={post.coverImageUrl}
-                  alt={post.coverImageAlt || post.title}
-                  className="aspect-[2/1] w-full object-cover"
-                  width={1200}
-                  height={600}
-                  loading="eager"
-                  fetchPriority="high"
-                />
-              </figure>
-            ) : null}
-          </header>
+              <footer className="mt-10 border-t border-border pt-6 sm:mt-12 sm:pt-8">
+                {post.excerpt ? (
+                  <p className="mb-4 text-body-lg leading-relaxed text-muted-foreground">
+                    {post.excerpt}
+                  </p>
+                ) : null}
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_220px]">
-            <div className="mx-auto min-w-0 max-w-3xl">
-              <BlogMarkdown content={post.contentMarkdown} />
+                {post.category ? (
+                  <Link
+                    href={`/blog?category=${encodeURIComponent(post.category)}`}
+                    className="mb-4 inline-block"
+                  >
+                    <Badge variant="secondary" className="w-fit">
+                      {post.category}
+                    </Badge>
+                  </Link>
+                ) : null}
+
+                <div className="flex flex-col gap-1 text-body-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-1">
+                  <span className="font-medium text-foreground">{post.authorName}</span>
+                  <span aria-hidden className="hidden sm:inline">
+                    ·
+                  </span>
+                  <time dateTime={post.publishedAt}>Published {formatDate(post.publishedAt)}</time>
+                  {post.updatedAt !== post.publishedAt ? (
+                    <>
+                      <span aria-hidden className="hidden sm:inline">
+                        ·
+                      </span>
+                      <time dateTime={post.updatedAt}>Updated {formatDate(post.updatedAt)}</time>
+                    </>
+                  ) : null}
+                </div>
+
+                {post.tags.length > 0 ? (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                        <TechChip label={tag} />
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </footer>
             </div>
-            <aside className="hidden lg:block">
-              <BlogTableOfContents items={toc} />
-            </aside>
+
+            {toc.length > 0 ? (
+              <aside className="hidden lg:block">
+                <BlogTableOfContents items={toc} />
+              </aside>
+            ) : null}
           </div>
-
-          {toc.length > 0 ? (
-            <div className="mt-8 lg:hidden">
-              <BlogTableOfContents items={toc} />
-            </div>
-          ) : null}
 
           <BlogPostCta />
 
@@ -258,18 +287,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </section>
           ) : null}
 
-          <nav className="mt-10 flex flex-wrap gap-4 border-t border-border pt-8 text-body-sm">
+          <nav aria-label="Back to blog" className="mt-10 border-t border-border pt-8 text-body-sm">
             <Button variant="outline" size="sm" asChild>
               <Link href="/blog">All articles</Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/projects">Projects</Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/#skills">Skills</Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/resume">Resume</Link>
             </Button>
           </nav>
         </article>
