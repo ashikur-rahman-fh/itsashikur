@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Section } from '@ashikur-portfolio/shared/ui';
 
-const exploreLinks = [
+export const portfolioExploreLinks = [
   { label: 'About me', href: '/about', description: 'Background, approach, and engineering focus' },
   {
     label: 'Experience',
@@ -13,6 +13,11 @@ const exploreLinks = [
     label: 'Projects',
     href: '/projects',
     description: 'Backend, embedded, ML, and full-stack work samples',
+  },
+  {
+    label: 'Blog',
+    href: '/blog',
+    description: 'Engineering notes, debugging lessons, and technical articles',
   },
   { label: 'Resume', href: '/resume', description: 'Downloadable PDF resume' },
   { label: 'Contact', href: '/contact', description: 'Send a message or connect directly' },
@@ -31,7 +36,7 @@ export function PortfolioExploreSection() {
       }}
     >
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {exploreLinks.map((link) => (
+        {portfolioExploreLinks.map((link) => (
           <li key={link.href}>
             <Link
               href={link.href}

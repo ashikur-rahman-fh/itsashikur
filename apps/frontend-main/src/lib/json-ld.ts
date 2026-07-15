@@ -1,5 +1,12 @@
 import { siteLinks } from '../config/site-links';
-import { homeDescription, siteUrl, personName, defaultOgImagePath } from '../config/site-metadata';
+import {
+  blogHubDescription,
+  defaultOgImagePath,
+  homeDescription,
+  personName,
+  siteBrandName,
+  siteUrl,
+} from '../config/site-metadata';
 import {
   capabilities,
   profile,
@@ -98,6 +105,8 @@ export function buildWebSiteJsonLd() {
     '@type': 'WebSite',
     '@id': WEBSITE_ID,
     name: personName,
+    alternateName: siteBrandName,
+    description: homeDescription,
     url: siteUrl,
     inLanguage: 'en-CA',
     publisher: { '@id': PERSON_ID },
@@ -188,12 +197,18 @@ export function buildHomePageJsonLdGraph() {
   };
 }
 
-export function buildSiteBreadcrumbJsonLd(crumbs: ReadonlyArray<{ name: string; path: string }>) {
+type BreadcrumbCrumb = { name: string; path: string };
+
+export function buildSiteBreadcrumbJsonLd(
+  crumbs: ReadonlyArray<BreadcrumbCrumb>,
+  options?: { includeContext?: boolean },
+) {
+  const includeContext = options?.includeContext ?? true;
   return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    ...(includeContext ? { '@context': 'https://schema.org' as const } : {}),
+    '@type': 'BreadcrumbList' as const,
     itemListElement: crumbs.map((crumb, index) => ({
-      '@type': 'ListItem',
+      '@type': 'ListItem' as const,
       position: index + 1,
       name: crumb.name,
       item: crumb.path === '/' ? siteUrl : `${siteUrl}${crumb.path}`,
@@ -208,25 +223,87 @@ export function buildResumeBreadcrumbJsonLd() {
   ]);
 }
 
+const BLOG_ID = `${siteUrl}/blog`;
+
+/** Shared Blog entity used by hub schema and post `isPartOf`. */
+export function buildBlogEntityJsonLd() {
+  return {
+    '@type': 'Blog' as const,
+    '@id': BLOG_ID,
+    name: `${personName} Blog`,
+    url: BLOG_ID,
+  };
+}
+
+type BlogHubListPost = {
+  slug: string;
+  title: string;
+};
+
+export function buildBlogHubJsonLd(posts: ReadonlyArray<BlogHubListPost> = []) {
+  const graph: Record<string, unknown>[] = [
+    {
+      ...buildBlogEntityJsonLd(),
+      description: blogHubDescription,
+      inLanguage: 'en-CA',
+      author: {
+        '@type': 'Person',
+        name: personName,
+        url: siteUrl,
+      },
+      publisher: {
+        '@type': 'Person',
+        name: personName,
+        url: siteUrl,
+      },
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': WEBSITE_ID,
+        url: siteUrl,
+        name: personName,
+      },
+    },
+    buildSiteBreadcrumbJsonLd(
+      [
+        { name: 'Home', path: '/' },
+        { name: 'Blog', path: '/blog' },
+      ],
+      { includeContext: false },
+    ),
+  ];
+
+  if (posts.length > 0) {
+    graph.push({
+      '@type': 'ItemList',
+      name: `${personName} Blog articles`,
+      itemListElement: posts.map((post, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${siteUrl}/blog/${post.slug}`,
+        name: post.title,
+      })),
+    });
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': graph,
+  };
+}
+
 export function buildBlogBreadcrumbJsonLd(postTitle: string, slug: string, canonicalUrl?: string) {
   const postItem = canonicalUrl?.trim() || `${siteUrl}/blog/${slug}`;
+  const crumbs: BreadcrumbCrumb[] = [
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+  ];
+  const breadcrumb = buildSiteBreadcrumbJsonLd(crumbs, { includeContext: false });
   return {
-    '@type': 'BreadcrumbList',
+    ...breadcrumb,
     itemListElement: [
+      ...breadcrumb.itemListElement,
       {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: siteUrl,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Blog',
-        item: `${siteUrl}/blog`,
-      },
-      {
-        '@type': 'ListItem',
+        '@type': 'ListItem' as const,
         position: 3,
         name: postTitle,
         item: postItem,
@@ -265,12 +342,7 @@ export function buildBlogPostJsonLd(post: {
       '@type': 'WebPage',
       '@id': url,
     },
-    isPartOf: {
-      '@type': 'Blog',
-      '@id': `${siteUrl}/blog`,
-      name: `${personName} Blog`,
-      url: `${siteUrl}/blog`,
-    },
+    isPartOf: buildBlogEntityJsonLd(),
     image,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,

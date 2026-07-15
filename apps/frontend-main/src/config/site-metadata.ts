@@ -6,6 +6,9 @@ export const siteName = 'Ashikur Rahman';
 
 export const personName = 'Ashikur Rahman';
 
+/** Domain brand used as WebSite.alternateName (alongside personName). */
+export const siteBrandName = 'ItsAshikur';
+
 export const TITLE_MAX_LENGTH = 70;
 
 export const META_DESCRIPTION_MAX_LENGTH = 160;

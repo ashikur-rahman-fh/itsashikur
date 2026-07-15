@@ -22,7 +22,9 @@ import {
   siteUrl,
 } from '../../config/site-metadata';
 import { BlogRetryEmptyState } from '../../components/blog/BlogRetryEmptyState';
+import { JsonLd } from '../../components/JsonLd';
 import { SiteHeader } from '../../components/SiteHeader';
+import { buildBlogHubJsonLd } from '../../lib/json-ld';
 import { SiteFooter } from '../../sections/SiteFooter';
 
 export const revalidate = 60;
@@ -96,6 +98,7 @@ export default async function BlogHubPage({ searchParams }: BlogHubPageProps) {
         header={<SiteHeader />}
         footer={<SiteFooter />}
       >
+        <JsonLd data={buildBlogHubJsonLd()} />
         <Container id="main-content" className="py-10 sm:py-14">
           <BlogRetryEmptyState />
         </Container>
@@ -107,6 +110,7 @@ export default async function BlogHubPage({ searchParams }: BlogHubPageProps) {
     featuredResult && !isBlogFetchError(featuredResult) ? featuredResult.results : [];
   const featuredSlugs = new Set(featured.map((p) => p.slug));
   const posts = listResult.results.filter((p) => !featuredSlugs.has(p.slug));
+  const listedPosts = [...featured, ...posts];
 
   const baseParams = new URLSearchParams();
   if (category) baseParams.set('category', category);
@@ -124,6 +128,7 @@ export default async function BlogHubPage({ searchParams }: BlogHubPageProps) {
       header={<SiteHeader />}
       footer={<SiteFooter />}
     >
+      <JsonLd data={buildBlogHubJsonLd(listedPosts)} />
       <Container id="main-content" className="py-10 sm:py-14">
         <header className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
           <p className="type-eyebrow text-accent-foreground">Writing</p>
