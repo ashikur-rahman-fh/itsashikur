@@ -197,13 +197,13 @@ The admin app reuses the same tokens and primitives but composes them for a focu
 - Portfolio link: `NEXT_PUBLIC_PORTFOLIO_URL` (default `https://itsashikur.com`) via `src/config/site-links.ts`.
 
 ```bash
-npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-admin dev
+npx pnpm@11.13.0 --filter @ashikur-portfolio/frontend-admin dev
 ```
 
 ## Preview & tests
 
 ```bash
-npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-main dev
-npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-admin test
-npx pnpm@9.15.0 --filter @ashikur-portfolio/shared test
+npx pnpm@11.13.0 --filter @ashikur-portfolio/frontend-main dev
+npx pnpm@11.13.0 --filter @ashikur-portfolio/frontend-admin test
+npx pnpm@11.13.0 --filter @ashikur-portfolio/shared test
 ```

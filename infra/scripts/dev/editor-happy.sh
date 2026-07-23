@@ -44,12 +44,12 @@ require_cmd() {
 require_cmd node
 require_cmd python3
 
-echo "==> Enabling pnpm via Corepack (packageManager: pnpm@9.15.0)..."
-if corepack enable >/dev/null 2>&1 && corepack prepare pnpm@9.15.0 --activate >/dev/null 2>&1; then
+echo "==> Enabling pnpm via Corepack (packageManager: pnpm@11.13.0)..."
+if corepack enable >/dev/null 2>&1 && corepack prepare pnpm@11.13.0 --activate >/dev/null 2>&1; then
   echo "==> pnpm available on PATH: $(command -v pnpm)"
 else
   echo "warning: corepack could not install global pnpm (often needs sudo for /usr/bin)." >&2
-  echo "warning: installs and quality checks use npx pnpm@9.15.0; or run: sudo corepack enable && corepack prepare pnpm@9.15.0 --activate" >&2
+  echo "warning: installs and quality checks use npx pnpm@11.13.0; or run: sudo corepack enable && corepack prepare pnpm@11.13.0 --activate" >&2
 fi
 
 clean_js_deps() {
@@ -59,7 +59,7 @@ clean_js_deps() {
 }
 
 install_js_deps() {
-  npx pnpm@9.15.0 install "$@"
+  npx pnpm@11.13.0 install "$@"
 }
 
 echo "==> Installing JavaScript dependencies (pnpm workspaces)..."

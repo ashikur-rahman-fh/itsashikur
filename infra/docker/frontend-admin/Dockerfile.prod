@@ -1,5 +1,5 @@
-FROM node:20-bookworm-slim AS deps
-RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+FROM node:22-bookworm-slim AS deps
+RUN corepack enable && corepack prepare pnpm@11.13.0 --activate
 WORKDIR /workspace
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY apps/frontend-main/package.json apps/frontend-main/
@@ -16,7 +16,7 @@ ENV NEXT_PUBLIC_BASE_PATH=${NEXT_PUBLIC_BASE_PATH}
 RUN bash infra/scripts/build/validate-backend-main-api-url.sh "$NEXT_PUBLIC_BACKEND_MAIN_API_URL" production \
   && pnpm --filter @ashikur-portfolio/frontend-admin run build
 
-FROM node:20-bookworm-slim AS runner
+FROM node:22-bookworm-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000

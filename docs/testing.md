@@ -25,7 +25,7 @@ Frontend tests use **MSW** to mock `/api/hello/` (handlers use `*/api/hello/`). 
 Run shared tests only:
 
 ```bash
-npx pnpm@9.15.0 --filter @ashikur-portfolio/shared test
+npx pnpm@11.13.0 --filter @ashikur-portfolio/shared test
 ```
 
 ### Shared UI component tests
@@ -57,7 +57,7 @@ make test           # backend pytest + admin root smoke in Docker
 
 **Backend admin auth tests:** `apps/backend/tests/test_admin_auth.py` — run via `make test-backend`.
 
-**Frontend admin auth tests:** `apps/frontend-admin/admin-auth.test.tsx` — run via `npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-admin test`.
+**Frontend admin auth tests:** `apps/frontend-admin/admin-auth.test.tsx` — run via `npx pnpm@11.13.0 --filter @ashikur-portfolio/frontend-admin test`.
 
 ```bash
 make test
@@ -91,7 +91,7 @@ Runs on `staging_*` / `release_*`: validate → `test-all.sh` (pytest + admin sm
 ## Pre-PR quick check (host only)
 
 ```bash
-npx pnpm@9.15.0 check
+npx pnpm@11.13.0 check
 ```
 
 Does **not** run backend pytest or admin smoke. Add `make test` before merging if you changed routing, Django models, migrations, or integration tests.

@@ -3,7 +3,7 @@
 ## Local prerequisites
 
 - Docker Desktop (or Docker Engine) with Compose v2
-- Node 20+ and Python 3.12+ for local editor tooling (Docker remains the runtime source of truth for apps)
+- Node 22+ and Python 3.12+ for local editor tooling (Docker remains the runtime source of truth for apps)
 - On Debian/Ubuntu, the host `python3` used for editor setup needs the matching **`python3.X-venv`** package (e.g. `python3.12-venv` or `python3.14-venv` for whatever `python3 --version` reports). Without it, `python3 -m venv` can create `apps/backend/.venv` with no `pip`
 
 ### Setup after clone
@@ -30,7 +30,7 @@ See [Fixing editor import/package errors](#fixing-editor-importpackage-errors) i
 Run the read-only quality gate from the repo root:
 
 ```bash
-npx pnpm@9.15.0 check
+npx pnpm@11.13.0 check
 # or: make check-code-quality
 ```
 
@@ -41,11 +41,11 @@ Auto-fix commands (JS/TS: Prettier formats, ESLint fixes logic/imports — `esli
 ```bash
 make fix-code-quality       # Prettier write + ESLint --fix (JS/TS) + Ruff format/lint --fix (Python)
 # or:
-npx pnpm@9.15.0 fix           # Prettier + ESLint only (no Python)
-npx pnpm@9.15.0 format        # Prettier only
-npx pnpm@9.15.0 lint:fix      # Prettier, then ESLint --fix
-npx pnpm@9.15.0 python:format # Ruff format
-npx pnpm@9.15.0 python:lint:fix
+npx pnpm@11.13.0 fix           # Prettier + ESLint only (no Python)
+npx pnpm@11.13.0 format        # Prettier only
+npx pnpm@11.13.0 lint:fix      # Prettier, then ESLint --fix
+npx pnpm@11.13.0 python:format # Ruff format
+npx pnpm@11.13.0 python:lint:fix
 ```
 
 With format-on-save enabled, VS Code/Cursor uses Prettier for layout and ESLint for fixes (see `.vscode/settings.json`).
@@ -63,7 +63,7 @@ Deploying Docker images via a deployment branch uses the same test suite in CI f
 To confirm both frontends compile for production without running the full quality gate:
 
 ```bash
-npx pnpm@9.15.0 build
+npx pnpm@11.13.0 build
 # or: make build
 ```
 
@@ -371,7 +371,7 @@ await adminAuthApi.logout();
 
 **Backend tests:** `make test-backend` (includes `tests/test_admin_auth.py`).
 
-**Frontend tests:** `npx pnpm@9.15.0 --filter @ashikur-portfolio/frontend-admin test`
+**Frontend tests:** `npx pnpm@11.13.0 --filter @ashikur-portfolio/frontend-admin test`
 
 ## Release metadata
 
@@ -402,7 +402,7 @@ Before creating a release branch or deployment:
 
 - [ ] Update `version` and `releaseDate` in `apps/backend/api/app_metadata.py`
 - [ ] Update `releaseLabel` if needed
-- [ ] Run `npx pnpm@9.15.0 python:format` and `make test` (or `make test-backend`)
+- [ ] Run `npx pnpm@11.13.0 python:format` and `make test` (or `make test-backend`)
 - [ ] Confirm `GET /api/public/meta/` returns the expected JSON
 
 ## Shared package workflow
@@ -424,7 +424,7 @@ import { Button, Alert, Navbar } from '@ashikur-portfolio/shared/ui';
 import '@ashikur-portfolio/shared/ui/styles/globals.css';
 ```
 
-Run UI tests: `npx pnpm@9.15.0 --filter @ashikur-portfolio/shared test`
+Run UI tests: `npx pnpm@11.13.0 --filter @ashikur-portfolio/shared test`
 
 ### Resume PDF (frontend-main)
 
@@ -566,7 +566,7 @@ Then **Developer: Reload Window** in VS Code/Cursor.
 Optional checks from repo root:
 
 ```bash
-npx pnpm@9.15.0 typecheck
+npx pnpm@11.13.0 typecheck
 source apps/backend/.venv/bin/activate && ruff check apps/backend
 ```
 
@@ -577,7 +577,7 @@ source apps/backend/.venv/bin/activate && ruff check apps/backend
 sudo apt install python3.X-venv
 rm -rf apps/backend/.venv   # required if a prior run left a venv without pip
 
-npx pnpm@9.15.0 install
+npx pnpm@11.13.0 install
 python3 -m venv apps/backend/.venv
 apps/backend/.venv/bin/python -m pip install -r apps/backend/requirements-dev.txt
 ```

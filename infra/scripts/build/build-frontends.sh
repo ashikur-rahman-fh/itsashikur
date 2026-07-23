@@ -13,7 +13,7 @@ bash "${ROOT}/infra/scripts/build/validate-backend-main-api-url.sh" "$NEXT_PUBLI
 if command -v pnpm >/dev/null 2>&1; then
   PNPM=(pnpm)
 else
-  PNPM=(npx --yes pnpm@9.15.0)
+  PNPM=(npx --yes pnpm@11.13.0)
 fi
 
 echo "==> Generating favicons for Next.js apps"

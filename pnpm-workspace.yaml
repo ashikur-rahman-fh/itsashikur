@@ -2,3 +2,15 @@ packages:
   - 'apps/frontend-main'
   - 'apps/frontend-admin'
   - 'packages/shared'
+
+overrides:
+  glob: '>=10.5.0'
+  ws: '>=8.21.0'
+  form-data: '>=4.0.6'
+  vite: '6.4.3'
+
+allowBuilds:
+  esbuild: true
+  msw: true
+  sharp: true
+  unrs-resolver: true

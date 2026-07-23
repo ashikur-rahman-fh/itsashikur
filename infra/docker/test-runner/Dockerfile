@@ -2,11 +2,11 @@ FROM python:3.12-bookworm
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends libpq-dev gcc curl ca-certificates gnupg \
-  && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+  && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
   && apt-get install -y nodejs \
   && rm -rf /var/lib/apt/lists/*
 
-RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+RUN corepack enable && corepack prepare pnpm@11.13.0 --activate
 
 WORKDIR /workspace
 

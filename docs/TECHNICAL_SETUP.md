@@ -44,7 +44,7 @@ docs/                     Architecture + runbooks
 ### Prerequisites
 
 - Docker + Docker Compose v2
-- Node 20+ and Python 3.12+ for local editor tooling (Docker is the source of truth for running apps)
+- Node 22+ and Python 3.12+ for local editor tooling (Docker is the source of truth for running apps)
 
 ### Setup after clone
 
@@ -141,7 +141,7 @@ See [environment-variables.md](./environment-variables.md) for what each variabl
 Before pushing a branch or opening a PR, run the full static quality gate (does **not** modify files):
 
 ```bash
-npx pnpm@9.15.0 check
+npx pnpm@11.13.0 check
 # or: make check-code-quality
 ```
 
@@ -163,16 +163,16 @@ make fix-code-quality
 To auto-fix formatting and lint issues:
 
 ```bash
-npx pnpm@9.15.0 format
-npx pnpm@9.15.0 lint:fix
-npx pnpm@9.15.0 python:format
-npx pnpm@9.15.0 python:lint:fix
+npx pnpm@11.13.0 format
+npx pnpm@11.13.0 lint:fix
+npx pnpm@11.13.0 python:format
+npx pnpm@11.13.0 python:lint:fix
 ```
 
 To verify **only** that both Next.js apps production-build successfully (faster than full `check`):
 
 ```bash
-npx pnpm@9.15.0 build
+npx pnpm@11.13.0 build
 # or: make build
 ```
 

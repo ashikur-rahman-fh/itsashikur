@@ -81,12 +81,12 @@ build:
 # Read-only quality gate (does not modify files): Next typegen, Prettier check, ESLint,
 # TypeScript, Vitest, Next.js production builds (both frontends), Ruff (backend).
 check-code-quality:
-	npx pnpm@9.15.0 check
+	npx pnpm@11.13.0 check
 
 # Auto-fix formatting and lint (modifies files): Next typegen, Prettier write, ESLint --fix
 # (JS/TS monorepo), then Ruff format + Ruff lint --fix (apps/backend).
 fix-code-quality:
-	npx pnpm@9.15.0 fix && npx pnpm@9.15.0 python:format && npx pnpm@9.15.0 python:lint:fix
+	npx pnpm@11.13.0 fix && npx pnpm@11.13.0 python:format && npx pnpm@11.13.0 python:lint:fix
 
 test:
 	bash infra/scripts/test/test-all.sh
